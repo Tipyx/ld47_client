@@ -1,0 +1,5 @@
+res/.tmp
+redist.*
+redist
+bin/*.*
+userSettings
