@@ -4,6 +4,11 @@ typedef NotepadLign = {
     var peopleID : Int;
 }
 
+typedef PendingRequest = {
+	var elapsedTU : Int;
+	var type : ActionType;
+}
+
 enum ActionType {
     Coffee;
     Copy;

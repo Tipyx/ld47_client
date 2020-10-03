@@ -11,6 +11,12 @@ class Level extends dn.Process {
 
 	public var pf(default, null) : dn.pathfinder.AStar<CPoint>;
 
+	public var currentTU : Int;
+
+	public var arEmployee : Array<en.Employee>;
+
+	var arRequestPopups : Array<ui.RequestPopup>;
+
 	public function new(lvlData:LedData.LedData_Level) {
 		super(Game.ME);
 
@@ -26,14 +32,12 @@ class Level extends dn.Process {
 		var collisionLayer = lvlData.l_Collisions;
 		var entityLayer = lvlData.l_Entities;
 
-		// Render background
 		var g = new h2d.Graphics();
 		root.add(g, Const.DP_BG);
 		g.beginFill(Const.LED_DATA.bgColor_int);
 		g.drawRect(0, 0, collisionLayer.cWid*collisionLayer.gridSize, collisionLayer.cHei*collisionLayer.gridSize);
 		g.endFill();
 
-		// Display IntGrid layer
 		for(cx in 0...collisionLayer.cWid)
 		for(cy in 0...collisionLayer.cHei) {
 			if( !collisionLayer.hasValue(cx,cy) )
@@ -70,6 +74,26 @@ class Level extends dn.Process {
 			for (cm in entityLayer.all_CoffeeMaker) {
 				new en.CoffeeMaker(cm.cx, cm.cy);
 			}
+
+		arEmployee = [];
+		if (entityLayer.all_Employee != null)
+			for (e in entityLayer.all_Employee) {
+				if (e.f_timing.length != e.f_request.length)
+					throw "There is not the same number of timing and request for an employee";
+				
+				var em = new en.Employee(e.cx, e.cy);
+				arEmployee.push(em);
+				for (i in 0...e.f_timing.length) {
+					em.addRequest(e.f_timing[i], e.f_request[i]);
+				}
+
+			}
+
+		currentTU = 1;
+
+		arRequestPopups = [];
+
+		delayer.addF(()->game.hud.invalidate, 1);
 	}
 
 	public function onClickEntity(entity:Entity) {
@@ -82,6 +106,27 @@ class Level extends dn.Process {
 		var ap = new ui.ActionPopup(str, cb);
 		ap.setPosition(entity.headX - (ap.wid >> 1), entity.headY - ap.hei);
 		root.add(ap, Const.DP_UI);
+	}
+
+	public function showRequestPopup(entity:Entity, request:PendingRequest) {
+		var rp = new ui.RequestPopup(request);
+		rp.setPosition(entity.headX - (rp.wid >> 1), entity.headY - rp.hei);
+		root.add(rp, Const.DP_UI);
+		arRequestPopups.push(rp);
+	}
+
+	public function newTurn() {
+		currentTU++;
+
+		for (employee in arEmployee) {
+			employee.onNewTurn();
+		}
+
+		for (popup in arRequestPopups) {
+			popup.onNewTurn();
+		}
+
+		game.hud.invalidate();
 	}
 
 	public inline function hasCollisionAt(cx:Int, cy:Int, except:Entity = null) {

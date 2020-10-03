@@ -57,20 +57,22 @@ class Player extends Entity {
 	}
 
 	function onReachEnd() {
-		
+		level.newTurn();
 	}
 
 	override function update() {
 		super.update();
 
-		if (game.ca.leftPressed() && !level.hasCollisionAt(cx - 1, cy))
-			nextCPoint = new CPoint(cx - 1, cy);
-		else if (game.ca.rightPressed() && !level.hasCollisionAt(cx + 1, cy))
-			nextCPoint = new CPoint(cx + 1, cy);
-		else if (game.ca.upPressed() && !level.hasCollisionAt(cx, cy - 1))
-			nextCPoint = new CPoint(cx, cy - 1);
-		else if (game.ca.downPressed() && !level.hasCollisionAt(cx, cy + 1))
-			nextCPoint = new CPoint(cx, cy + 1);
+		if (!isMoving) {
+			if (game.ca.leftPressed() && !level.hasCollisionAt(cx - 1, cy))
+				nextCPoint = new CPoint(cx - 1, cy);
+			else if (game.ca.rightPressed() && !level.hasCollisionAt(cx + 1, cy))
+				nextCPoint = new CPoint(cx + 1, cy);
+			else if (game.ca.upPressed() && !level.hasCollisionAt(cx, cy - 1))
+				nextCPoint = new CPoint(cx, cy - 1);
+			else if (game.ca.downPressed() && !level.hasCollisionAt(cx, cy + 1))
+				nextCPoint = new CPoint(cx, cy + 1);
+		}
 
 		if (nextCPoint != null) {
 			if (distPxFree(nextCPoint.footX, nextCPoint.footY) < speed * 3) {

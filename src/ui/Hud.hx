@@ -8,6 +8,8 @@ class Hud extends dn.Process {
 	var flow : h2d.Flow;
 	var invalidated = true;
 
+	var textTU : h2d.Text;
+
 	public function new() {
 		super(Game.ME);
 
@@ -15,16 +17,28 @@ class Hud extends dn.Process {
 		root.filter = new h2d.filter.ColorMatrix(); // force pixel perfect rendering
 
 		flow = new h2d.Flow(root);
+		flow.horizontalAlign = Middle;
+		// flow.debug = true;
+
+		textTU = new h2d.Text(Assets.fontPixel, flow);
 	}
 
 	override function onResize() {
 		super.onResize();
 		root.setScale(Const.UI_SCALE);
+
+		flow.minWidth = Std.int(w() / Const.SCALE);
+		flow.reflow();
+		flow.y = Std.int((h() / Const.SCALE) * 0.9 - flow.outerHeight);
 	}
 
 	public inline function invalidate() invalidated = true;
 
-	function render() {}
+	function render() {
+		textTU.text = "Current Time Unit : " + level.currentTU;
+
+		onResize();
+	}
 
 	override function postUpdate() {
 		super.postUpdate();
