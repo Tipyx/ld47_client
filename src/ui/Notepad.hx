@@ -97,7 +97,10 @@ class Notepad extends dn.Process {
             flowLign.layout = Horizontal;
             flowLign.horizontalSpacing = 125;
 
-            for (j in 0...3) {
+            var changeTU = new ChangeTU(0);
+            flowLign.addChild(changeTU);
+
+            for (j in 0...2) {
                 var icone = new h2d.Graphics(flowLign);
                 icone.beginFill(0xFF00FF);
                 icone.drawRect(0, 0, 100, 40);
