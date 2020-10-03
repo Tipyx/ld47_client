@@ -1,3 +1,5 @@
+import ui.TitleScreen;
+import ui.Notepad;
 import Data;
 import hxd.Key;
 
@@ -59,7 +61,18 @@ class Main extends dn.Process {
 
 		// Start
 		new dn.heaps.GameFocusHelper(Boot.ME.s2d, Assets.fontMedium);
-		delayer.addF( startGame, 1 );
+		delayer.addF( startTitleScreen, 1 );
+	}
+
+	public function startTitleScreen() {
+		if( TitleScreen.ME!=null ) {
+			TitleScreen.ME.destroy();
+			delayer.addF(function() {
+				new TitleScreen();
+			}, 1);
+		}
+		else
+			new TitleScreen();
 	}
 
 	public function startGame() {
@@ -71,6 +84,25 @@ class Main extends dn.Process {
 		}
 		else
 			new Game();
+	}
+
+	public function startNotepad() {
+		if( Notepad.ME!=null ) {
+			Notepad.ME.destroy();
+			delayer.addF(function() {
+				new Notepad();
+			}, 1);
+		}
+		else
+			new Notepad();
+	}
+
+	public function showDebugTita() {
+		startNotepad();
+	}
+
+	public function showDebugTipyx() {
+		startGame();
 	}
 
 	override public function onResize() {
