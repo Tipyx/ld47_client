@@ -9,6 +9,8 @@ class Level extends dn.Process {
 
 	var player : Player;
 
+	public var pf(default, null) : dn.pathfinder.AStar<CPoint>;
+
 	public function new(lvlData:LedData.LedData_Level) {
 		super(Game.ME);
 
@@ -44,48 +46,25 @@ class Level extends dn.Process {
 			}
 		}
 
-		var pf = new dn.pathfinder.AStar((x, y)->new CPoint(x, y));
+		pf = new dn.pathfinder.AStar((x, y)->new CPoint(x, y));
 		pf.init(wid, hei, (x, y)->collisionLayer.getName(x, y) == "Wall");
 
 		var inter = new h2d.Interactive(lvlData.pxWid, lvlData.pxHei, root);
 		inter.onClick = function(e) {
 			var tx = Std.int(e.relX / Const.GRID);
 			var ty = Std.int(e.relY / Const.GRID);
-			var path = pf.getPath(player.cx, player.cy, tx, ty);
-			path.unshift(new CPoint(player.cx, player.cy));
-			/* for (i in 0...path.length - 1) { // WITH DIAGONAL
-				var cur = path[i];
-				var next = path[i + 1];
-				for (p in dn.Bresenham.getThinLine(cur.cx, cur.cy, next.cx, next.cy, true)) {
-					fx.markerCase(p.x, p.y);
-				}
-			} */
-			for (i in 0...path.length - 1) { // WITHOUT DIAGONAL
-				var cur = path[i];
-				var next = path[i + 1];
-				var newPath : Array<CPoint> = [];
-				var lastAddedToPath : CPoint = null;
-				var bPath = dn.Bresenham.getThickLine(cur.cx, cur.cy, next.cx, next.cy, true);
-				for (p in bPath) {
-					if (lastAddedToPath == null || areNearEachOther(lastAddedToPath.cx, lastAddedToPath.cy, p.x, p.y) ) {
-						lastAddedToPath = new CPoint(p.x, p.y);
-						newPath.push(lastAddedToPath);
-					}
-				}
-				for (p in newPath) {
-					fx.markerCase(p.cx, p.cy);
-				}
-			}
+			player.goTo(tx, ty);
 		}
 
-		// dn.pathfinder.AStar.__test();
-
 		// Init Entities
-
 		player = new Player(wid >> 1, hei >> 1);
 	}
+
+	public inline function hasCollisionAt(cx:Int, cy:Int) {
+		return lvlData.l_Collisions.getName(cx, cy) == "Wall";
+	}
 	
-	inline function areNearEachOther(x1:Int, y1:Int, x2:Int, y2:Int):Bool {
+	public inline function areNearEachOther(x1:Int, y1:Int, x2:Int, y2:Int):Bool {
 		return ((x1 == x2 && (y1 == y2 + 1 || y1 == y2 - 1))
 			||	(y1 == y2 && (x1 == x2 + 1 || x1 == x2 - 1)));
 	}
