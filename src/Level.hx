@@ -5,7 +5,7 @@ class Level extends dn.Process {
 	public var wid(get,never) : Int; inline function get_wid() return lvlData.l_Collisions.cWid;
 	public var hei(get,never) : Int; inline function get_hei() return lvlData.l_Collisions.cHei;
 
-	var lvlData : LedData.LedData_Level;
+	public var lvlData(default, null) : LedData.LedData_Level;
 
 	var player : en.Player;
 
@@ -24,6 +24,7 @@ class Level extends dn.Process {
 	function initLevel() {
 		// Draw Levels
 		var collisionLayer = lvlData.l_Collisions;
+		var entityLayer = lvlData.l_Entities;
 
 		// Render background
 		var g = new h2d.Graphics(root);
@@ -46,31 +47,40 @@ class Level extends dn.Process {
 			}
 		}
 
-		pf = new dn.pathfinder.AStar((x, y)->new CPoint(x, y));
-		pf.init(wid, hei, (x, y)->collisionLayer.getName(x, y) == "Wall");
+		pf = new dn.pathfinder.AStar((x, y)->new CPoint(x, y, 0.5, 0.5));
 
 		var inter = new h2d.Interactive(lvlData.pxWid, lvlData.pxHei, root);
 		inter.onClick = function(e) {
 			if (player.isMoving)
 				return;
 
+			
 			var tx = Std.int(e.relX / Const.GRID);
 			var ty = Std.int(e.relY / Const.GRID);
 			player.goTo(tx, ty);
 		}
 
 		// Init Entities
-		var playerData = lvlData.l_Entities.all_Player[0];
+		var playerData = entityLayer.all_Player[0];
 		player = new en.Player(playerData.cx, playerData.cy);
 
-		if (lvlData.l_Entities.all_CoffeeMaker != null)
-			for (cm in lvlData.l_Entities.all_CoffeeMaker) {
+		if (entityLayer.all_CoffeeMaker != null)
+			for (cm in entityLayer.all_CoffeeMaker) {
 				new en.CoffeeMaker(cm.cx, cm.cy);
 			}
 	}
 
-	public inline function hasCollisionAt(cx:Int, cy:Int) {
-		return lvlData.l_Collisions.getName(cx, cy) == "Wall";
+	public inline function hasCollisionAt(cx:Int, cy:Int, except:Entity = null) {
+		return lvlData.l_Collisions.getName(cx, cy) == "Wall" || hasEntityAt(cx, cy, except);
+	}
+	
+	public function hasEntityAt(cx:Int, cy:Int, except:Entity = null) {
+		for (entity in Entity.ALL) {
+			if (entity.cx == cx && entity.cy == cy && (except == null || except != entity))
+				return true;
+		}
+
+		return false;
 	}
 	
 	public inline function areNearEachOther(x1:Int, y1:Int, x2:Int, y2:Int):Bool {
