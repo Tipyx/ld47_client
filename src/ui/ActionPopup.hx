@@ -2,8 +2,8 @@ package ui;
 
 class ActionPopup extends h2d.Layers {
 
-	public var wid(default, null) : Int = 100;
-	public var hei(default, null) : Int = 50;
+	public var wid(default, null) : Int = 75;
+	public var hei(default, null) : Int = 40;
 	
 	public function new(str:String, onClick:Void->Void) {
 		super();

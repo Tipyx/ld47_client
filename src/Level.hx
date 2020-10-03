@@ -44,7 +44,7 @@ class Level extends dn.Process {
 			g.beginFill(c);
 			g.drawRect(cx*collisionLayer.gridSize, cy*collisionLayer.gridSize, collisionLayer.gridSize, collisionLayer.gridSize);
 			if (collisionLayer.getName(cx, cy) == "Floor") {
-				g.lineStyle(1);
+				g.lineStyle(1, 0.25);
 			}
 		}
 
@@ -53,13 +53,13 @@ class Level extends dn.Process {
 		var inter = new h2d.Interactive(lvlData.pxWid, lvlData.pxHei);
 		root.add(inter, Const.DP_BG);
 		inter.onClick = function(e) {
-			if (player.isMoving)
+			/* if (player.isMoving)
 				return;
 
 			
 			var tx = Std.int(e.relX / Const.GRID);
 			var ty = Std.int(e.relY / Const.GRID);
-			player.goTo(tx, ty);
+			player.goTo(tx, ty); */
 		}
 
 		// Init Entities
