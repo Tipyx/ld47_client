@@ -12,7 +12,9 @@ class Main extends dn.Process {
 		super();
 		ME = this;
 
-        createRoot(s);
+		createRoot(s);
+		
+		Const.INIT();
 
 		// Engine settings
 		hxd.Timer.wantedFPS = Const.FPS;

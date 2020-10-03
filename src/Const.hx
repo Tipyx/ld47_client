@@ -22,4 +22,10 @@ class Const {
 
 	public static var BUTTON_WIDTH = 100;
 	public static var BUTTON_HEIGHT = 50;
+	
+	public static var LED_DATA : LedData;
+
+	public static function INIT() {
+		LED_DATA = new LedData();
+	}
 }
