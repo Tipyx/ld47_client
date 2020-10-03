@@ -100,11 +100,11 @@ class Notepad extends dn.Process {
             var changeTU = new ChangeTU(0);
             flowLign.addChild(changeTU);
 
-            for (j in 0...2) {
-                var icone = new h2d.Graphics(flowLign);
-                icone.beginFill(0xFF00FF);
-                icone.drawRect(0, 0, 100, 40);
-            }
+            var changeActionTypeIcon = new ChangeActionTypeIcon(0);
+            flowLign.addChild(changeActionTypeIcon);
+
+            var changePeopleID = new ChangePeopleID(0);
+            flowLign.addChild(changePeopleID);
         }
 
         previousPageBtn.visible = currentPage != 1;
