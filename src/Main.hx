@@ -66,6 +66,15 @@ class Main extends dn.Process {
 		delayer.addF( startTitleScreen, 1 );
 	}
 
+	public function clean() {
+		if( TitleScreen.ME!=null ) {
+			TitleScreen.ME.destroy();
+		}
+		if( Game.ME!=null ) {
+			Game.ME.destroy();
+		}
+	}
+
 	public function startTitleScreen() {
 		if( TitleScreen.ME!=null ) {
 			TitleScreen.ME.destroy();
@@ -100,10 +109,12 @@ class Main extends dn.Process {
 	}
 
 	public function showDebugTita() {
+		clean();
 		startNotepad();
 	}
 
 	public function showDebugTipyx() {
+		clean();
 		startGame();
 	}
 

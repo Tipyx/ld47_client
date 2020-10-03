@@ -29,4 +29,6 @@ class Const {
 	public static function INIT() {
 		LED_DATA = new LedData();
 	}
+
+	public static var NOTEPAD_SPACING = 50;
 }
