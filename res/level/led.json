@@ -11,11 +11,26 @@
 	"defaultPivotY": 0,
 	"defaultGridSize": 16,
 	"bgColor": "#7F8093",
-	"nextUid": 3,
+	"nextUid": 6,
 	"minifyJson": false,
 	"exportTiled": false,
 	"defs": {
 		"layers": [
+			{
+				"__type": "Entities",
+				"identifier": "Entities",
+				"type": "Entities",
+				"uid": 3,
+				"gridSize": 16,
+				"displayOpacity": 1,
+				"intGridValues": [ { "identifier": null, "color": "#000000" } ],
+				"autoTilesetDefUid": null,
+				"autoRuleGroups": [],
+				"autoSourceLayerDefUid": null,
+				"tilesetDefUid": null,
+				"tilePivotX": 0,
+				"tilePivotY": 0
+			},
 			{
 				"__type": "IntGrid",
 				"identifier": "Collisions",
@@ -32,7 +47,40 @@
 				"tilePivotY": 0
 			}
 		],
-		"entities": [],
+		"entities": [
+			{
+				"identifier": "Player",
+				"uid": 4,
+				"width": 16,
+				"height": 16,
+				"color": "#94D9B3",
+				"renderMode": "Ellipse",
+				"tilesetId": null,
+				"tileId": null,
+				"tileRenderMode": "Stretch",
+				"maxPerLevel": 1,
+				"limitBehavior": "DiscardOldOnes",
+				"pivotX": 0,
+				"pivotY": 0,
+				"fieldDefs": []
+			},
+			{
+				"identifier": "CoffeeMaker",
+				"uid": 5,
+				"width": 16,
+				"height": 16,
+				"color": "#76561E",
+				"renderMode": "Rectangle",
+				"tilesetId": null,
+				"tileId": null,
+				"tileRenderMode": "Stretch",
+				"maxPerLevel": 0,
+				"limitBehavior": "DiscardOldOnes",
+				"pivotX": 0,
+				"pivotY": 0,
+				"fieldDefs": []
+			}
+		],
 		"tilesets": [],
 		"enums": [],
 		"externalEnums": []
@@ -43,6 +91,25 @@
 		"pxWid": 256,
 		"pxHei": 256,
 		"layerInstances": [
+			{
+				"__identifier": "Entities",
+				"__type": "Entities",
+				"__cWid": 16,
+				"__cHei": 16,
+				"__gridSize": 16,
+				"levelId": 0,
+				"layerDefUid": 3,
+				"pxOffsetX": 0,
+				"pxOffsetY": 0,
+				"intGrid": [],
+				"autoTiles": [],
+				"seed": 5852892,
+				"gridTiles": [],
+				"entityInstances": [
+					{ "__identifier": "Player", "__cx": 6, "__cy": 3, "defUid": 4, "x": 96, "y": 48, "fieldInstances": [] },
+					{ "__identifier": "CoffeeMaker", "__cx": 11, "__cy": 1, "defUid": 5, "x": 176, "y": 16, "fieldInstances": [] }
+				]
+			},
 			{
 				"__identifier": "Collisions",
 				"__type": "IntGrid",

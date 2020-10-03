@@ -7,7 +7,7 @@ class Level extends dn.Process {
 
 	var lvlData : LedData.LedData_Level;
 
-	var player : Player;
+	var player : en.Player;
 
 	public var pf(default, null) : dn.pathfinder.AStar<CPoint>;
 
@@ -51,13 +51,22 @@ class Level extends dn.Process {
 
 		var inter = new h2d.Interactive(lvlData.pxWid, lvlData.pxHei, root);
 		inter.onClick = function(e) {
+			if (player.isMoving)
+				return;
+
 			var tx = Std.int(e.relX / Const.GRID);
 			var ty = Std.int(e.relY / Const.GRID);
 			player.goTo(tx, ty);
 		}
 
 		// Init Entities
-		player = new Player(wid >> 1, hei >> 1);
+		var playerData = lvlData.l_Entities.all_Player[0];
+		player = new en.Player(playerData.cx, playerData.cy);
+
+		if (lvlData.l_Entities.all_CoffeeMaker != null)
+			for (cm in lvlData.l_Entities.all_CoffeeMaker) {
+				new en.CoffeeMaker(cm.cx, cm.cy);
+			}
 	}
 
 	public inline function hasCollisionAt(cx:Int, cy:Int) {

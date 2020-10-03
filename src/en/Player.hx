@@ -1,10 +1,13 @@
+package en;
+
 class Player extends Entity {
 
-	var isMoving = false;
 	var currentPath : Array<CPoint> = null;
 	var nextCPoint : CPoint = null;
 
-	var speed = 0.5; // case per frame
+	var speed = 0.2; // case per frame
+
+	public var isMoving(get, never) : Bool; inline function get_isMoving() return nextCPoint != null;
 
 	public function new(cx:Int, cy:Int) {
 		super(cx, cy);
@@ -50,7 +53,7 @@ class Player extends Entity {
 		super.update();
 
 		if (nextCPoint != null) {
-			if (distPxFree(nextCPoint.footX, nextCPoint.footY) < 2) {
+			if (distPxFree(nextCPoint.footX, nextCPoint.footY) < speed * 2) {
 				nextCPoint = null;
 				cancelVelocities();
 				xr = yr = 0.5;
