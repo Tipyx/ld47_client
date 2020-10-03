@@ -33,18 +33,6 @@ class Notepad extends dn.Process {
         bg.drawRect(0, 0,
                     ((w() / Const.SCALE) - Const.NOTEPAD_SPACING), ((h() / Const.SCALE)));
 
-        /* flow = new h2d.Flow(root);
-        flow.layout = Vertical;
-        flow.verticalSpacing = 10;
-        flow.minWidth = Std.int((w() / Const.SCALE) - Const.NOTEPAD_SPACING);
-        flow.debug=true;
-        flow.paddingHorizontal = 20;
-        flow.paddingVertical = 20;
-
-        var title = new h2d.Text(Assets.fontPixel, flow);
-        title.text = "Planning";
-        flow.getProperties(title).horizontalAlign = Middle; */
-
         flowBtn = new h2d.Flow(root);
         flowBtn.layout = Horizontal;
         
@@ -59,31 +47,10 @@ class Notepad extends dn.Process {
         nextPageBtn.beginFill(0x000000);
         nextPageBtn.drawRect(0, 0, 40, 40);
         var interNext = new h2d.Interactive(40, 40, nextPageBtn);
-        // interNext.backgroundColor = 0xffff00ff;
         interNext.onClick = (e)->showPage(currentPage+1);
         flowBtn.getProperties(nextPageBtn).horizontalAlign = Right;
 
         showPage(1);
-        /* for (i in 0...hxd.Math.imin(5, numLign)) {
-            var flowLign = new h2d.Flow(flow);
-            flowLign.layout = Horizontal;
-            flowLign.horizontalSpacing = 125;
-
-            for (j in 0...3) {
-                var icone = new h2d.Graphics(flowLign);
-                icone.beginFill(0xFF00FF);
-                icone.drawRect(0, 0, 100, 40);
-            }
-        }
-
-        if (numLign > 5) {
-            var nextPageBtn = new h2d.Graphics(flow);
-            nextPageBtn.beginFill(0x000000);
-            nextPageBtn.drawRect(0, 0, 40, 40);
-            flow.getProperties(nextPageBtn).horizontalAlign = Right;
-            var inter = new h2d.Interactive(40, 40, nextPageBtn);
-            inter.onClick = (e)->showPage(numLign++);
-        } */
 
         // var ut1 : NotepadLign = {ut: 0, icone: Coffee, peopleID: 1};
 
