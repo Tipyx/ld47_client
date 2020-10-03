@@ -21,8 +21,8 @@ class Const {
 	public static var DP_TOP = _inc++;
 	public static var DP_UI = _inc++;
 
-	public static var BUTTON_WIDTH = 100;
-	public static var BUTTON_HEIGHT = 50;
+	public static inline var BUTTON_WIDTH = 100;
+	public static inline var BUTTON_HEIGHT = 50;
 	
 	public static var LED_DATA : LedData;
 

@@ -64,7 +64,7 @@ class Player extends Entity {
 		super.update();
 
 		if (nextCPoint != null) {
-			if (distPxFree(nextCPoint.footX, nextCPoint.footY) < speed * 2) {
+			if (distPxFree(nextCPoint.footX, nextCPoint.footY) < speed * 3) {
 				nextCPoint = null;
 				cancelVelocities();
 				xr = yr = 0.5;
