@@ -31,4 +31,5 @@ class Const {
 	}
 
 	public static var NOTEPAD_SPACING = 50;
+	public static var NB_LIGN_PER_PAGE = 5;
 }

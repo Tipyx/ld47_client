@@ -8,3 +8,4 @@ import dn.heaps.slib.*;
 import ui.Console;
 import tools.*;
 import LedData;
+import Types;

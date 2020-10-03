@@ -98,14 +98,15 @@ class Main extends dn.Process {
 	}
 
 	public function startNotepad() {
+		var numLign : Int = 12;
 		if( Notepad.ME!=null ) {
 			Notepad.ME.destroy();
 			delayer.addF(function() {
-				new Notepad();
+				new Notepad(numLign);
 			}, 1);
 		}
 		else
-			new Notepad();
+			new Notepad(numLign);
 	}
 
 	public function showDebugTita() {
