@@ -7,6 +7,8 @@ class Player extends Entity {
 
 	var speed = 0.2; // case per frame
 
+	public var inventory(default, null) : Array<ObjectType>;
+
 	public var isMoving(get, never) : Bool; inline function get_isMoving() return nextCPoint != null;
 
 	public function new(cx:Int, cy:Int) {
@@ -18,6 +20,27 @@ class Player extends Entity {
 		spr.set("fxCircle");
 		spr.setCenterRatio(0.5, 0.5);
 		spr.colorize(0xFF0000);
+
+		inventory = [];
+	}
+
+	public function addToInventory(object:ObjectType) {
+		inventory.push(object);
+		game.hud.invalidate();
+	}
+
+	public function hasInInventory(object:ObjectType):Bool {
+		for (type in inventory) {
+			if (object == type)
+				return true;
+		}
+		return false;
+	}
+
+	public function giveItemTo(object:ObjectType, to:Employee) {
+		if (inventory.remove(object)) {
+			to.gotItem(object);
+		}
 	}
 
 	public function goTo(tx:Int, ty:Int) {
@@ -75,7 +98,7 @@ class Player extends Entity {
 		}
 
 		if (nextCPoint != null) {
-			if (distPxFree(nextCPoint.footX, nextCPoint.footY) < speed * 3) {
+			if (distPxFree(nextCPoint.footX, nextCPoint.footY) < speed * 3 * tmod) {
 				nextCPoint = null;
 				cancelVelocities();
 				xr = yr = 0.5;

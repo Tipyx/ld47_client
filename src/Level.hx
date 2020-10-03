@@ -7,7 +7,7 @@ class Level extends dn.Process {
 
 	public var lvlData(default, null) : LedData.LedData_Level;
 
-	var player : en.Player;
+	public var player(default, null) : en.Player;
 
 	public var pf(default, null) : dn.pathfinder.AStar<CPoint>;
 
@@ -15,6 +15,7 @@ class Level extends dn.Process {
 
 	public var arEmployee : Array<en.Employee>;
 
+	var arActionPopups : Array<ui.ActionPopup>;
 	var arRequestPopups : Array<ui.RequestPopup>;
 
 	public function new(lvlData:LedData.LedData_Level) {
@@ -92,20 +93,35 @@ class Level extends dn.Process {
 		currentTU = 1;
 
 		arRequestPopups = [];
+		arActionPopups = [];
 
 		delayer.addF(()->game.hud.invalidate, 1);
 	}
 
 	public function onClickEntity(entity:Entity) {
 		if (entity.is(en.CoffeeMaker) && entitiesAreNearEachOther(player, entity)) {
-			showActionPopup(entity, "Take Coffee", ()->null);
+			showActionPopup(entity, "Take Coffee", (ap)->player.addToInventory(Coffee));
+		}
+		else if (entity.is(en.Employee) && entitiesAreNearEachOther(player, entity)) {
+			if (player.hasInInventory(Coffee)) {
+				showActionPopup(entity, "Give Coffee", function(ap){
+					removeActionPopup(ap);
+					player.giveItemTo(Coffee, entity.as(en.Employee));
+				});
+			}
 		}
 	}
 
-	function showActionPopup(entity:Entity, str:String, cb:Void->Void) {
-		var ap = new ui.ActionPopup(str, cb);
+	function showActionPopup(entity:Entity, str:String, cb:ui.ActionPopup->Void) {
+		var ap = new ui.ActionPopup(entity, str, cb);
 		ap.setPosition(entity.headX - (ap.wid >> 1), entity.headY - ap.hei);
 		root.add(ap, Const.DP_UI);
+		arActionPopups.push(ap);
+	}
+
+	public function removeActionPopup(ap:ui.ActionPopup) {
+		ap.remove();
+		arActionPopups.remove(ap);
 	}
 
 	public function showRequestPopup(entity:Entity, request:PendingRequest) {
@@ -115,6 +131,16 @@ class Level extends dn.Process {
 		arRequestPopups.push(rp);
 	}
 
+	public function removeRequestPopup(pr:PendingRequest) {
+		for (popup in arRequestPopups) {
+			if (pr == popup.request) {
+				arRequestPopups.remove(popup);
+				popup.remove();
+				return;
+			}
+		}
+	}
+
 	public function newTurn() {
 		currentTU++;
 
@@ -122,7 +148,10 @@ class Level extends dn.Process {
 			employee.onNewTurn();
 		}
 
-		for (popup in arRequestPopups) {
+		for (popup in arActionPopups.copy()) {
+			popup.onNewTurn();
+		}
+		for (popup in arRequestPopups.copy()) {
 			popup.onNewTurn();
 		}
 

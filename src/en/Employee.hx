@@ -29,6 +29,16 @@ class Employee extends Entity {
 		requestsToDo.push({tu:tu, request:request});
 	}
 
+	public function gotItem(object:ObjectType) {
+		for (pr in pendingRequest) {
+			if (pr.type == NeedCoffee) {
+				pendingRequest.remove(pr);
+				level.removeRequestPopup(pr);
+				// TODO : SCORE
+			}
+		}
+	}
+
 	public function onNewTurn() {
 		for (pr in pendingRequest) {
 			pr.elapsedTU++;

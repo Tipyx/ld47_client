@@ -10,6 +10,11 @@ typedef PendingRequest = {
 }
 
 enum ActionType {
-    Coffee;
+    NeedCoffee;
     Copy;
+}
+
+enum ObjectType {
+	Coffee;
+	Files;
 }

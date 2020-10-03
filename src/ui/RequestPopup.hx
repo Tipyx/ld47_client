@@ -8,7 +8,7 @@ class RequestPopup extends h2d.Layers {
 	var elapsedTime : h2d.Text;
 	var typeText : h2d.Text;
 
-	var request : PendingRequest;
+	public var request(default, null) : PendingRequest;
 	
 	public function new(request:PendingRequest) {
 		super();
@@ -28,13 +28,13 @@ class RequestPopup extends h2d.Layers {
 		elapsedTime.text = Std.string(request.elapsedTU);
 
 		typeText = new h2d.Text(Assets.fontPixel, flow);
-		typeText.text = Std.string(request.type).substr(0, 2);
+		// typeText.text = Std.string(request.type).substr(0, 2);
+		typeText.text = Std.string(request.type);
 
 		flow.reflow();
-		flow.setPosition(Std.int(wid - flow.outerWidth) >> 1, Std.int(hei - flow.outerHeight) >> 1);
 
-		bg.scaleX = flow.outerWidth;
-		bg.scaleY = flow.outerHeight;
+		bg.scaleX = wid = flow.outerWidth;
+		bg.scaleY = hei = flow.outerHeight;
 	}
 
 	public function onNewTurn() {

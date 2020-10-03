@@ -11,7 +11,7 @@
 	"defaultPivotY": 0,
 	"defaultGridSize": 16,
 	"bgColor": "#7F8093",
-	"nextUid": 14,
+	"nextUid": 15,
 	"minifyJson": false,
 	"exportTiled": false,
 	"defs": {
@@ -132,7 +132,10 @@
 		],
 		"tilesets": [],
 		"enums": [],
-		"externalEnums": [ { "identifier": "ActionType", "uid": 11, "values": [ { "id": "Coffee", "tileId": null }, { "id": "Copy", "tileId": null } ], "iconTilesetUid": null, "externalRelPath": "../../src/Types.hx", "externalFileChecksum": "a94a62f0a44d5f07ef79f12fa6d0365d" } ]
+		"externalEnums": [
+			{ "identifier": "ActionType", "uid": 11, "values": [ { "id": "Copy", "tileId": null }, { "id": "NeedCoffee", "tileId": null } ], "iconTilesetUid": null, "externalRelPath": "../../src/Types.hx", "externalFileChecksum": "ad1283dcb00ae5bd0c966e2764365454" },
+			{ "identifier": "ObjectType", "uid": 14, "values": [ { "id": "Coffee", "tileId": null }, { "id": "Files", "tileId": null } ], "iconTilesetUid": null, "externalRelPath": "../../src/Types.hx", "externalFileChecksum": "ad1283dcb00ae5bd0c966e2764365454" }
+		]
 	},
 	"levels": [ {
 		"identifier": "Level",
@@ -156,7 +159,6 @@
 				"gridTiles": [],
 				"entityInstances": [
 					{ "__identifier": "CoffeeMaker", "__cx": 12, "__cy": 1, "defUid": 5, "x": 192, "y": 16, "fieldInstances": [] },
-					{ "__identifier": "Player", "__cx": 8, "__cy": 7, "defUid": 4, "x": 128, "y": 112, "fieldInstances": [] },
 					{ "__identifier": "Employee", "__cx": 4, "__cy": 3, "defUid": 6, "x": 64, "y": 48, "fieldInstances": [
 						{
 							"__identifier": "timing",
@@ -167,15 +169,16 @@
 						},
 						{
 							"__identifier": "request",
-							"__value": [ "Coffee" ],
+							"__value": [ "NeedCoffee" ],
 							"__type": "Array<ExternEnum.ActionType>",
 							"defUid": 12,
 							"realEditorValues": [ {
 								"id": "V_String",
-								"params": [ "Coffee" ]
+								"params": [ "NeedCoffee" ]
 							} ]
 						}
-					] }
+					] },
+					{ "__identifier": "Player", "__cx": 8, "__cy": 1, "defUid": 4, "x": 128, "y": 16, "fieldInstances": [] }
 				]
 			},
 			{
