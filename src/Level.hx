@@ -220,8 +220,6 @@ class Level extends dn.Process {
 				break;
 			}
 		}
-
-		checkEnd();
 	}
 
 	public function startNewTurn() {
@@ -244,7 +242,7 @@ class Level extends dn.Process {
 		game.hud.invalidate();
 	}
 
-	function checkEnd() {
+	public function checkEnd() {
 		var levelIsOver = true;
 		for (employee in arEmployee) {
 			if (!employee.isCompleted()) {

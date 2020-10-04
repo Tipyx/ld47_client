@@ -3,7 +3,9 @@ package en;
 class Employee extends Entity {
 
 	var requestsToDo : Array<{tu:Int, request:RequestType}>;
-	var pendingRequest : Array<PendingRequest>;
+	var pendingRequest : Null<PendingRequest>;
+
+	public var hasPendingRequest(get, never):Bool; inline function get_hasPendingRequest() return pendingRequest != null;
 
 	public var id : Int;
 
@@ -25,7 +27,7 @@ class Employee extends Entity {
 		inter.onClick = (e)->level.onClickEntity(this);
 
 		requestsToDo = [];
-		pendingRequest = [];
+		pendingRequest = null;
 
 		inventory = [];
 	}
@@ -35,12 +37,7 @@ class Employee extends Entity {
 	}
 
 	public function hasRequest(rt:RequestType) {
-		for (pr in pendingRequest) {
-			if (pr.type == rt)
-				return true;
-		}
-
-		return false;
+		return pendingRequest != null && pendingRequest.type == rt;
 	}
 
 	public function gotItem(object:Object) {
@@ -52,13 +49,11 @@ class Employee extends Entity {
 	}
 
 	public function completeRequestType(rt:RequestType) {
-		for (pr in pendingRequest) {
-			if (pr.type == rt) {
-				pendingRequest.remove(pr);
-				level.removeRequestPopup(pr);
-				return;
-			}
-		}
+		level.removeRequestPopup(pendingRequest);
+		pendingRequest = null;
+		level.checkEnd();
+
+		checkNewRequest();
 	}
 
 	public function addToInventory(object:Object) {
@@ -73,20 +68,25 @@ class Employee extends Entity {
 	} */
 
 	public inline function isCompleted():Bool {
-		return requestsToDo.length == 0 && pendingRequest.length == 0;
+		return requestsToDo.length == 0 && pendingRequest == null;
 	}
 
 	public function onNewTurn() {
-		for (pr in pendingRequest) {
-			pr.elapsedTU++;
-		}
+		if (pendingRequest != null)
+			pendingRequest.elapsedTU++;
+
+		checkNewRequest();
+	}
+
+	inline function checkNewRequest() {
+		if (pendingRequest != null)
+			return;
 
 		for (rtd in requestsToDo.copy()) {
-			if (rtd.tu == level.currentTU) {
+			if (rtd.tu <= level.currentTU) {
 				requestsToDo.remove(rtd);
-				var pr = {elapsedTU: 0, type:rtd.request};
-				pendingRequest.push(pr);
-				switch rtd.request {
+				pendingRequest = {elapsedTU: 0, type:rtd.request};
+				switch (rtd.request) {
 					case NeedCoffee :
 					case NeedFiles : 
 						if (level.hasDeskAt(cx + 1, cy - 1)) new File(cx + 1, cy - 1, false, this);
@@ -94,10 +94,8 @@ class Employee extends Entity {
 					case NeedPhotocopies, PutFilesAway : 
 						if (level.hasDeskAt(cx + 1, cy - 1)) new File(cx + 1, cy - 1, true, this);
 						else if (level.hasDeskAt(cx - 1, cy - 1)) new File(cx - 1, cy - 1, true, this);
-					
-					// addToInventory(Files);
 				}
-				level.showRequestPopup(this, pr);
+				level.showRequestPopup(this, pendingRequest);
 			}
 		}
 	}

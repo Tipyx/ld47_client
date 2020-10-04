@@ -6,7 +6,7 @@ class RequestPopup extends h2d.Layers {
 	public var wid(default, null) : Int = 25;
 	public var hei(default, null) : Int = 30;
 
-	var elapsedTime : h2d.Text;
+	// var elapsedTime : h2d.Text;
 	// var typeText : h2d.Text;
 
 	var linkedEntity : Entity;
@@ -32,8 +32,8 @@ class RequestPopup extends h2d.Layers {
 		var bg = new h2d.Bitmap(h2d.Tile.fromColor(0xc2e996, 1, 1), flow);
 		flow.getProperties(bg).isAbsolute = true;
 		
-		elapsedTime = new h2d.Text(Assets.fontPixel, flow);
-		elapsedTime.text = Std.string(request.elapsedTU);
+		// elapsedTime = new h2d.Text(Assets.fontPixel, flow);
+		// elapsedTime.text = Std.string(request.elapsedTU);
 
 		// typeText = new h2d.Text(Assets.fontPixel, flow);
 		// typeText.text = Std.string(request.type).substr(0, 2);
@@ -53,7 +53,7 @@ class RequestPopup extends h2d.Layers {
 	}
 
 	public function onNewTurn() {
-		elapsedTime.text = Std.string(request.elapsedTU);
+		// elapsedTime.text = Std.string(request.elapsedTU);
 	}
 
 }
