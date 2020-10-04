@@ -14,7 +14,6 @@ class Notepad extends dn.Process {
     var flow : h2d.Flow;
     var nbPage : Int;
     var nbLignLastPage : Int;
-    // var numLignLeft : Int;
     var currentPage : Int;
     var currentLign : Int;
     var numLignCurrentPage : Int;
@@ -39,21 +38,13 @@ class Notepad extends dn.Process {
         currentLign = 0;
         numLignCurrentPage = 0;
 
-		// arNotepadData = [];
         arNotepadData = Const.PLAYER_DATA.planningDatas.get(level.lvlData.identifier);
         // var maximumEntries = Const.PLAYER_DATA.maximumNotepadEntry;
         maximumEntries = 13;
 
-		if (arNotepadData == null) {
-			arNotepadData = [];
-			/* for (i in 0...maximumEntries) {
-				arNotepadData.push({tu: 0, actionType: NPActionType.createByIndex(0), peopleID: 0});
-			} */
-		}
+		if (arNotepadData == null) arNotepadData = [];
 
-        // nbPage = Std.int(maximumEntries / Const.NB_LIGN_PER_PAGE);
         nbPage = 0;
-        // nbLignLastPage = maximumEntries % Const.NB_LIGN_PER_PAGE;
 
         createRootInLayers(parent.root, Const.DP_NOTEPAD);
  
@@ -85,7 +76,6 @@ class Notepad extends dn.Process {
             }
             else addLign(numLignCurrentPage);
         };
-            //->addLign(currentLign);
         flowBtn.getProperties(newLignBtn).isAbsolute = true;
 
         nextPageBtn = new h2d.Graphics(flowBtn);
@@ -136,9 +126,6 @@ class Notepad extends dn.Process {
         var title = new h2d.Text(Assets.fontPixel, flow);
         title.text = "PLANNING";
 
-        // if (currentPage == nbPage) numLignLeft = nbLignLastPage;
-        // else numLignLeft = Const.NB_LIGN_PER_PAGE;
-
         flowTitle = new h2d.Flow(flow);
         flowTitle.layout = Horizontal;
         flowTitle.minWidth = flow.minWidth - 2*flow.paddingLeft;
@@ -164,11 +151,6 @@ class Notepad extends dn.Process {
         var who = new h2d.Text(Assets.fontPixel, flowWho);
         who.text = 'Who';
         flowTitle.getProperties(flowWho).horizontalAlign = Right;
-
-
-        /* for (i in 0...numLignLeft) {
-            addLign(i);
-        } */
 
         previousPageBtn.visible = currentPage != 0;
         nextPageBtn.visible = currentPage < nbPage;
