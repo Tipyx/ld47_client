@@ -90,8 +90,6 @@ class Player extends Entity {
 	}
 
 	override function update() {
-		super.update();
-
 		if (game.ca.xPressed())
 			level.paused ? game.hideNotepad() : game.showNotepad();
 
@@ -109,8 +107,8 @@ class Player extends Entity {
 				if (nextCPoint != null)
 					level.startNewTurn();
 			}
-	
-			if (nextCPoint != null) {
+
+			if (isMoving) {
 				if (distPxFree(nextCPoint.footX, nextCPoint.footY) < speed * 3 * tmod) {
 					nextCPoint = null;
 					cancelVelocities();
@@ -132,6 +130,8 @@ class Player extends Entity {
 				nextCPoint = currentPath.shift();
 			}
 		}
+
+		super.update();
 	}
 
 }
