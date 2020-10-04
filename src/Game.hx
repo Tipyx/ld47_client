@@ -12,6 +12,9 @@ class Game extends Process {
 	public var hud : ui.Hud;
 
 	var levelsToDo : Array<Data.LevelInfo> = [];
+	public var isLastLevel(get, null) : Bool; inline function get_isLastLevel() {
+		return levelsToDo.length == 0;
+	}
 
 	public function new(levelsToDo:Array<Data.LevelInfo>) {
 		super(Main.ME);
@@ -28,13 +31,12 @@ class Game extends Process {
 		root.add(scroller, Const.DP_BG);
 		scroller.filter = new h2d.filter.ColorMatrix(); // force rendering for pixel perfect
 
+		goToNextLevel();
 		camera = new Camera();
-		level = new Level(levelsToDo.shift());
-		fx = new Fx();
-		hud = new ui.Hud();
 
 		Process.resizeAll();
 		trace(Lang.t._("Game is ready."));
+
 	}
 
 	public function onCdbReload() {
@@ -45,6 +47,12 @@ class Game extends Process {
 		scroller.setScale(Const.SCALE);
 	}
 
+	function goToNextLevel() {
+		level = new Level(levelsToDo.shift());
+		fx = new Fx();
+		hud = new ui.Hud();
+	}
+
 	public function showEndLevel() {
 		new ui.EndLevel();
 
@@ -52,12 +60,12 @@ class Game extends Process {
 		hud.destroy();
 	}
 
-	public function retryLevel() {
+	public function retryLevel(lvlInfo:Data.LevelInfo) {
 
 	}
 
 	public function nextLevel() {
-
+		goToNextLevel();
 	}
 
 

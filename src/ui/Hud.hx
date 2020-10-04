@@ -37,7 +37,7 @@ class Hud extends dn.Process {
 
 		mainFlow.minWidth = Std.int(w() / Const.SCALE);
 		mainFlow.reflow();
-		mainFlow.y = Std.int((h() / Const.SCALE) * 0.8 - mainFlow.outerHeight);
+		mainFlow.y = Std.int((h() / Const.SCALE) * 0.8);
 	}
 
 	public inline function invalidate() invalidated = true;
