@@ -33,7 +33,7 @@ class Const {
 	public static function INIT() {
 		LED_DATA = new LedData();
 
-		PLAYER_DATA = dn.LocalStorage.readObject("playerData", {maximumNotepadEntry:3, maximumInventoryStorage:2});
+		PLAYER_DATA = dn.LocalStorage.readObject("playerData", {maximumNotepadEntry:3, maximumInventoryStorage:2, planningDatas:new Map()});
 	}
 
 	public static function SAVE_PROGRESS() {

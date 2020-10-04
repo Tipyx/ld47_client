@@ -2,6 +2,8 @@ package ui;
 
 class Notepad extends dn.Process {
 	public static var ME : Notepad;
+
+	public var level(get,never) : Level; inline function get_level() return Game.ME.level;
 	
 	public var wid(get,never) : Int; inline function get_wid() return Std.int(w() * 0.75 / Const.SCALE) - Const.NOTEPAD_SPACING;
 	// public var hei(get,never) : Int; inline function get_hei() return lvlData.l_Collisions.cHei;
@@ -26,14 +28,16 @@ class Notepad extends dn.Process {
         
 		ME = this;
 		
-		arNotepadData = [];
-		
-        var actionTypeLenght = ActionType.createAll().length;
-        for (i in 0...20) {
-			arNotepadData.push({ tu : irnd(0, 100),
-				actionType : ActionType.createByIndex(irnd(0, actionTypeLenght-1)),
-				peopleID : irnd(0, 5) });
+		// arNotepadData = [];
+		arNotepadData = Const.PLAYER_DATA.planningDatas.get(level.lvlData.identifier);
+
+		if (arNotepadData == null) {
+			arNotepadData = [];
+			for (i in 0...Const.PLAYER_DATA.maximumNotepadEntry) {
+				arNotepadData.push({tu: 0, actionType: ActionType.createByIndex(0), peopleID: 0});
 			}
+		}
+
 			
 		var maximumEntries = Const.PLAYER_DATA.maximumNotepadEntry;
         nbPage = Std.int(maximumEntries / Const.NB_LIGN_PER_PAGE);

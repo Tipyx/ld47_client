@@ -22,4 +22,5 @@ enum ObjectType {
 typedef PlayerData = {
 	var maximumNotepadEntry : Int;
 	var maximumInventoryStorage : Int;
+	var planningDatas : Map<String, Array<NotepadData>>;
 }
