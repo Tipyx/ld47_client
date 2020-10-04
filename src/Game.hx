@@ -31,7 +31,7 @@ class Game extends Process {
 		root.add(scroller, Const.DP_BG);
 		scroller.filter = new h2d.filter.ColorMatrix(); // force rendering for pixel perfect
 
-		goToNextLevel();
+		goToLevel(levelsToDo.shift());
 		camera = new Camera();
 
 		Process.resizeAll();
@@ -47,8 +47,8 @@ class Game extends Process {
 		scroller.setScale(Const.SCALE);
 	}
 
-	function goToNextLevel() {
-		level = new Level(levelsToDo.shift());
+	function goToLevel(lvlInfo:Data.LevelInfo) {
+		level = new Level(lvlInfo);
 		fx = new Fx();
 		hud = new ui.Hud();
 	}
@@ -61,11 +61,11 @@ class Game extends Process {
 	}
 
 	public function retryLevel(lvlInfo:Data.LevelInfo) {
-
+		goToLevel(lvlInfo);
 	}
 
 	public function nextLevel() {
-		goToNextLevel();
+		goToLevel(levelsToDo.shift());
 	}
 
 

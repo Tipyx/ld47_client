@@ -22,10 +22,16 @@ class EndLevel extends dn.Process {
 		lvlData = level.lvlData;
 		lvlInfo = level.lvlInfo;
 
-		var btn = new Button("Retry", game.retryLevel.bind(lvlInfo));
+		var btn = new Button("Retry", function() {
+			game.retryLevel(lvlInfo);
+			destroy();
+		});
 		flow.addChild(btn);
 		if (!game.isLastLevel) {
-			var btn = new Button("Next", game.nextLevel);
+			var btn = new Button("Next", function() {
+				game.nextLevel();
+				destroy();
+			});
 			flow.addChild(btn);
 		}
 	}
