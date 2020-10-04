@@ -15,6 +15,8 @@ class Notepad extends dn.Process {
     var numLignLeft : Int;
     var currentPage : Int;
 
+    var flowTitle : h2d.Flow;
+
     var flowBtn : h2d.Flow;
     var previousPageBtn : h2d.Graphics;
     var nextPageBtn : h2d.Graphics;
@@ -33,13 +35,15 @@ class Notepad extends dn.Process {
 
 		if (arNotepadData == null) {
 			arNotepadData = [];
-			for (i in 0...Const.PLAYER_DATA.maximumNotepadEntry) {
+			// for (i in 0...Const.PLAYER_DATA.maximumNotepadEntry) {
+            for (i in 0...6) {
 				arNotepadData.push({tu: 0, actionType: NPActionType.createByIndex(0), peopleID: 0});
 			}
 		}
 
 			
-		var maximumEntries = Const.PLAYER_DATA.maximumNotepadEntry;
+		// var maximumEntries = Const.PLAYER_DATA.maximumNotepadEntry;
+        var maximumEntries = 6;
         nbPage = Std.int(maximumEntries / Const.NB_LIGN_PER_PAGE);
         nbLignLastPage = maximumEntries % Const.NB_LIGN_PER_PAGE;
 
@@ -55,15 +59,15 @@ class Notepad extends dn.Process {
         
         previousPageBtn = new h2d.Graphics(flowBtn);
         previousPageBtn.beginFill(0x000000);
-        previousPageBtn.drawRect(0, 0, 40, 40);
+        previousPageBtn.drawRect(0, 0, 40, 20);
         flowBtn.getProperties(previousPageBtn).horizontalAlign = Left;
-        var interPrevious = new h2d.Interactive(40, 40, previousPageBtn);
+        var interPrevious = new h2d.Interactive(40, 20, previousPageBtn);
         interPrevious.onClick = (e)->showPage(currentPage-1);
         
         nextPageBtn = new h2d.Graphics(flowBtn);
         nextPageBtn.beginFill(0x000000);
-        nextPageBtn.drawRect(0, 0, 40, 40);
-        var interNext = new h2d.Interactive(40, 40, nextPageBtn);
+        nextPageBtn.drawRect(0, 0, 40, 20);
+        var interNext = new h2d.Interactive(40, 20, nextPageBtn);
         interNext.onClick = (e)->showPage(currentPage+1);
         flowBtn.getProperties(nextPageBtn).horizontalAlign = Right;
 
@@ -109,7 +113,20 @@ class Notepad extends dn.Process {
         if (currentPage == nbPage) numLignLeft = nbLignLastPage;
         else numLignLeft = Const.NB_LIGN_PER_PAGE;
 
-        trace('${arNotepadData[0]}');
+        // trace('${arNotepadData[0]}');
+
+        flowTitle = new h2d.Flow(flow);
+        flowTitle.layout = Horizontal;
+        flowTitle.horizontalSpacing = 106;
+
+        var when = new h2d.Text(Assets.fontPixel, flowTitle);
+        when.text = 'When';
+        // flowTitle.getProperties(when).
+        var what = new h2d.Text(Assets.fontPixel, flowTitle);
+        what.text = 'What';
+        var who = new h2d.Text(Assets.fontPixel, flowTitle);
+        who.text = 'Who';
+
 
         for (i in 0...numLignLeft) {
             var flowLign = new h2d.Flow(flow);

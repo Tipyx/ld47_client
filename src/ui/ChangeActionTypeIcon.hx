@@ -11,28 +11,36 @@ class ChangeActionTypeIcon extends h2d.Layers {
 
     var notepadData : NotepadData;
 
+    var flow : h2d.Flow;
+
     public function new(notepadData:NotepadData) {
         super();
 
         this.notepadData = notepadData;
+
         currentIconID = notepadData.actionType.getIndex();
         maxIconID = NPActionType.createAll().length - 1;
 
-        var rectIcon = new h2d.Graphics(this);
+        flow = new h2d.Flow(this);
+        flow.layout = Horizontal;
+        flow.horizontalSpacing = 3;
+        flow.addSpacing(3);
+        flow.verticalAlign = Middle;
+        // flow.horizontalAlign = Middle;
+
+        var interMinus = new h2d.Interactive(24, 24, flow);
+        interMinus.backgroundColor = 0xFFFF00FF;
+        interMinus.onClick = (e)->retrieveNumber(1);
+
+        var rectIcon = new h2d.Graphics(flow);
         rectIcon.lineStyle(1, 0);
-        rectIcon.drawRect(30, 0, 40, 40);
+        rectIcon.drawRect(0, 0, 40, 40);
         
         iconText = new h2d.Text(Assets.fontPixel, rectIcon);
         updateIconText();
 
-        var interMinus = new h2d.Interactive(24, 24, this);
-        interMinus.backgroundColor = 0xFFFF00FF;
-        interMinus.setPosition(3, 8);
-        interMinus.onClick = (e)->retrieveNumber(1);
-
-        var interPlus = new h2d.Interactive(24, 24, this);
+        var interPlus = new h2d.Interactive(24, 24, flow);
         interPlus.backgroundColor = 0xFFFF00FF;
-        interPlus.setPosition(73, 8);
         interPlus.onClick = (e)->addNumber(1);
     }
 
@@ -52,6 +60,6 @@ class ChangeActionTypeIcon extends h2d.Layers {
 
     function updateIconText () {
         iconText.text = '$currentIconID';
-        iconText.setPosition(30 + wid/2-iconText.textWidth/2, hei/2-iconText.textHeight/2);
+        iconText.setPosition(wid/2-iconText.textWidth/2, hei/2-iconText.textHeight/2);
     }
 }
