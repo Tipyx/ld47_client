@@ -46,9 +46,9 @@ class Notepad extends dn.Process {
 
 		if (arNotepadData == null) {
 			arNotepadData = [];
-			for (i in 0...maximumEntries) {
+			/* for (i in 0...maximumEntries) {
 				arNotepadData.push({tu: 0, actionType: NPActionType.createByIndex(0), peopleID: 0});
-			}
+			} */
 		}
 
         // nbPage = Std.int(maximumEntries / Const.NB_LIGN_PER_PAGE);
@@ -172,14 +172,27 @@ class Notepad extends dn.Process {
 
         previousPageBtn.visible = currentPage != 0;
         nextPageBtn.visible = currentPage < nbPage;
+
+        for (i in 0...Const.NB_LIGN_PER_PAGE) {
+            var notepadID = i+currentPage*Const.NB_LIGN_PER_PAGE;
+            if (arNotepadData[notepadID] != null) {
+                showLign(i);
+            }
+        }
     }
 
     function addLign (i:Int) {
         if (currentLign < maximumEntries) {
             currentLign++;
             numLignCurrentPage++;
+            arNotepadData.push({tu: 0, actionType: NPActionType.createByIndex(0), peopleID: 0});
 
-            var flowLign = new h2d.Flow(flow);
+            showLign(i);
+        }
+    }
+
+    function showLign(i:Int) {
+        var flowLign = new h2d.Flow(flow);
             flowLign.layout = Horizontal;
             flowLign.minWidth = flowTitle.minWidth;
             
@@ -203,7 +216,6 @@ class Notepad extends dn.Process {
             flowLign.reflow();
             bg.scaleX = flowLign.outerWidth;
             bg.scaleY = flowLign.outerHeight;
-        }
     }
 
     override function onResize() {
