@@ -34,7 +34,7 @@ class Notepad extends dn.Process {
 		if (arNotepadData == null) {
 			arNotepadData = [];
 			for (i in 0...Const.PLAYER_DATA.maximumNotepadEntry) {
-				arNotepadData.push({tu: 0, actionType: ActionType.createByIndex(0), peopleID: 0});
+				arNotepadData.push({tu: 0, actionType: NPActionType.createByIndex(0), peopleID: 0});
 			}
 		}
 

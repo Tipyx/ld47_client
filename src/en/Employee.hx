@@ -2,7 +2,7 @@ package en;
 
 class Employee extends Entity {
 
-	var requestsToDo : Array<{tu:Int, request:ActionType}>;
+	var requestsToDo : Array<{tu:Int, request:RequestType}>;
 	var pendingRequest : Array<PendingRequest>;
 	
 	public function new(cx, cy) {
@@ -25,7 +25,7 @@ class Employee extends Entity {
 		pendingRequest = [];
 	}
 
-	public function addRequest(tu:Int, request:ActionType) {
+	public function addRequest(tu:Int, request:RequestType) {
 		requestsToDo.push({tu:tu, request:request});
 	}
 

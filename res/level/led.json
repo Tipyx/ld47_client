@@ -11,7 +11,7 @@
 	"defaultPivotY": 0,
 	"defaultGridSize": 16,
 	"bgColor": "#7F8093",
-	"nextUid": 15,
+	"nextUid": 18,
 	"minifyJson": false,
 	"exportTiled": false,
 	"defs": {
@@ -113,9 +113,9 @@
 					},
 					{
 						"identifier": "request",
-						"__type": "Array<ExternEnum.ActionType>",
-						"uid": 12,
-						"type": { "id": "F_Enum", "params": [ 11 ] },
+						"__type": "Array<ExternEnum.RequestType>",
+						"uid": 17,
+						"type": { "id": "F_Enum", "params": [ 16 ] },
 						"isArray": true,
 						"canBeNull": false,
 						"arrayMinLength": null,
@@ -133,8 +133,9 @@
 		"tilesets": [],
 		"enums": [],
 		"externalEnums": [
-			{ "identifier": "ActionType", "uid": 11, "values": [ { "id": "Copy", "tileId": null }, { "id": "NeedCoffee", "tileId": null } ], "iconTilesetUid": null, "externalRelPath": "../../src/Types.hx", "externalFileChecksum": "ad1283dcb00ae5bd0c966e2764365454" },
-			{ "identifier": "ObjectType", "uid": 14, "values": [ { "id": "Coffee", "tileId": null }, { "id": "Files", "tileId": null } ], "iconTilesetUid": null, "externalRelPath": "../../src/Types.hx", "externalFileChecksum": "ad1283dcb00ae5bd0c966e2764365454" }
+			{ "identifier": "ObjectType", "uid": 14, "values": [ { "id": "Coffee", "tileId": null }, { "id": "Files", "tileId": null } ], "iconTilesetUid": null, "externalRelPath": "../../src/Types.hx", "externalFileChecksum": "57174ce65752f296a03190a72eb104cd" },
+			{ "identifier": "NPActionType", "uid": 15, "values": [ { "id": "Coffee", "tileId": null }, { "id": "Copy", "tileId": null } ], "iconTilesetUid": null, "externalRelPath": "../../src/Types.hx", "externalFileChecksum": "57174ce65752f296a03190a72eb104cd" },
+			{ "identifier": "RequestType", "uid": 16, "values": [ { "id": "NeedCoffee", "tileId": null } ], "iconTilesetUid": null, "externalRelPath": "../../src/Types.hx", "externalFileChecksum": "57174ce65752f296a03190a72eb104cd" }
 		]
 	},
 	"levels": [ {
@@ -170,8 +171,8 @@
 						{
 							"__identifier": "request",
 							"__value": [ "NeedCoffee" ],
-							"__type": "Array<ExternEnum.ActionType>",
-							"defUid": 12,
+							"__type": "Array<ExternEnum.RequestType>",
+							"defUid": 17,
 							"realEditorValues": [ {
 								"id": "V_String",
 								"params": [ "NeedCoffee" ]

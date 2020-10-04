@@ -16,7 +16,7 @@ class ChangeActionTypeIcon extends h2d.Layers {
 
         this.notepadData = notepadData;
         currentIconID = notepadData.actionType.getIndex();
-        maxIconID = ActionType.createAll().length - 1;
+        maxIconID = NPActionType.createAll().length - 1;
 
         var rectIcon = new h2d.Graphics(this);
         rectIcon.lineStyle(1, 0);
@@ -38,14 +38,14 @@ class ChangeActionTypeIcon extends h2d.Layers {
 
     function addNumber (nb:Int) {
         if (currentIconID < maxIconID) currentIconID += nb;
-        notepadData.actionType = ActionType.createByIndex(currentIconID);
+        notepadData.actionType = NPActionType.createByIndex(currentIconID);
 
         updateIconText();
     }
 
     function retrieveNumber (nb:Int) {
         if (currentIconID >= nb) currentIconID -= nb;
-        notepadData.actionType = ActionType.createByIndex(currentIconID);
+        notepadData.actionType = NPActionType.createByIndex(currentIconID);
 
         updateIconText();
     }

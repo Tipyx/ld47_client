@@ -1,17 +1,21 @@
 typedef NotepadData = {
     var tu : Int;
-    var actionType : ActionType;
+    var actionType : NPActionType;
     var peopleID : Int;
 }
 
 typedef PendingRequest = {
 	var elapsedTU : Int;
-	var type : ActionType;
+	var type : RequestType;
 }
 
-enum ActionType {
-    NeedCoffee;
+enum NPActionType {
+    Coffee;
     Copy;
+}
+
+enum RequestType {
+	NeedCoffee;
 }
 
 enum ObjectType {
