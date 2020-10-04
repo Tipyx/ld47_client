@@ -21,8 +21,8 @@ class ChangeTU extends h2d.Layers {
         flow = new h2d.Flow(this);
         flow.layout = Horizontal;
         flow.horizontalSpacing = 3;
-        flow.addSpacing(3);
         flow.verticalAlign = Middle;
+        flow.horizontalAlign = Middle;
 
         flowMinus = new h2d.Flow(flow);
         flowMinus.layout = Vertical;
@@ -54,6 +54,8 @@ class ChangeTU extends h2d.Layers {
         var interPlusTen = new h2d.Interactive(24, 16, flowPlus);
         interPlusTen.backgroundColor = 0xFFFF00FF;
         interPlusTen.onClick = (e)->addNumber(10);
+
+        trace(flow.outerWidth);
     }
 
     function addNumber (nb:Int) {

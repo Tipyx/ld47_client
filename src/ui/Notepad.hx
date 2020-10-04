@@ -2,6 +2,7 @@ package ui;
 
 class Notepad extends dn.Process {
 	public static var ME : Notepad;
+    public static var WIDTH_BTN : Int = 94;
 
 	public var level(get,never) : Level; inline function get_level() return Game.ME.level;
 	
@@ -96,7 +97,7 @@ class Notepad extends dn.Process {
             flow.minWidth = wid;
             flow.minHeight = Std.int((h() / Const.SCALE) - Const.NOTEPAD_SPACING / 2);
             flow.debug=true;
-            flow.paddingHorizontal = 20;
+            flow.paddingHorizontal = 40;
             flow.paddingVertical = 20;
 			flow.horizontalAlign = Middle;
             flowBtn.minWidth = flow.minWidth;
@@ -117,35 +118,53 @@ class Notepad extends dn.Process {
 
         flowTitle = new h2d.Flow(flow);
         flowTitle.layout = Horizontal;
-        flowTitle.horizontalSpacing = 106;
+        flowTitle.minWidth = flow.minWidth - 2*flow.paddingLeft;
+        flowTitle.debug = true;
 
-        var when = new h2d.Text(Assets.fontPixel, flowTitle);
+        var flowWhen = new h2d.Flow(flowTitle);
+        flowWhen.minWidth = Notepad.WIDTH_BTN;
+        flowWhen.horizontalAlign = Middle;
+        var when = new h2d.Text(Assets.fontPixel, flowWhen);
         when.text = 'When';
-        // flowTitle.getProperties(when).
-        var what = new h2d.Text(Assets.fontPixel, flowTitle);
+        flowTitle.getProperties(flowWhen).horizontalAlign = Left;
+
+        var flowWhat = new h2d.Flow(flowTitle);
+        flowWhat.minWidth = flowWhen.minWidth;
+        flowWhat.horizontalAlign = flowWhen.horizontalAlign;
+        var what = new h2d.Text(Assets.fontPixel, flowWhat);
         what.text = 'What';
-        var who = new h2d.Text(Assets.fontPixel, flowTitle);
+        flowTitle.getProperties(flowWhat).horizontalAlign = Middle;
+        
+        var flowWho = new h2d.Flow(flowTitle);
+        flowWho.minWidth = flowWhen.minWidth;
+        flowWho.horizontalAlign = flowWhen.horizontalAlign;
+        var who = new h2d.Text(Assets.fontPixel, flowWho);
         who.text = 'Who';
+        flowTitle.getProperties(flowWho).horizontalAlign = Right;
 
 
         for (i in 0...numLignLeft) {
             var flowLign = new h2d.Flow(flow);
             flowLign.layout = Horizontal;
-			flowLign.horizontalSpacing = 30;
-			
+			// flowLign.horizontalSpacing = 30;
+            flowLign.minWidth = flowTitle.minWidth;
+            
 			var bg = new h2d.Bitmap(h2d.Tile.fromColor(i%2 == 0 ? 0xb0b0b0 : 0x737373, 1, 1), flowLign);
-			flowLign.getProperties(bg).isAbsolute = true;
+            flowLign.getProperties(bg).isAbsolute = true;
 
             var notepadID = i+currentPage*Const.NB_LIGN_PER_PAGE;
 
             var changeTU = new ChangeTU(arNotepadData[notepadID]);
             flowLign.addChild(changeTU);
+            flowLign.getProperties(changeTU).horizontalAlign = Left;
 
             var changeActionTypeIcon = new ChangeActionTypeIcon(arNotepadData[notepadID]);
             flowLign.addChild(changeActionTypeIcon);
+            flowLign.getProperties(changeActionTypeIcon).horizontalAlign = Middle;
 
             var changePeopleID = new ChangePeopleID(arNotepadData[notepadID]);
-			flowLign.addChild(changePeopleID);
+            flowLign.addChild(changePeopleID);
+            flowLign.getProperties(changePeopleID).horizontalAlign = Right;
 			
 			flowLign.reflow();
 			bg.scaleX = flowLign.outerWidth;

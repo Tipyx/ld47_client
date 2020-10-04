@@ -20,7 +20,7 @@ class ChangePeopleID extends h2d.Layers {
         flow.layout = Horizontal;
         flow.horizontalSpacing = 3;
         flow.verticalAlign = Middle;
-        // flow.horizontalAlign = Middle;
+        flow.horizontalAlign = Middle;
 
         var interMinus = new h2d.Interactive(24, 24, flow);
         interMinus.backgroundColor = 0xFFFF00FF;
@@ -36,6 +36,8 @@ class ChangePeopleID extends h2d.Layers {
         var interPlus = new h2d.Interactive(24, 24, flow);
         interPlus.backgroundColor = 0xFFFF00FF;
         interPlus.onClick = (e)->addNumber(1);
+
+        trace(flow.outerWidth);
     }
 
     function addNumber (nb:Int) {
