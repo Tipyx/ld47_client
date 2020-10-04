@@ -11,6 +11,8 @@ class Game extends Process {
 	public var level : Level;
 	public var hud : ui.Hud;
 
+	public var notepad : ui.Notepad;
+
 	var levelsToDo : Array<Data.LevelInfo> = [];
 	public var isLastLevel(get, null) : Bool; inline function get_isLastLevel() {
 		return levelsToDo.length == 0;
@@ -49,8 +51,19 @@ class Game extends Process {
 
 	function goToLevel(lvlInfo:Data.LevelInfo) {
 		level = new Level(lvlInfo);
+		notepad = new ui.Notepad();
 		fx = new Fx();
 		hud = new ui.Hud();
+	}
+
+	public function showNotepad() {
+		level.pause();
+		notepad.show();
+	}
+
+	public function hideNotepad() {
+		level.resume();
+		notepad.hide();
 	}
 
 	public function showEndLevel() {

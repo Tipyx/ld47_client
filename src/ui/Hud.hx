@@ -14,14 +14,13 @@ class Hud extends dn.Process {
 	public function new() {
 		super(Game.ME);
 
-		createRootInLayers(game.root, Const.DP_UI);
+		createRootInLayers(game.root, Const.DP_HUD);
 		root.filter = new h2d.filter.ColorMatrix(); // force pixel perfect rendering
 
 		mainFlow = new h2d.Flow(root);
 		mainFlow.horizontalAlign = Middle;
 		mainFlow.layout = Vertical;
 		mainFlow.verticalSpacing = 5;
-		mainFlow.debug = true;
 		
 		textTU = new h2d.Text(Assets.fontPixel, mainFlow);
 

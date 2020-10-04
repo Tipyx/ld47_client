@@ -18,3 +18,8 @@ enum ObjectType {
 	Coffee;
 	Files;
 }
+
+typedef PlayerData = {
+	var maximumNotepadEntry : Int;
+	var maximumInventoryStorage : Int;
+}

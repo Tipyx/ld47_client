@@ -174,8 +174,6 @@ class Level extends dn.Process {
 			}
 		}
 
-		trace(levelIsOver);
-
 		if (levelIsOver) {
 			game.showEndLevel();
 		}

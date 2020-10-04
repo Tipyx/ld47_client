@@ -1,11 +1,13 @@
 package ui;
 
 class Notepad extends dn.Process {
-    public static var ME : Notepad;
+	public static var ME : Notepad;
+	
+	public var wid(get,never) : Int; inline function get_wid() return Std.int(w() * 0.75 / Const.SCALE) - Const.NOTEPAD_SPACING;
+	// public var hei(get,never) : Int; inline function get_hei() return lvlData.l_Collisions.cHei;
 
     var bg : h2d.Graphics;
     var flow : h2d.Flow;
-    var numLign : Int;
     var nbPage : Int;
     var nbLignLastPage : Int;
     var numLignLeft : Int;
@@ -15,31 +17,34 @@ class Notepad extends dn.Process {
     var previousPageBtn : h2d.Graphics;
     var nextPageBtn : h2d.Graphics;
 
-    var arNotepadData : Array<NotepadData>;
+	var arNotepadData : Array<NotepadData>;
+	
+	var isShown : Bool;
 
-	public function new(numLign:Int) {
-        super(Main.ME);
+	public function new() {
+        super(Game.ME);
         
-        ME = this;
-        this.numLign = numLign;
-        arNotepadData = [];
+		ME = this;
+		
+		arNotepadData = [];
+		
         var actionTypeLenght = ActionType.createAll().length;
-
         for (i in 0...20) {
-            arNotepadData.push({ tu : irnd(0, 100),
-                                actionType : ActionType.createByIndex(irnd(0, actionTypeLenght-1)),
-                                peopleID : irnd(0, 5) });
-        }
+			arNotepadData.push({ tu : irnd(0, 100),
+				actionType : ActionType.createByIndex(irnd(0, actionTypeLenght-1)),
+				peopleID : irnd(0, 5) });
+			}
+			
+		var maximumEntries = Const.PLAYER_DATA.maximumNotepadEntry;
+        nbPage = Std.int(maximumEntries / Const.NB_LIGN_PER_PAGE);
+        nbLignLastPage = maximumEntries % Const.NB_LIGN_PER_PAGE;
 
-        nbPage = Std.int(numLign / Const.NB_LIGN_PER_PAGE);
-        nbLignLastPage = numLign % Const.NB_LIGN_PER_PAGE;
-
-        createRootInLayers(Main.ME.root, Const.DP_UI);
+        createRootInLayers(parent.root, Const.DP_NOTEPAD);
  
         bg = new h2d.Graphics(root);
-        bg.beginFill(0xFFFFFF);
+        bg.beginFill(0xe9e8be);
         bg.drawRect(0, 0,
-                    ((w() / Const.SCALE) - Const.NOTEPAD_SPACING), ((h() / Const.SCALE)));
+                    wid, ((h() / Const.SCALE)));
 
         flowBtn = new h2d.Flow(root);
         flowBtn.layout = Horizontal;
@@ -58,14 +63,20 @@ class Notepad extends dn.Process {
         interNext.onClick = (e)->showPage(currentPage+1);
         flowBtn.getProperties(nextPageBtn).horizontalAlign = Right;
 
-        showPage(0);
+		showPage(0);
+		
+		isShown = false;
 
-        onResize();
-
-        root.y += h();
-
-        tw.createS(root.y, root.y-h(), 0.4);
-    }
+		onResize();
+	}
+	
+	public function show() {
+        tw.createS(root.y, root.y - h(), 0.3);
+	}
+	
+	public function hide() {
+        tw.createS(root.y, root.y + h(), 0.3);
+	}
 
     function showPage(page:Int) {
         currentPage = page;
@@ -74,11 +85,12 @@ class Notepad extends dn.Process {
             flow = new h2d.Flow(root);
             flow.layout = Vertical;
             flow.verticalSpacing = 10;
-            flow.minWidth = Std.int((w() / Const.SCALE) - Const.NOTEPAD_SPACING);
+            flow.minWidth = wid;
             flow.minHeight = Std.int((h() / Const.SCALE) - Const.NOTEPAD_SPACING / 2);
             flow.debug=true;
             flow.paddingHorizontal = 20;
             flow.paddingVertical = 20;
+			flow.horizontalAlign = Middle;
             flowBtn.minWidth = flow.minWidth;
         }
 
@@ -88,7 +100,7 @@ class Notepad extends dn.Process {
 
         var title = new h2d.Text(Assets.fontPixel, flow);
         title.text = "PLANNING";
-        flow.getProperties(title).horizontalAlign = Middle;
+        // flow.getProperties(title).horizontalAlign = Middle;
 
         if (currentPage == nbPage) numLignLeft = nbLignLastPage;
         else numLignLeft = Const.NB_LIGN_PER_PAGE;
@@ -98,7 +110,10 @@ class Notepad extends dn.Process {
         for (i in 0...numLignLeft) {
             var flowLign = new h2d.Flow(flow);
             flowLign.layout = Horizontal;
-            flowLign.horizontalSpacing = 125;
+			flowLign.horizontalSpacing = 30;
+			
+			var bg = new h2d.Bitmap(h2d.Tile.fromColor(i%2 == 0 ? 0xb0b0b0 : 0x737373, 1, 1), flowLign);
+			flowLign.getProperties(bg).isAbsolute = true;
 
             var notepadID = i+currentPage*Const.NB_LIGN_PER_PAGE;
 
@@ -109,7 +124,11 @@ class Notepad extends dn.Process {
             flowLign.addChild(changeActionTypeIcon);
 
             var changePeopleID = new ChangePeopleID(arNotepadData[notepadID]);
-            flowLign.addChild(changePeopleID);
+			flowLign.addChild(changePeopleID);
+			
+			flowLign.reflow();
+			bg.scaleX = flowLign.outerWidth;
+			bg.scaleY = flowLign.outerHeight;
         }
 
         previousPageBtn.visible = currentPage != 0;
@@ -122,8 +141,11 @@ class Notepad extends dn.Process {
         root.setScale(Const.SCALE);
 
         flow.reflow();
-        root.setPosition(Const.NOTEPAD_SPACING, Const.NOTEPAD_SPACING);
-
+		// root.x = Const.NOTEPAD_SPACING;
+		root.x = (w() - wid * root.scaleX) / 2;
+        root.y = isShown ? Const.NOTEPAD_SPACING : h() + Const.NOTEPAD_SPACING;
+		
         flowBtn.y = (h() / Const.SCALE) - (Const.NOTEPAD_SPACING / 2) - flowBtn.outerHeight - 5;
+		
     }
 }

@@ -86,37 +86,42 @@ class Player extends Entity {
 	override function update() {
 		super.update();
 
-		if (!isMoving) {
-			if (game.ca.leftPressed() && !level.hasCollisionAt(cx - 1, cy))
-				nextCPoint = new CPoint(cx - 1, cy);
-			else if (game.ca.rightPressed() && !level.hasCollisionAt(cx + 1, cy))
-				nextCPoint = new CPoint(cx + 1, cy);
-			else if (game.ca.upPressed() && !level.hasCollisionAt(cx, cy - 1))
-				nextCPoint = new CPoint(cx, cy - 1);
-			else if (game.ca.downPressed() && !level.hasCollisionAt(cx, cy + 1))
-				nextCPoint = new CPoint(cx, cy + 1);
-		}
+		if (game.ca.xPressed())
+			level.paused ? game.hideNotepad() : game.showNotepad();
 
-		if (nextCPoint != null) {
-			if (distPxFree(nextCPoint.footX, nextCPoint.footY) < speed * 3 * tmod) {
-				nextCPoint = null;
-				cancelVelocities();
-				xr = yr = 0.5;
-
-				if (currentPath == null || currentPath.length == 0) {
-					onReachEnd();
-					currentPath = null;
+		if (!level.paused) {
+			if (!isMoving) {
+				if (game.ca.leftPressed() && !level.hasCollisionAt(cx - 1, cy))
+					nextCPoint = new CPoint(cx - 1, cy);
+				else if (game.ca.rightPressed() && !level.hasCollisionAt(cx + 1, cy))
+					nextCPoint = new CPoint(cx + 1, cy);
+				else if (game.ca.upPressed() && !level.hasCollisionAt(cx, cy - 1))
+					nextCPoint = new CPoint(cx, cy - 1);
+				else if (game.ca.downPressed() && !level.hasCollisionAt(cx, cy + 1))
+					nextCPoint = new CPoint(cx, cy + 1);
+			}
+	
+			if (nextCPoint != null) {
+				if (distPxFree(nextCPoint.footX, nextCPoint.footY) < speed * 3 * tmod) {
+					nextCPoint = null;
+					cancelVelocities();
+					xr = yr = 0.5;
+	
+					if (currentPath == null || currentPath.length == 0) {
+						onReachEnd();
+						currentPath = null;
+					}
+				}
+				else {
+					var ang = M.angTo(this.footX, this.footY, nextCPoint.footX, nextCPoint.footY);
+					dx = speed * Math.cos(ang);
+					dy = speed * Math.sin(ang);
 				}
 			}
-			else {
-				var ang = M.angTo(this.footX, this.footY, nextCPoint.footX, nextCPoint.footY);
-				dx = speed * Math.cos(ang);
-				dy = speed * Math.sin(ang);
+	
+			if (currentPath != null && currentPath.length > 0 && nextCPoint == null) {
+				nextCPoint = currentPath.shift();
 			}
-		}
-
-		if (currentPath != null && currentPath.length > 0 && nextCPoint == null) {
-			nextCPoint = currentPath.shift();
 		}
 	}
 

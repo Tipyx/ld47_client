@@ -20,14 +20,24 @@ class Const {
 	public static var DP_FX_FRONT = _inc++;
 	public static var DP_TOP = _inc++;
 	public static var DP_UI = _inc++;
+	public static var DP_HUD = _inc++;
+	public static var DP_NOTEPAD = _inc++;
 
 	public static inline var BUTTON_WIDTH = 100;
 	public static inline var BUTTON_HEIGHT = 50;
 	
 	public static var LED_DATA : LedData;
 
+	public static var PLAYER_DATA : PlayerData;
+
 	public static function INIT() {
 		LED_DATA = new LedData();
+
+		PLAYER_DATA = dn.LocalStorage.readObject("playerData", {maximumNotepadEntry:3, maximumInventoryStorage:2});
+	}
+
+	public static function SAVE_PROGRESS() {
+		dn.LocalStorage.writeObject("playerData", PLAYER_DATA);
 	}
 
 	public static var NOTEPAD_SPACING = 50;
