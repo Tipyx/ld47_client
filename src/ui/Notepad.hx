@@ -16,13 +16,16 @@ class Notepad extends dn.Process {
     var nbLignLastPage : Int;
     var numLignLeft : Int;
     var currentPage : Int;
+    var currentLign : Int;
+    var numLignCurrentPage : Int;
+    var maximumEntries : Int;
 
     var flowTitle : h2d.Flow;
 
     var flowBtn : h2d.Flow;
     var previousPageBtn : h2d.Graphics;
     var nextPageBtn : h2d.Graphics;
-
+    var newLignBtn : h2d.Graphics;
 	var arNotepadData : Array<NotepadData>;
 	
 	var isShown : Bool;
@@ -31,11 +34,15 @@ class Notepad extends dn.Process {
         super(Game.ME);
         
 		ME = this;
-		
+        
+        currentPage = 0;
+        currentLign = 0;
+        numLignCurrentPage = 0;
+
 		// arNotepadData = [];
         arNotepadData = Const.PLAYER_DATA.planningDatas.get(level.lvlData.identifier);
         // var maximumEntries = Const.PLAYER_DATA.maximumNotepadEntry;
-        var maximumEntries = 6;
+        maximumEntries = 13;
 
 		if (arNotepadData == null) {
 			arNotepadData = [];
@@ -58,20 +65,35 @@ class Notepad extends dn.Process {
         flowBtn.layout = Horizontal;
         
         previousPageBtn = new h2d.Graphics(flowBtn);
-        previousPageBtn.beginFill(0x000000);
+        previousPageBtn.beginFill(0x677179);
         previousPageBtn.drawRect(0, 0, 40, 20);
-        flowBtn.getProperties(previousPageBtn).horizontalAlign = Left;
         var interPrevious = new h2d.Interactive(40, 20, previousPageBtn);
         interPrevious.onClick = (e)->showPage(currentPage-1);
+        flowBtn.getProperties(previousPageBtn).horizontalAlign = Left;
         
+        newLignBtn = new h2d.Graphics(flowBtn);
+        newLignBtn.beginFill(0xAFAFAF);
+        newLignBtn.drawRect(0, 0, 20, 20);
+        var interNew = new h2d.Interactive(20, 20, newLignBtn);
+        interNew.onClick = function(e) {
+            if (numLignCurrentPage == Const.NB_LIGN_PER_PAGE) {
+                showPage(currentPage+1);
+                numLignCurrentPage = 0;
+                addLign(numLignCurrentPage);
+            }
+            else addLign(numLignCurrentPage);
+        };
+            //->addLign(currentLign);
+        flowBtn.getProperties(newLignBtn).isAbsolute = true;
+
         nextPageBtn = new h2d.Graphics(flowBtn);
-        nextPageBtn.beginFill(0x000000);
+        nextPageBtn.beginFill(0x677179);
         nextPageBtn.drawRect(0, 0, 40, 20);
         var interNext = new h2d.Interactive(40, 20, nextPageBtn);
         interNext.onClick = (e)->showPage(currentPage+1);
-        flowBtn.getProperties(nextPageBtn).horizontalAlign = Right;
+        flowBtn.getProperties(nextPageBtn).horizontalAlign = Right;    
 
-		showPage(0);
+		showPage(currentPage);
 		
 		isShown = false;
 
@@ -140,20 +162,24 @@ class Notepad extends dn.Process {
         flowTitle.getProperties(flowWho).horizontalAlign = Right;
 
 
-        for (i in 0...numLignLeft) {
+        /* for (i in 0...numLignLeft) {
             addLign(i);
-        }
+        } */
 
         previousPageBtn.visible = currentPage != 0;
         nextPageBtn.visible = currentPage < nbPage;
     }
 
     function addLign (i:Int) {
-        var flowLign = new h2d.Flow(flow);
+        if (currentLign < maximumEntries) {
+            currentLign++;
+            numLignCurrentPage++;
+
+            var flowLign = new h2d.Flow(flow);
             flowLign.layout = Horizontal;
             flowLign.minWidth = flowTitle.minWidth;
             
-			var bg = new h2d.Bitmap(h2d.Tile.fromColor(i%2 == 0 ? 0xb0b0b0 : 0x737373, 1, 1), flowLign);
+            var bg = new h2d.Bitmap(h2d.Tile.fromColor(i%2 == 0 ? 0xb0b0b0 : 0x737373, 1, 1), flowLign);
             flowLign.getProperties(bg).isAbsolute = true;
 
             var notepadID = i+currentPage*Const.NB_LIGN_PER_PAGE;
@@ -169,10 +195,11 @@ class Notepad extends dn.Process {
             var changePeopleID = new ChangePeopleID(arNotepadData[notepadID]);
             flowLign.addChild(changePeopleID);
             flowLign.getProperties(changePeopleID).horizontalAlign = Right;
-			
-			flowLign.reflow();
-			bg.scaleX = flowLign.outerWidth;
-			bg.scaleY = flowLign.outerHeight;
+            
+            flowLign.reflow();
+            bg.scaleX = flowLign.outerWidth;
+            bg.scaleY = flowLign.outerHeight;
+        }
     }
 
     override function onResize() {
@@ -186,6 +213,6 @@ class Notepad extends dn.Process {
         root.y = isShown ? Const.NOTEPAD_SPACING : h() + Const.NOTEPAD_SPACING;
 		
         flowBtn.y = (h() / Const.SCALE) - (Const.NOTEPAD_SPACING / 2) - flowBtn.outerHeight - 5;
-		
+        newLignBtn.setPosition((flowBtn.outerWidth - 20) / 2, 0);
     }
 }
