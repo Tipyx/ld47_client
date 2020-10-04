@@ -11,7 +11,7 @@
 	"defaultPivotY": 0,
 	"defaultGridSize": 24,
 	"bgColor": "#7F8093",
-	"nextUid": 20,
+	"nextUid": 21,
 	"minifyJson": false,
 	"exportTiled": false,
 	"defs": {
@@ -160,6 +160,22 @@
 				"pivotX": 0,
 				"pivotY": 0,
 				"fieldDefs": []
+			},
+			{
+				"identifier": "Bin",
+				"uid": 20,
+				"width": 24,
+				"height": 24,
+				"color": "#C495DA",
+				"renderMode": "Rectangle",
+				"tilesetId": null,
+				"tileId": null,
+				"tileRenderMode": "Stretch",
+				"maxPerLevel": 0,
+				"limitBehavior": "DiscardOldOnes",
+				"pivotX": 0,
+				"pivotY": 0,
+				"fieldDefs": []
 			}
 		],
 		"tilesets": [],
@@ -259,7 +275,8 @@
 						}
 					] },
 					{ "__identifier": "Copier", "__cx": 11, "__cy": 3, "defUid": 18, "x": 264, "y": 72, "fieldInstances": [] },
-					{ "__identifier": "Cupboard", "__cx": 1, "__cy": 1, "defUid": 19, "x": 24, "y": 24, "fieldInstances": [] }
+					{ "__identifier": "Cupboard", "__cx": 1, "__cy": 1, "defUid": 19, "x": 24, "y": 24, "fieldInstances": [] },
+					{ "__identifier": "Bin", "__cx": 10, "__cy": 1, "defUid": 20, "x": 240, "y": 24, "fieldInstances": [] }
 				]
 			},
 			{

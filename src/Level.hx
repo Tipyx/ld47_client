@@ -91,6 +91,11 @@ class Level extends dn.Process {
 				new en.Cupboard(c.cx, c.cy);
 			}
 
+		if (entityLayer.all_Bin != null)
+			for (b in entityLayer.all_Bin) {
+				new en.Bin(b.cx, b.cy);
+			}
+
 		arEmployee = [];
 		if (entityLayer.all_Employee != null)
 			for (e in entityLayer.all_Employee) {
@@ -114,8 +119,11 @@ class Level extends dn.Process {
 	}
 
 	public function onClickEntity(entity:Entity) {
+		if (!entitiesAreNearEachOther(player, entity))
+			return;
+
 		var actions : Array<{str:String, onClick:ui.ActionPopup->Void}> = [];
-		if (entity.is(en.CoffeeMaker) && entitiesAreNearEachOther(player, entity)) {
+		if (entity.is(en.CoffeeMaker)) {
 			actions.push({	str:"Take Coffee",
 							onClick:function(ap){
 								ap.hide();
@@ -123,7 +131,17 @@ class Level extends dn.Process {
 							}
 			});
 		}
-		else if (entity.is(en.Cupboard) && entitiesAreNearEachOther(player, entity)) {
+		if (entity.is(en.Bin)) {
+			var coffee = player.getCoffee();
+			if (coffee != null)
+				actions.push({	str:"Throw Coffee",
+								onClick:function(ap){
+									ap.hide();
+									player.removeObject(coffee);
+								}
+				});
+		}
+		else if (entity.is(en.Cupboard)) {
 			var files = player.getFileToPutAway();
 			if (files != null)
 			actions.push({	str:"Put Files Away",
@@ -134,7 +152,7 @@ class Level extends dn.Process {
 							}
 			});
 		}
-		else if (entity.is(en.Copier) && entitiesAreNearEachOther(player, entity)) {
+		else if (entity.is(en.Copier)) {
 			var files = player.getFileToCopy();
 			if (files != null)
 				actions.push({	str:"Do Copy",
@@ -145,7 +163,7 @@ class Level extends dn.Process {
 								}
 				});
 		}
-		else if (entity.is(en.File) && entitiesAreNearEachOther(player, entity)) {
+		else if (entity.is(en.File)) {
 			var files = player.getFileToBeGiven();
 			trace(files);
 			if (entity.as(en.File).isThere) {
@@ -167,7 +185,7 @@ class Level extends dn.Process {
 				});
 			}
 		}
-		else if (entity.is(en.Employee) && entitiesAreNearEachOther(player, entity)) {
+		else if (entity.is(en.Employee)) {
 			var emp = entity.as(en.Employee);
 			var coffee = player.getCoffee();
 			if (coffee != null && emp.hasRequest(NeedCoffee)) {
