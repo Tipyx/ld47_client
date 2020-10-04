@@ -21,7 +21,7 @@ class Hud extends dn.Process {
 		mainFlow.horizontalAlign = Middle;
 		mainFlow.layout = Vertical;
 		mainFlow.verticalSpacing = 5;
-		// mainFlow.debug = true;
+		mainFlow.debug = true;
 		
 		textTU = new h2d.Text(Assets.fontPixel, mainFlow);
 

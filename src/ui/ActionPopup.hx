@@ -15,7 +15,7 @@ class ActionPopup extends h2d.Layers {
 
 		var bg = new h2d.Bitmap(h2d.Tile.fromColor(0x403b6d, wid, hei), this);
 
-		var btn = new Button(Const.BUTTON_WIDTH >> 1, Const.BUTTON_HEIGHT >> 1, str, onClick.bind(this));
+		var btn = new Button(str, onClick.bind(this), Const.BUTTON_WIDTH >> 1, Const.BUTTON_HEIGHT >> 1);
 		// var btn = new Button(str, onClick);
 		this.addChild(btn);
 

@@ -31,12 +31,17 @@ class Employee extends Entity {
 
 	public function gotItem(object:ObjectType) {
 		for (pr in pendingRequest) {
-			if (pr.type == NeedCoffee) {
+			if (pr.type == NeedCoffee && object == Coffee) {
 				pendingRequest.remove(pr);
 				level.removeRequestPopup(pr);
+				return;
 				// TODO : SCORE
 			}
 		}
+	}
+
+	public inline function isCompleted():Bool {
+		return requestsToDo.length == 0 && pendingRequest.length == 0;
 	}
 
 	public function onNewTurn() {

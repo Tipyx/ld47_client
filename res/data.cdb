@@ -1,5 +1,31 @@
 {
-	"sheets": [],
+	"sheets": [
+		{
+			"name": "LevelInfo",
+			"columns": [
+				{
+					"typeStr": "0",
+					"name": "ID"
+				},
+				{
+					"typeStr": "3",
+					"name": "maximumScore"
+				}
+			],
+			"lines": [
+				{
+					"ID": "Test_Level",
+					"maximumScore": 50
+				},
+				{
+					"ID": "Level1",
+					"maximumScore": 0
+				}
+			],
+			"separators": [],
+			"props": {}
+		}
+	],
 	"customTypes": [],
 	"compress": false
 }

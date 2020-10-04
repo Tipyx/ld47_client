@@ -138,7 +138,7 @@
 		]
 	},
 	"levels": [ {
-		"identifier": "Level",
+		"identifier": "TestLevel",
 		"uid": 0,
 		"pxWid": 256,
 		"pxHei": 144,

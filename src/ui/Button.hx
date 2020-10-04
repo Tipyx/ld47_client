@@ -5,7 +5,7 @@ class Button extends h2d.Layers {
 	public var wid(default, null) : Int;
 	public var hei(default, null) : Int;
 
-	public function new(wid:Int = Const.BUTTON_WIDTH, hei:Int = Const.BUTTON_HEIGHT, str:String, onClick:Void->Void) {
+	public function new(str:String, onClick:Void->Void, ?wid:Int = Const.BUTTON_WIDTH, ?hei:Int = Const.BUTTON_HEIGHT) {
 		super();
 
 		this.wid = wid;

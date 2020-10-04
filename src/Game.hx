@@ -24,7 +24,7 @@ class Game extends Process {
 		scroller.filter = new h2d.filter.ColorMatrix(); // force rendering for pixel perfect
 
 		camera = new Camera();
-		level = new Level(Const.LED_DATA.all_levels.Level);
+		level = new Level(Const.LED_DATA.all_levels.TestLevel);
 		fx = new Fx();
 		hud = new ui.Hud();
 
@@ -38,6 +38,21 @@ class Game extends Process {
 	override function onResize() {
 		super.onResize();
 		scroller.setScale(Const.SCALE);
+	}
+
+	public function showEndLevel() {
+		new ui.EndLevel();
+
+		level.destroy();
+		hud.destroy();
+	}
+
+	public function retryLevel() {
+
+	}
+
+	public function nextLevel() {
+
 	}
 
 

@@ -6,6 +6,7 @@ class Level extends dn.Process {
 	public var hei(get,never) : Int; inline function get_hei() return lvlData.l_Collisions.cHei;
 
 	public var lvlData(default, null) : LedData.LedData_Level;
+	public var lvlInfo(default, null) : Data.LevelInfo;
 
 	public var player(default, null) : en.Player;
 
@@ -22,6 +23,13 @@ class Level extends dn.Process {
 		super(Game.ME);
 
 		this.lvlData = lvlData;
+
+		for (li in Data.LevelInfo.all) {
+			if (li.ID.toString() == lvlData.identifier) {
+				lvlInfo = li;
+				break;
+			}
+		}
 
 		createRootInLayers(Game.ME.scroller, Const.DP_BG);
 
@@ -115,7 +123,7 @@ class Level extends dn.Process {
 	function showActionPopup(entity:Entity, str:String, cb:ui.ActionPopup->Void) {
 		var ap = new ui.ActionPopup(entity, str, cb);
 		ap.setPosition(entity.headX - (ap.wid >> 1), entity.headY - ap.hei);
-		root.add(ap, Const.DP_UI);
+		game.scroller.add(ap, Const.DP_UI);
 		arActionPopups.push(ap);
 	}
 
@@ -127,7 +135,7 @@ class Level extends dn.Process {
 	public function showRequestPopup(entity:Entity, request:PendingRequest) {
 		var rp = new ui.RequestPopup(request);
 		rp.setPosition(entity.headX - (rp.wid >> 1), entity.headY - rp.hei);
-		root.add(rp, Const.DP_UI);
+		game.scroller.add(rp, Const.DP_UI);
 		arRequestPopups.push(rp);
 	}
 
@@ -136,9 +144,11 @@ class Level extends dn.Process {
 			if (pr == popup.request) {
 				arRequestPopups.remove(popup);
 				popup.remove();
-				return;
+				break;
 			}
 		}
+
+		checkEnd();
 	}
 
 	public function newTurn() {
@@ -156,6 +166,22 @@ class Level extends dn.Process {
 		}
 
 		game.hud.invalidate();
+	}
+
+	function checkEnd() {
+		var levelIsOver = true;
+		for (employee in arEmployee) {
+			if (!employee.isCompleted()) {
+				levelIsOver = false;
+				break;
+			}
+		}
+
+		trace(levelIsOver);
+
+		if (levelIsOver) {
+			game.showEndLevel();
+		}
 	}
 
 	public inline function hasCollisionAt(cx:Int, cy:Int, except:Entity = null) {
@@ -182,6 +208,14 @@ class Level extends dn.Process {
 
 	public inline function isValid(cx,cy) return cx>=0 && cx<wid && cy>=0 && cy<hei;
 	public inline function coordId(cx,cy) return cx + cy*wid;
+
+	override function onDispose() {
+		super.onDispose();
+
+		for (entity in Entity.ALL) {
+			entity.destroy();
+		}
+	}
 
 	override function postUpdate() {
 		super.postUpdate();
