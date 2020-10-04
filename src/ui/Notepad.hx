@@ -81,10 +81,12 @@ class Notepad extends dn.Process {
 	}
 	
 	public function show() {
+        isShown = true;
         tw.createS(root.y, root.y - h(), 0.3);
 	}
 	
 	public function hide() {
+        isShown = false;
         tw.createS(root.y, root.y + h(), 0.3);
 	}
 
@@ -97,7 +99,6 @@ class Notepad extends dn.Process {
             flow.verticalSpacing = 10;
             flow.minWidth = wid;
             flow.minHeight = Std.int((h() / Const.SCALE) - Const.NOTEPAD_SPACING / 2);
-            flow.debug=true;
             flow.paddingHorizontal = 40;
             flow.paddingVertical = 20;
 			flow.horizontalAlign = Middle;
@@ -110,12 +111,9 @@ class Notepad extends dn.Process {
 
         var title = new h2d.Text(Assets.fontPixel, flow);
         title.text = "PLANNING";
-        // flow.getProperties(title).horizontalAlign = Middle;
 
         if (currentPage == nbPage) numLignLeft = nbLignLastPage;
         else numLignLeft = Const.NB_LIGN_PER_PAGE;
-
-        // trace('${arNotepadData[0]}');
 
         flowTitle = new h2d.Flow(flow);
         flowTitle.layout = Horizontal;
@@ -147,7 +145,6 @@ class Notepad extends dn.Process {
         for (i in 0...numLignLeft) {
             var flowLign = new h2d.Flow(flow);
             flowLign.layout = Horizontal;
-			// flowLign.horizontalSpacing = 30;
             flowLign.minWidth = flowTitle.minWidth;
             
 			var bg = new h2d.Bitmap(h2d.Tile.fromColor(i%2 == 0 ? 0xb0b0b0 : 0x737373, 1, 1), flowLign);

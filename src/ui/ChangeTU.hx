@@ -1,5 +1,7 @@
 package ui;
 
+import h2d.Flow;
+
 class ChangeTU extends h2d.Layers {
     
     public var wid(default, null) : Int = 40;
@@ -29,15 +31,19 @@ class ChangeTU extends h2d.Layers {
         flowMinus.layout = Vertical;
         flowMinus.minHeight = flow.minHeight;
 
-        var interMinusOne = new h2d.Interactive(24, 16, flowMinus);
+        var flowMinusOne = new h2d.Flow(flowMinus);
+        flowMinusOne.minHeight = Std.int(flowMinus.minHeight / 2);
+        var interMinusOne = new h2d.Interactive(24, 16, flowMinusOne);
         interMinusOne.backgroundColor = 0xFFFF00FF;
         interMinusOne.onClick = (e)->retrieveNumber(1);
-        flowMinus.getProperties(interMinusOne).verticalAlign = Top;
+        flowMinusOne.getProperties(interMinusOne).verticalAlign = Middle;
 
-        var interMinusTen = new h2d.Interactive(24, 16, flowMinus);
+        var flowMinusTen = new h2d.Flow(flowMinus);
+        flowMinusTen.minHeight = Std.int(flowMinus.minHeight / 2);
+        var interMinusTen = new h2d.Interactive(24, 16, flowMinusTen);
         interMinusTen.backgroundColor = 0xFFFF00FF;
         interMinusTen.onClick = (e)->retrieveNumber(10);
-        flowMinus.getProperties(interMinusTen).verticalAlign = Bottom;
+        flowMinusTen.getProperties(interMinusTen).verticalAlign = Middle;
 
         flow.getProperties(flowMinus).horizontalAlign = Left;
 
@@ -54,15 +60,19 @@ class ChangeTU extends h2d.Layers {
         flowPlus.layout = Vertical;
         flowPlus.minHeight = flow.minHeight;
 
-        var interPlusOne = new h2d.Interactive(24, 16, flowPlus);
+        var flowPlusOne = new h2d.Flow(flowPlus);
+        flowPlusOne.minHeight = Std.int(flowPlus.minHeight / 2);
+        var interPlusOne = new h2d.Interactive(24, 16, flowPlusOne);
         interPlusOne.backgroundColor = 0xFFFF00FF;
         interPlusOne.onClick = (e)->addNumber(1);
-        flowPlus.getProperties(interPlusOne).verticalAlign = Top;
+        flowPlusOne.getProperties(interPlusOne).verticalAlign = Middle;
 
-        var interPlusTen = new h2d.Interactive(24, 16, flowPlus);
+        var flowPlusTen = new h2d.Flow(flowPlus);
+        flowPlusTen.minHeight = Std.int(flowPlus.minHeight / 2);
+        var interPlusTen = new h2d.Interactive(24, 16, flowPlusTen);
         interPlusTen.backgroundColor = 0xFFFF00FF;
         interPlusTen.onClick = (e)->addNumber(10);
-        flowPlus.getProperties(interPlusTen).verticalAlign = Bottom;
+        flowPlusTen.getProperties(interPlusTen).verticalAlign = Middle;
 
         flow.getProperties(flowPlus).horizontalAlign = Right;
     }
