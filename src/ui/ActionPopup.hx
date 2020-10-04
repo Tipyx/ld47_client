@@ -8,18 +8,29 @@ class ActionPopup extends h2d.Layers {
 
 	var linkedEntity : Entity;
 	
-	public function new(linkedEntity:Entity, str:String, onClick:ActionPopup->Void) {
+	public function new(linkedEntity:Entity, actions:Array<{str:String, onClick:ActionPopup->Void}>) {
 		super();
 
 		this.linkedEntity = linkedEntity;
 
-		var bg = new h2d.Bitmap(h2d.Tile.fromColor(0x403b6d, wid, hei), this);
+		var flow = new h2d.Flow(this);
+		flow.verticalSpacing = 3;
+		flow.padding = 2;
+		flow.horizontalAlign = Middle;
+		flow.layout = Vertical;
 
-		var btn = new Button(str, onClick.bind(this), Const.BUTTON_WIDTH >> 1, Const.BUTTON_HEIGHT >> 1);
-		// var btn = new Button(str, onClick);
-		this.addChild(btn);
+		var bg = new h2d.Bitmap(h2d.Tile.fromColor(0x403b6d, 1, 1), flow);
+		flow.getProperties(bg).isAbsolute = true;
 
-		btn.setPosition((wid - btn.wid) >> 1, (hei - btn.hei) >> 1);
+		for (a in actions) {
+			var btn = new Button(a.str, a.onClick.bind(this), Const.BUTTON_WIDTH >> 1, Const.BUTTON_HEIGHT >> 1);
+			flow.addChild(btn);
+		}
+
+		flow.reflow();
+
+		bg.scaleX = wid = flow.outerWidth;
+		bg.scaleY = hei = flow.outerHeight;
 
 		this.setPosition(linkedEntity.headX - (wid >> 1), linkedEntity.headY - hei);
 

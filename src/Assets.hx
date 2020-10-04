@@ -25,6 +25,9 @@ class Assets {
 	public static function GET_ICON_FOR_REQUEST(rt:RequestType):String {
 		return switch (rt) {
 			case NeedCoffee: "iconCoffee";
+			case NeedFiles: "iconNeedFiles";
+			case CopyFiles: "iconCopyFiles";
+			case PutFilesAway: "PutFilesAway";
 		}
 	}
 }

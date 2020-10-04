@@ -29,6 +29,11 @@ class Player extends Entity {
 		game.hud.invalidate();
 	}
 
+	public function removeObject(object:ObjectType) {
+		inventory.remove(object);
+		game.hud.invalidate();
+	}
+
 	public function hasInInventory(object:ObjectType):Bool {
 		for (type in inventory) {
 			if (object == type)
@@ -41,6 +46,7 @@ class Player extends Entity {
 		if (inventory.remove(object)) {
 			to.gotItem(object);
 		}
+		game.hud.invalidate();
 	}
 
 	public function goTo(tx:Int, ty:Int) {

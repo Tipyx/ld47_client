@@ -11,16 +11,20 @@ typedef PendingRequest = {
 
 enum NPActionType {
     Coffee;
-    File;
+    Files;
 }
 
 enum RequestType {
 	NeedCoffee;
+	NeedFiles;
+	CopyFiles;
+	PutFilesAway;
 }
 
 enum ObjectType {
 	Coffee;
 	Files;
+	Photocopy;
 }
 
 typedef PlayerData = {

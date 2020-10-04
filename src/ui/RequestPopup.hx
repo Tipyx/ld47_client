@@ -9,18 +9,25 @@ class RequestPopup extends h2d.Layers {
 	var elapsedTime : h2d.Text;
 	// var typeText : h2d.Text;
 
+	var linkedEntity : Entity;
+
 	public var request(default, null) : PendingRequest;
 	
-	public function new(request:PendingRequest) {
+	public function new(linkedEntity:Entity, request:PendingRequest) {
 		super();
 
+		this.linkedEntity = linkedEntity;
 		this.request = request;
 
 		var flow = new h2d.Flow(this);
-		flow.verticalSpacing = 3;
+		flow.horizontalSpacing = 3;
 		flow.padding = 2;
-		flow.horizontalAlign = Middle;
-		flow.layout = Vertical;
+		flow.verticalAlign = Middle;
+		flow.layout = Horizontal;
+		// flow.verticalSpacing = 3;
+		// flow.padding = 2;
+		// flow.horizontalAlign = Middle;
+		// flow.layout = Vertical;
 		
 		var bg = new h2d.Bitmap(h2d.Tile.fromColor(0xc2e996, 1, 1), flow);
 		flow.getProperties(bg).isAbsolute = true;
@@ -37,6 +44,12 @@ class RequestPopup extends h2d.Layers {
 
 		bg.scaleX = wid = flow.outerWidth;
 		bg.scaleY = hei = flow.outerHeight;
+
+		this.setPosition(linkedEntity.headX - (wid >> 1), linkedEntity.footY - Const.GRID * 0.5 - hei);
+
+		level.tw.createS(this.alpha, 0 > 1, 0.2);
+		this.y += 5;
+		level.tw.createS(this.y, this.y - 5 , 0.2);
 	}
 
 	public function onNewTurn() {

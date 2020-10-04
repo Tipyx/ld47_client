@@ -80,6 +80,11 @@ class Level extends dn.Process {
 			for (cm in entityLayer.all_CoffeeMaker) {
 				new en.CoffeeMaker(cm.cx, cm.cy);
 			}
+		
+		if (entityLayer.all_Copier != null)
+			for (c in entityLayer.all_Copier) {
+				new en.Copier(c.cx, c.cy);
+			}
 
 		arEmployee = [];
 		if (entityLayer.all_Employee != null)
@@ -104,29 +109,64 @@ class Level extends dn.Process {
 	}
 
 	public function onClickEntity(entity:Entity) {
+		var actions : Array<{str:String, onClick:ui.ActionPopup->Void}> = [];
 		if (entity.is(en.CoffeeMaker) && entitiesAreNearEachOther(player, entity)) {
-			showActionPopup(entity, "Take Coffee", (ap)->player.addToInventory(Coffee));
+			actions.push({	str:"Take Coffee",
+							onClick:function(ap){
+								ap.hide();
+								player.addToInventory(Coffee);
+							}
+			});
+		}
+		else if (entity.is(en.Copier) && entitiesAreNearEachOther(player, entity)) {
+			if (player.hasInInventory(Files))
+				actions.push({	str:"Do Copy",
+								onClick:function(ap){
+									ap.hide();
+									player.removeObject(Files);
+									player.addToInventory(Photocopy);
+								}
+				});
 		}
 		else if (entity.is(en.Employee) && entitiesAreNearEachOther(player, entity)) {
-			if (player.hasInInventory(Coffee)) {
-				showActionPopup(entity, "Give Coffee", function(ap){
-					// removeActionPopup(ap);
-					ap.hide();
-					player.giveItemTo(Coffee, entity.as(en.Employee));
+			var emp = entity.as(en.Employee);
+			if (player.hasInInventory(Coffee) && emp.hasRequest(NeedCoffee)) {
+				actions.push({	str:"Give Coffee",
+								onClick:function(ap){
+									ap.hide();
+									player.giveItemTo(Coffee, emp);
+								}
+				});
+			}
+			if (emp.hasRequest(CopyFiles) && emp.hasInInventory(Files)) {
+				actions.push({	str:"Take Files",
+								onClick:function(ap){
+									ap.hide();
+									emp.giveItemToPlayer(Files);
+								}
+				});
+			}
+			if (emp.hasRequest(CopyFiles) && player.hasInInventory(Photocopy)) {
+				actions.push({	str:"Give Photocopies",
+								onClick:function(ap){
+									ap.hide();
+									player.giveItemTo(Photocopy, emp);
+								}
 				});
 			}
 		}
+		if (actions.length > 0)
+			showActionPopup(entity, actions);
 	}
 
-	function showActionPopup(entity:Entity, str:String, cb:ui.ActionPopup->Void) {
-		var ap = new ui.ActionPopup(entity, str, cb);
+	function showActionPopup(entity:Entity, actions:Array<{str:String, onClick:ui.ActionPopup->Void}>) {
+		var ap = new ui.ActionPopup(entity, actions);
 		game.scroller.add(ap, Const.DP_UI);
 		arActionPopups.push(ap);
 	}
 
 	public function showRequestPopup(entity:Entity, request:PendingRequest) {
-		var rp = new ui.RequestPopup(request);
-		rp.setPosition(entity.headX - (rp.wid >> 1), entity.headY - rp.hei);
+		var rp = new ui.RequestPopup(entity, request);
 		game.scroller.add(rp, Const.DP_UI);
 		arRequestPopups.push(rp);
 	}
@@ -207,6 +247,14 @@ class Level extends dn.Process {
 
 		for (entity in Entity.ALL) {
 			entity.destroy();
+		}
+
+		for (rp in arRequestPopups) {
+			rp.remove();
+		}
+
+		for (ap in arActionPopups) {
+			ap.remove();
 		}
 	}
 

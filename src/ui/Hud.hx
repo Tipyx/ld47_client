@@ -49,6 +49,7 @@ class Hud extends dn.Process {
 			switch (type) {
 				case Coffee : Assets.tiles.h_get("iconCoffee", inventoryFlow);
 				case Files : Assets.tiles.h_get("iconFile", inventoryFlow);
+				case Photocopy : Assets.tiles.h_get("iconPhotocopy", inventoryFlow);
 			}
 		}
 

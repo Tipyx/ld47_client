@@ -6,6 +6,8 @@ class Employee extends Entity {
 	var pendingRequest : Array<PendingRequest>;
 
 	public var id : Int;
+
+	public var inventory(default, null) : Array<ObjectType>;
 	
 	public function new(cx, cy, id:Int) {
 		super(cx, cy);
@@ -24,10 +26,21 @@ class Employee extends Entity {
 
 		requestsToDo = [];
 		pendingRequest = [];
+
+		inventory = [];
 	}
 
 	public function addRequest(tu:Int, request:RequestType) {
 		requestsToDo.push({tu:tu, request:request});
+	}
+
+	public function hasRequest(rt:RequestType) {
+		for (pr in pendingRequest) {
+			if (pr.type == rt)
+				return true;
+		}
+
+		return false;
 	}
 
 	public function gotItem(object:ObjectType) {
@@ -36,8 +49,31 @@ class Employee extends Entity {
 				pendingRequest.remove(pr);
 				level.removeRequestPopup(pr);
 				return;
-				// TODO : SCORE
 			}
+			else if (pr.type == CopyFiles && object == Photocopy) {
+				pendingRequest.remove(pr);
+				level.removeRequestPopup(pr);
+				return;
+			}
+		}
+	}
+
+	public function addToInventory(object:ObjectType) {
+		inventory.push(object);
+		game.hud.invalidate();
+	}
+
+	public function hasInInventory(object:ObjectType):Bool {
+		for (type in inventory) {
+			if (object == type)
+				return true;
+		}
+		return false;
+	}
+
+	public function giveItemToPlayer(object:ObjectType) {
+		if (inventory.remove(object)) {
+			level.player.addToInventory(object);
 		}
 	}
 
@@ -55,6 +91,11 @@ class Employee extends Entity {
 				requestsToDo.remove(rtd);
 				var pr = {elapsedTU: 0, type:rtd.request};
 				pendingRequest.push(pr);
+				switch rtd.request {
+					case NeedCoffee :
+					case NeedFiles : 
+					case CopyFiles, PutFilesAway : addToInventory(Files);
+				}
 				level.showRequestPopup(this, pr);
 			}
 		}
