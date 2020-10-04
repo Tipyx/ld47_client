@@ -23,17 +23,22 @@ class ChangeActionTypeIcon extends h2d.Layers {
 
         flow = new h2d.Flow(this);
         flow.layout = Horizontal;
-        flow.horizontalSpacing = 3;
         flow.verticalAlign = Middle;
         flow.horizontalAlign = Middle;
+        flow.minWidth = Notepad.WIDTH_BTN;
+        flow.minHeight = Notepad.HEIGHT_BTN;
 
         var interMinus = new h2d.Interactive(24, 24, flow);
         interMinus.backgroundColor = 0xFFFF00FF;
         interMinus.onClick = (e)->retrieveNumber(1);
 
+        flow.getProperties(interMinus).horizontalAlign = Left;
+
         var rectIcon = new h2d.Graphics(flow);
         rectIcon.lineStyle(1, 0);
         rectIcon.drawRect(0, 0, 40, 40);
+
+        flow.getProperties(rectIcon).horizontalAlign = Middle;
         
         iconText = new h2d.Text(Assets.fontPixel, rectIcon);
         updateIconText();
@@ -42,7 +47,7 @@ class ChangeActionTypeIcon extends h2d.Layers {
         interPlus.backgroundColor = 0xFFFF00FF;
         interPlus.onClick = (e)->addNumber(1);
 
-        trace(flow.outerWidth);
+        flow.getProperties(interPlus).horizontalAlign = Right;
     }
 
     function addNumber (nb:Int) {

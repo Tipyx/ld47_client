@@ -20,42 +20,51 @@ class ChangeTU extends h2d.Layers {
 
         flow = new h2d.Flow(this);
         flow.layout = Horizontal;
-        flow.horizontalSpacing = 3;
         flow.verticalAlign = Middle;
         flow.horizontalAlign = Middle;
+        flow.minWidth = Notepad.WIDTH_BTN;
+        flow.minHeight = Notepad.HEIGHT_BTN;
 
         flowMinus = new h2d.Flow(flow);
         flowMinus.layout = Vertical;
-        flowMinus.verticalSpacing = 4;
+        flowMinus.minHeight = flow.minHeight;
 
         var interMinusOne = new h2d.Interactive(24, 16, flowMinus);
         interMinusOne.backgroundColor = 0xFFFF00FF;
         interMinusOne.onClick = (e)->retrieveNumber(1);
+        flowMinus.getProperties(interMinusOne).verticalAlign = Top;
 
         var interMinusTen = new h2d.Interactive(24, 16, flowMinus);
         interMinusTen.backgroundColor = 0xFFFF00FF;
         interMinusTen.onClick = (e)->retrieveNumber(10);
+        flowMinus.getProperties(interMinusTen).verticalAlign = Bottom;
+
+        flow.getProperties(flowMinus).horizontalAlign = Left;
 
         var rectTU = new h2d.Graphics(flow);
         rectTU.lineStyle(1, 0);
         rectTU.drawRect(0, 0, 40, 40);
+
+        flow.getProperties(rectTU).horizontalAlign = Middle;
         
         numTUText = new h2d.Text(Assets.fontPixel, rectTU);
         updateTUText();
 
         flowPlus = new h2d.Flow(flow);
         flowPlus.layout = Vertical;
-        flowPlus.verticalSpacing = 4;
+        flowPlus.minHeight = flow.minHeight;
 
         var interPlusOne = new h2d.Interactive(24, 16, flowPlus);
         interPlusOne.backgroundColor = 0xFFFF00FF;
         interPlusOne.onClick = (e)->addNumber(1);
+        flowPlus.getProperties(interPlusOne).verticalAlign = Top;
 
         var interPlusTen = new h2d.Interactive(24, 16, flowPlus);
         interPlusTen.backgroundColor = 0xFFFF00FF;
         interPlusTen.onClick = (e)->addNumber(10);
+        flowPlus.getProperties(interPlusTen).verticalAlign = Bottom;
 
-        trace(flow.outerWidth);
+        flow.getProperties(flowPlus).horizontalAlign = Right;
     }
 
     function addNumber (nb:Int) {

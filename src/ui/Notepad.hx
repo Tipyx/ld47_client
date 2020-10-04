@@ -3,6 +3,7 @@ package ui;
 class Notepad extends dn.Process {
 	public static var ME : Notepad;
     public static var WIDTH_BTN : Int = 94;
+    public static var HEIGHT_BTN : Int = 40;
 
 	public var level(get,never) : Level; inline function get_level() return Game.ME.level;
 	
