@@ -33,19 +33,17 @@ class Notepad extends dn.Process {
 		ME = this;
 		
 		// arNotepadData = [];
-		arNotepadData = Const.PLAYER_DATA.planningDatas.get(level.lvlData.identifier);
+        arNotepadData = Const.PLAYER_DATA.planningDatas.get(level.lvlData.identifier);
+        // var maximumEntries = Const.PLAYER_DATA.maximumNotepadEntry;
+        var maximumEntries = 6;
 
 		if (arNotepadData == null) {
 			arNotepadData = [];
-			// for (i in 0...Const.PLAYER_DATA.maximumNotepadEntry) {
-            for (i in 0...6) {
+			for (i in 0...maximumEntries) {
 				arNotepadData.push({tu: 0, actionType: NPActionType.createByIndex(0), peopleID: 0});
 			}
 		}
 
-			
-		// var maximumEntries = Const.PLAYER_DATA.maximumNotepadEntry;
-        var maximumEntries = 6;
         nbPage = Std.int(maximumEntries / Const.NB_LIGN_PER_PAGE);
         nbLignLastPage = maximumEntries % Const.NB_LIGN_PER_PAGE;
 
@@ -143,7 +141,15 @@ class Notepad extends dn.Process {
 
 
         for (i in 0...numLignLeft) {
-            var flowLign = new h2d.Flow(flow);
+            addLign(i);
+        }
+
+        previousPageBtn.visible = currentPage != 0;
+        nextPageBtn.visible = currentPage < nbPage;
+    }
+
+    function addLign (i:Int) {
+        var flowLign = new h2d.Flow(flow);
             flowLign.layout = Horizontal;
             flowLign.minWidth = flowTitle.minWidth;
             
@@ -167,10 +173,6 @@ class Notepad extends dn.Process {
 			flowLign.reflow();
 			bg.scaleX = flowLign.outerWidth;
 			bg.scaleY = flowLign.outerHeight;
-        }
-
-        previousPageBtn.visible = currentPage != 0;
-        nextPageBtn.visible = currentPage < nbPage;
     }
 
     override function onResize() {
