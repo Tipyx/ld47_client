@@ -26,7 +26,7 @@ class File extends Entity {
 	}
 
 	public function isGivenToEmployee() {
-		linkedEmployee.removeRequestType(NeedFiles);
+		linkedEmployee.completeRequestType(NeedFiles);
 		destroy();
 	}
 }

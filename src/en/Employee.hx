@@ -45,13 +45,13 @@ class Employee extends Entity {
 
 	public function gotItem(object:ObjectType) {
 		switch object {
-			case Coffee: removeRequestType(NeedCoffee);
-			case Files: removeRequestType(NeedFiles);
-			case Photocopy: removeRequestType(CopyFiles);
+			case Coffee: completeRequestType(NeedCoffee);
+			case Files: completeRequestType(NeedFiles);
+			case Photocopy: completeRequestType(CopyFiles);
 		}
 	}
 
-	public function removeRequestType(rt:RequestType) {
+	public function completeRequestType(rt:RequestType) {
 		for (pr in pendingRequest) {
 			if (pr.type == rt) {
 				pendingRequest.remove(pr);

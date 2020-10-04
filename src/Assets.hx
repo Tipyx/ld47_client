@@ -27,7 +27,7 @@ class Assets {
 			case NeedCoffee: "iconCoffee";
 			case NeedFiles: "iconNeedFiles";
 			case CopyFiles: "iconCopyFiles";
-			case PutFilesAway: "PutFilesAway";
+			case PutFilesAway: "iconPutFilesAway";
 		}
 	}
 }

@@ -109,7 +109,7 @@ class Player extends Entity {
 			}
 
 			if (isMoving) {
-				if (distPxFree(nextCPoint.footX, nextCPoint.footY) < speed * 3 * tmod) {
+				if (distPxFree(nextCPoint.footX, nextCPoint.footY) < speed * Const.GRID * 2 * tmod) {
 					nextCPoint = null;
 					cancelVelocities();
 					xr = yr = 0.5;

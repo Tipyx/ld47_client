@@ -86,6 +86,11 @@ class Level extends dn.Process {
 				new en.Copier(c.cx, c.cy);
 			}
 
+		if (entityLayer.all_Cupboard != null)
+			for (c in entityLayer.all_Cupboard) {
+				new en.Cupboard(c.cx, c.cy);
+			}
+
 		arEmployee = [];
 		if (entityLayer.all_Employee != null)
 			for (e in entityLayer.all_Employee) {
@@ -115,6 +120,21 @@ class Level extends dn.Process {
 							onClick:function(ap){
 								ap.hide();
 								player.addToInventory(Coffee);
+							}
+			});
+		}
+		else if (entity.is(en.Cupboard) && entitiesAreNearEachOther(player, entity)) {
+			if (player.hasInInventory(Files))
+			actions.push({	str:"Put Files Away",
+							onClick:function(ap){
+								ap.hide();
+								player.removeObject(Files);
+								for (emp in arEmployee) {
+									if (emp.hasRequest(PutFilesAway)) {
+										emp.completeRequestType(PutFilesAway);
+										break;
+									}
+								}
 							}
 			});
 		}

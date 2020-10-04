@@ -11,7 +11,7 @@
 	"defaultPivotY": 0,
 	"defaultGridSize": 24,
 	"bgColor": "#7F8093",
-	"nextUid": 19,
+	"nextUid": 20,
 	"minifyJson": false,
 	"exportTiled": false,
 	"defs": {
@@ -144,6 +144,22 @@
 				"pivotX": 0,
 				"pivotY": 0,
 				"fieldDefs": []
+			},
+			{
+				"identifier": "Cupboard",
+				"uid": 19,
+				"width": 24,
+				"height": 24,
+				"color": "#00C257",
+				"renderMode": "Rectangle",
+				"tilesetId": null,
+				"tileId": null,
+				"tileRenderMode": "Stretch",
+				"maxPerLevel": 0,
+				"limitBehavior": "DiscardOldOnes",
+				"pivotX": 0,
+				"pivotY": 0,
+				"fieldDefs": []
 			}
 		],
 		"tilesets": [],
@@ -163,13 +179,13 @@
 		"identifier": "TestLevel",
 		"uid": 0,
 		"pxWid": 304,
-		"pxHei": 192,
+		"pxHei": 216,
 		"layerInstances": [
 			{
 				"__identifier": "Entities",
 				"__type": "Entities",
 				"__cWid": 13,
-				"__cHei": 8,
+				"__cHei": 9,
 				"__gridSize": 24,
 				"levelId": 0,
 				"layerDefUid": 3,
@@ -182,7 +198,7 @@
 				"entityInstances": [
 					{ "__identifier": "CoffeeMaker", "__cx": 9, "__cy": 1, "defUid": 5, "x": 216, "y": 24, "fieldInstances": [] },
 					{ "__identifier": "Player", "__cx": 6, "__cy": 1, "defUid": 4, "x": 144, "y": 24, "fieldInstances": [] },
-					{ "__identifier": "Employee", "__cx": 3, "__cy": 3, "defUid": 6, "x": 72, "y": 72, "fieldInstances": [
+					{ "__identifier": "Employee", "__cx": 3, "__cy": 4, "defUid": 6, "x": 72, "y": 96, "fieldInstances": [
 						{
 							"__identifier": "timing",
 							"__value": [ 5 ],
@@ -192,16 +208,16 @@
 						},
 						{
 							"__identifier": "request",
-							"__value": [ "NeedCoffee" ],
+							"__value": [ "PutFilesAway" ],
 							"__type": "Array<ExternEnum.RequestType>",
 							"defUid": 17,
 							"realEditorValues": [ {
 								"id": "V_String",
-								"params": [ "NeedCoffee" ]
+								"params": [ "PutFilesAway" ]
 							} ]
 						}
 					] },
-					{ "__identifier": "Employee", "__cx": 3, "__cy": 6, "defUid": 6, "x": 72, "y": 144, "fieldInstances": [
+					{ "__identifier": "Employee", "__cx": 3, "__cy": 7, "defUid": 6, "x": 72, "y": 168, "fieldInstances": [
 						{
 							"__identifier": "timing",
 							"__value": [ 3 ],
@@ -220,7 +236,7 @@
 							} ]
 						}
 					] },
-					{ "__identifier": "Employee", "__cx": 10, "__cy": 5, "defUid": 6, "x": 240, "y": 120, "fieldInstances": [
+					{ "__identifier": "Employee", "__cx": 10, "__cy": 6, "defUid": 6, "x": 240, "y": 144, "fieldInstances": [
 						{
 							"__identifier": "timing",
 							"__value": [ 3 ],
@@ -239,14 +255,15 @@
 							} ]
 						}
 					] },
-					{ "__identifier": "Copier", "__cx": 11, "__cy": 2, "defUid": 18, "x": 264, "y": 48, "fieldInstances": [] }
+					{ "__identifier": "Copier", "__cx": 11, "__cy": 3, "defUid": 18, "x": 264, "y": 72, "fieldInstances": [] },
+					{ "__identifier": "Cupboard", "__cx": 1, "__cy": 1, "defUid": 19, "x": 24, "y": 24, "fieldInstances": [] }
 				]
 			},
 			{
 				"__identifier": "Collisions",
 				"__type": "IntGrid",
 				"__cWid": 13,
-				"__cHei": 8,
+				"__cHei": 9,
 				"__gridSize": 24,
 				"levelId": 0,
 				"layerDefUid": 2,
@@ -282,8 +299,8 @@
 					{ "coordId": 26, "v": 0 },
 					{ "coordId": 27, "v": 1 },
 					{ "coordId": 28, "v": 1 },
-					{ "coordId": 29, "v": 2 },
-					{ "coordId": 30, "v": 2 },
+					{ "coordId": 29, "v": 1 },
+					{ "coordId": 30, "v": 1 },
 					{ "coordId": 31, "v": 1 },
 					{ "coordId": 32, "v": 1 },
 					{ "coordId": 33, "v": 1 },
@@ -295,8 +312,8 @@
 					{ "coordId": 39, "v": 0 },
 					{ "coordId": 40, "v": 1 },
 					{ "coordId": 41, "v": 1 },
-					{ "coordId": 42, "v": 1 },
-					{ "coordId": 43, "v": 1 },
+					{ "coordId": 42, "v": 2 },
+					{ "coordId": 43, "v": 2 },
 					{ "coordId": 44, "v": 1 },
 					{ "coordId": 45, "v": 1 },
 					{ "coordId": 46, "v": 1 },
@@ -314,28 +331,28 @@
 					{ "coordId": 58, "v": 1 },
 					{ "coordId": 59, "v": 1 },
 					{ "coordId": 60, "v": 1 },
-					{ "coordId": 61, "v": 2 },
-					{ "coordId": 62, "v": 2 },
+					{ "coordId": 61, "v": 1 },
+					{ "coordId": 62, "v": 1 },
 					{ "coordId": 63, "v": 1 },
 					{ "coordId": 64, "v": 0 },
 					{ "coordId": 65, "v": 0 },
 					{ "coordId": 66, "v": 1 },
 					{ "coordId": 67, "v": 1 },
-					{ "coordId": 68, "v": 2 },
-					{ "coordId": 69, "v": 2 },
+					{ "coordId": 68, "v": 1 },
+					{ "coordId": 69, "v": 1 },
 					{ "coordId": 70, "v": 1 },
 					{ "coordId": 71, "v": 1 },
 					{ "coordId": 72, "v": 1 },
 					{ "coordId": 73, "v": 1 },
-					{ "coordId": 74, "v": 1 },
-					{ "coordId": 75, "v": 1 },
+					{ "coordId": 74, "v": 2 },
+					{ "coordId": 75, "v": 2 },
 					{ "coordId": 76, "v": 1 },
 					{ "coordId": 77, "v": 0 },
 					{ "coordId": 78, "v": 0 },
 					{ "coordId": 79, "v": 1 },
 					{ "coordId": 80, "v": 1 },
-					{ "coordId": 81, "v": 1 },
-					{ "coordId": 82, "v": 1 },
+					{ "coordId": 81, "v": 2 },
+					{ "coordId": 82, "v": 2 },
 					{ "coordId": 83, "v": 1 },
 					{ "coordId": 84, "v": 1 },
 					{ "coordId": 85, "v": 1 },
@@ -345,18 +362,31 @@
 					{ "coordId": 89, "v": 1 },
 					{ "coordId": 90, "v": 0 },
 					{ "coordId": 91, "v": 0 },
-					{ "coordId": 92, "v": 0 },
-					{ "coordId": 93, "v": 0 },
-					{ "coordId": 94, "v": 0 },
-					{ "coordId": 95, "v": 0 },
-					{ "coordId": 96, "v": 0 },
-					{ "coordId": 97, "v": 0 },
-					{ "coordId": 98, "v": 0 },
-					{ "coordId": 99, "v": 0 },
-					{ "coordId": 100, "v": 0 },
-					{ "coordId": 101, "v": 0 },
-					{ "coordId": 102, "v": 0 },
-					{ "coordId": 103, "v": 0 }
+					{ "coordId": 92, "v": 1 },
+					{ "coordId": 93, "v": 1 },
+					{ "coordId": 94, "v": 1 },
+					{ "coordId": 95, "v": 1 },
+					{ "coordId": 96, "v": 1 },
+					{ "coordId": 97, "v": 1 },
+					{ "coordId": 98, "v": 1 },
+					{ "coordId": 99, "v": 1 },
+					{ "coordId": 100, "v": 1 },
+					{ "coordId": 101, "v": 1 },
+					{ "coordId": 102, "v": 1 },
+					{ "coordId": 103, "v": 0 },
+					{ "coordId": 104, "v": 0 },
+					{ "coordId": 105, "v": 0 },
+					{ "coordId": 106, "v": 0 },
+					{ "coordId": 107, "v": 0 },
+					{ "coordId": 108, "v": 0 },
+					{ "coordId": 109, "v": 0 },
+					{ "coordId": 110, "v": 0 },
+					{ "coordId": 111, "v": 0 },
+					{ "coordId": 112, "v": 0 },
+					{ "coordId": 113, "v": 0 },
+					{ "coordId": 114, "v": 0 },
+					{ "coordId": 115, "v": 0 },
+					{ "coordId": 116, "v": 0 }
 				],
 				"autoTiles": [],
 				"seed": 7472215,
