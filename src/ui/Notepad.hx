@@ -14,7 +14,7 @@ class Notepad extends dn.Process {
     var flow : h2d.Flow;
     var nbPage : Int;
     var nbLignLastPage : Int;
-    var numLignLeft : Int;
+    // var numLignLeft : Int;
     var currentPage : Int;
     var currentLign : Int;
     var numLignCurrentPage : Int;
@@ -51,8 +51,9 @@ class Notepad extends dn.Process {
 			}
 		}
 
-        nbPage = Std.int(maximumEntries / Const.NB_LIGN_PER_PAGE);
-        nbLignLastPage = maximumEntries % Const.NB_LIGN_PER_PAGE;
+        // nbPage = Std.int(maximumEntries / Const.NB_LIGN_PER_PAGE);
+        nbPage = 0;
+        // nbLignLastPage = maximumEntries % Const.NB_LIGN_PER_PAGE;
 
         createRootInLayers(parent.root, Const.DP_NOTEPAD);
  
@@ -78,6 +79,7 @@ class Notepad extends dn.Process {
         interNew.onClick = function(e) {
             if (numLignCurrentPage == Const.NB_LIGN_PER_PAGE) {
                 showPage(currentPage+1);
+                nbPage++;
                 numLignCurrentPage = 0;
                 addLign(numLignCurrentPage);
             }
@@ -91,7 +93,9 @@ class Notepad extends dn.Process {
         nextPageBtn.drawRect(0, 0, 40, 20);
         var interNext = new h2d.Interactive(40, 20, nextPageBtn);
         interNext.onClick = (e)->showPage(currentPage+1);
-        flowBtn.getProperties(nextPageBtn).horizontalAlign = Right;    
+        flowBtn.getProperties(nextPageBtn).horizontalAlign = Right;
+        
+        flowBtn.minHeight = 20;
 
 		showPage(currentPage);
 		
@@ -132,8 +136,8 @@ class Notepad extends dn.Process {
         var title = new h2d.Text(Assets.fontPixel, flow);
         title.text = "PLANNING";
 
-        if (currentPage == nbPage) numLignLeft = nbLignLastPage;
-        else numLignLeft = Const.NB_LIGN_PER_PAGE;
+        // if (currentPage == nbPage) numLignLeft = nbLignLastPage;
+        // else numLignLeft = Const.NB_LIGN_PER_PAGE;
 
         flowTitle = new h2d.Flow(flow);
         flowTitle.layout = Horizontal;
@@ -214,5 +218,6 @@ class Notepad extends dn.Process {
 		
         flowBtn.y = (h() / Const.SCALE) - (Const.NOTEPAD_SPACING / 2) - flowBtn.outerHeight - 5;
         newLignBtn.setPosition((flowBtn.outerWidth - 20) / 2, 0);
+        // TODO : mettre la taille du bouton
     }
 }
