@@ -7,7 +7,7 @@ class Employee extends Entity {
 
 	public var id : Int;
 
-	public var inventory(default, null) : Array<ObjectType>;
+	public var inventory(default, null) : Array<Object>;
 	
 	public function new(cx, cy, id:Int) {
 		super(cx, cy);
@@ -43,11 +43,11 @@ class Employee extends Entity {
 		return false;
 	}
 
-	public function gotItem(object:ObjectType) {
-		switch object {
+	public function gotItem(object:Object) {
+		switch (object.type) {
 			case Coffee: completeRequestType(NeedCoffee);
 			case Files: completeRequestType(NeedFiles);
-			case Photocopy: completeRequestType(CopyFiles);
+			case Photocopy: completeRequestType(NeedPhotocopies);
 		}
 	}
 
@@ -61,24 +61,16 @@ class Employee extends Entity {
 		}
 	}
 
-	public function addToInventory(object:ObjectType) {
+	public function addToInventory(object:Object) {
 		inventory.push(object);
 		game.hud.invalidate();
 	}
 
-	public function hasInInventory(object:ObjectType):Bool {
-		for (type in inventory) {
-			if (object == type)
-				return true;
-		}
-		return false;
-	}
-
-	public function giveItemToPlayer(object:ObjectType) {
+	/* public function giveItemToPlayer(object:Object) {
 		if (inventory.remove(object)) {
-			level.player.addToInventory(object);
+			level.player.addToInventory(object, this);
 		}
-	}
+	} */
 
 	public inline function isCompleted():Bool {
 		return requestsToDo.length == 0 && pendingRequest.length == 0;
@@ -99,9 +91,9 @@ class Employee extends Entity {
 					case NeedFiles : 
 						if (level.hasDeskAt(cx + 1, cy - 1)) new File(cx + 1, cy - 1, false, this);
 						else if (level.hasDeskAt(cx - 1, cy - 1)) new File(cx - 1, cy - 1, false, this);
-					case CopyFiles, PutFilesAway : 
-						if (level.hasDeskAt(cx + 1, cy - 1)) new File(cx + 1, cy - 1, true);
-						else if (level.hasDeskAt(cx - 1, cy - 1)) new File(cx - 1, cy - 1, true);
+					case NeedPhotocopies, PutFilesAway : 
+						if (level.hasDeskAt(cx + 1, cy - 1)) new File(cx + 1, cy - 1, true, this);
+						else if (level.hasDeskAt(cx - 1, cy - 1)) new File(cx - 1, cy - 1, true, this);
 					
 					// addToInventory(Files);
 				}

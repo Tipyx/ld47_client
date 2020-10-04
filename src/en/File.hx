@@ -4,7 +4,7 @@ class File extends Entity {
 
 	public var isThere(default, null) : Bool;
 
-	var linkedEmployee : Null<Employee> = null;
+	public var linkedEmployee(default, null) : Null<Employee> = null;
 	
 	public function new(cx, cy, isThere:Bool, ?linkedEmployee:Employee = null) {
 		super(cx, cy);

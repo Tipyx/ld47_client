@@ -26,7 +26,7 @@ class Assets {
 		return switch (rt) {
 			case NeedCoffee: "iconCoffee";
 			case NeedFiles: "iconNeedFiles";
-			case CopyFiles: "iconCopyFiles";
+			case NeedPhotocopies: "iconCopyFiles";
 			case PutFilesAway: "iconPutFilesAway";
 		}
 	}

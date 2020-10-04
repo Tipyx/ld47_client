@@ -165,14 +165,14 @@
 		"tilesets": [],
 		"enums": [],
 		"externalEnums": [
-			{ "identifier": "ObjectType", "uid": 14, "values": [ { "id": "Coffee", "tileId": null }, { "id": "Files", "tileId": null } ], "iconTilesetUid": null, "externalRelPath": "../../src/Types.hx", "externalFileChecksum": "5cb29dcf39b34e68795161a55b845d04" },
-			{ "identifier": "NPActionType", "uid": 15, "values": [ { "id": "Coffee", "tileId": null }, { "id": "Files", "tileId": null } ], "iconTilesetUid": null, "externalRelPath": "../../src/Types.hx", "externalFileChecksum": "5cb29dcf39b34e68795161a55b845d04" },
+			{ "identifier": "ObjectType", "uid": 14, "values": [ { "id": "Coffee", "tileId": null }, { "id": "Files", "tileId": null }, { "id": "Photocopy", "tileId": null } ], "iconTilesetUid": null, "externalRelPath": "../../src/Types.hx", "externalFileChecksum": "3ee764a6384bd480dc05dc3c7806eb03" },
+			{ "identifier": "NPActionType", "uid": 15, "values": [ { "id": "Coffee", "tileId": null }, { "id": "Files", "tileId": null } ], "iconTilesetUid": null, "externalRelPath": "../../src/Types.hx", "externalFileChecksum": "3ee764a6384bd480dc05dc3c7806eb03" },
 			{ "identifier": "RequestType", "uid": 16, "values": [
-				{ "id": "CopyFiles", "tileId": null },
 				{ "id": "NeedCoffee", "tileId": null },
 				{ "id": "NeedFiles", "tileId": null },
+				{ "id": "NeedPhotocopies", "tileId": null },
 				{ "id": "PutFilesAway", "tileId": null }
-			], "iconTilesetUid": null, "externalRelPath": "../../src/Types.hx", "externalFileChecksum": "5cb29dcf39b34e68795161a55b845d04" }
+			], "iconTilesetUid": null, "externalRelPath": "../../src/Types.hx", "externalFileChecksum": "3ee764a6384bd480dc05dc3c7806eb03" }
 		]
 	},
 	"levels": [ {
@@ -227,12 +227,12 @@
 						},
 						{
 							"__identifier": "request",
-							"__value": [ "CopyFiles" ],
+							"__value": [ "NeedPhotocopies" ],
 							"__type": "Array<ExternEnum.RequestType>",
 							"defUid": 17,
 							"realEditorValues": [ {
 								"id": "V_String",
-								"params": [ "CopyFiles" ]
+								"params": [ "NeedPhotocopies" ]
 							} ]
 						}
 					] },

@@ -17,7 +17,7 @@ enum NPActionType {
 enum RequestType {
 	NeedCoffee;
 	NeedFiles;
-	CopyFiles;
+	NeedPhotocopies;
 	PutFilesAway;
 }
 
@@ -31,4 +31,9 @@ typedef PlayerData = {
 	var maximumNotepadEntry : Int;
 	var maximumInventoryStorage : Int;
 	var planningDatas : Map<String, Array<NotepadData>>;
+}
+
+typedef Object = {
+	var type : ObjectType;
+	var linkedEmployee : Null<en.Employee>;
 }

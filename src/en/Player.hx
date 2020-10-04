@@ -7,7 +7,7 @@ class Player extends Entity {
 
 	var speed = 0.2; // case per frame
 
-	public var inventory(default, null) : Array<ObjectType>;
+	public var inventory(default, null) : Array<Object>;
 
 	public var isMoving(get, never) : Bool; inline function get_isMoving() return nextCPoint != null;
 
@@ -24,29 +24,73 @@ class Player extends Entity {
 		inventory = [];
 	}
 
-	public function addToInventory(object:ObjectType) {
-		inventory.push(object);
+	public function addToInventory(object:ObjectType, from:Null<Employee> = null) {
+		inventory.push({type: object, linkedEmployee: from});
 		game.hud.invalidate();
 	}
 
-	public function removeObject(object:ObjectType) {
+	public function removeObject(object:Object) {
 		inventory.remove(object);
 		game.hud.invalidate();
 	}
 
-	public function hasInInventory(object:ObjectType):Bool {
-		for (type in inventory) {
-			if (object == type)
+	public function hasInInventory(ot:ObjectType):Bool {
+		for (object in inventory) {
+			if (object.type == ot)
 				return true;
 		}
 		return false;
 	}
 
-	public function giveItemTo(object:ObjectType, to:Employee) {
+	public function giveItemTo(object:Object, to:Employee) {
 		if (inventory.remove(object)) {
 			to.gotItem(object);
 		}
 		game.hud.invalidate();
+	}
+
+	public function getFileToPutAway():Null<Object> {
+		for (object in inventory) {
+			if (object.type == Files && object.linkedEmployee != null && object.linkedEmployee.hasRequest(PutFilesAway))
+				return object;
+		}
+
+		return null;
+	}
+
+	public function getFileToCopy():Null<Object> {
+		for (object in inventory) {
+			if (object.type == Files && object.linkedEmployee != null && object.linkedEmployee.hasRequest(NeedPhotocopies))
+				return object;
+		}
+
+		return null;
+	}
+
+	public function getFileToBeGiven():Null<Object> {
+		for (object in inventory) {
+			if (object.type == Files && object.linkedEmployee == null)
+				return object;
+		}
+
+		return null;
+	}
+
+	public function getPhotocopyToBeGiven():Null<Object> {
+		for (object in inventory) {
+			if (object.type == Photocopy && object.linkedEmployee != null && object.linkedEmployee.hasRequest(NeedPhotocopies))
+				return object;
+		}
+
+		return null;
+	}
+
+	public function getCoffee():Null<Object> {
+		for (object in inventory)
+			if (object.type == Coffee)
+				return object;
+
+		return null;
 	}
 
 	public function goTo(tx:Int, ty:Int) {

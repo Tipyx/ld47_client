@@ -45,8 +45,8 @@ class Hud extends dn.Process {
 		textTU.text = "Current Time Unit : " + level.currentTU;
 
 		inventoryFlow.removeChildren();
-		for (type in level.player.inventory) {
-			switch (type) {
+		for (object in level.player.inventory) {
+			switch (object.type) {
 				case Coffee : Assets.tiles.h_get("iconCoffee", inventoryFlow);
 				case Files : Assets.tiles.h_get("iconFile", inventoryFlow);
 				case Photocopy : Assets.tiles.h_get("iconPhotocopy", inventoryFlow);

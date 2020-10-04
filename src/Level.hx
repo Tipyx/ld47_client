@@ -124,45 +124,44 @@ class Level extends dn.Process {
 			});
 		}
 		else if (entity.is(en.Cupboard) && entitiesAreNearEachOther(player, entity)) {
-			if (player.hasInInventory(Files))
+			var files = player.getFileToPutAway();
+			if (files != null)
 			actions.push({	str:"Put Files Away",
 							onClick:function(ap){
 								ap.hide();
-								player.removeObject(Files);
-								for (emp in arEmployee) {
-									if (emp.hasRequest(PutFilesAway)) {
-										emp.completeRequestType(PutFilesAway);
-										break;
-									}
-								}
+								player.removeObject(files);
+								files.linkedEmployee.completeRequestType(PutFilesAway);
 							}
 			});
 		}
 		else if (entity.is(en.Copier) && entitiesAreNearEachOther(player, entity)) {
-			if (player.hasInInventory(Files))
+			var files = player.getFileToCopy();
+			if (files != null)
 				actions.push({	str:"Do Copy",
 								onClick:function(ap){
 									ap.hide();
-									player.removeObject(Files);
-									player.addToInventory(Photocopy);
+									player.addToInventory(Photocopy, files.linkedEmployee);
+									files.linkedEmployee = null;
 								}
 				});
 		}
 		else if (entity.is(en.File) && entitiesAreNearEachOther(player, entity)) {
+			var files = player.getFileToBeGiven();
+			trace(files);
 			if (entity.as(en.File).isThere) {
 				actions.push({	str:"Take Files",
 								onClick:function(ap){
 									ap.hide();
-									player.addToInventory(Files);
+									player.addToInventory(Files, entity.as(en.File).linkedEmployee);
 									entity.destroy();
 								}
 				});
 			}
-			else if (player.hasInInventory(Files)) {
+			else if (files != null) {
 				actions.push({	str:"Give Files",
 								onClick:function(ap){
 									ap.hide();
-									player.removeObject(Files);
+									player.removeObject(files);
 									entity.as(en.File).isGivenToEmployee();
 								}
 				});
@@ -170,11 +169,12 @@ class Level extends dn.Process {
 		}
 		else if (entity.is(en.Employee) && entitiesAreNearEachOther(player, entity)) {
 			var emp = entity.as(en.Employee);
-			if (player.hasInInventory(Coffee) && emp.hasRequest(NeedCoffee)) {
+			var coffee = player.getCoffee();
+			if (coffee != null && emp.hasRequest(NeedCoffee)) {
 				actions.push({	str:"Give Coffee",
 								onClick:function(ap){
 									ap.hide();
-									player.giveItemTo(Coffee, emp);
+									player.giveItemTo(coffee, emp);
 								}
 				});
 			}
@@ -186,11 +186,12 @@ class Level extends dn.Process {
 								}
 				});
 			} */
-			if (emp.hasRequest(CopyFiles) && player.hasInInventory(Photocopy)) {
+			var photocopies = player.getPhotocopyToBeGiven();
+			if (photocopies != null && photocopies.linkedEmployee == emp) {
 				actions.push({	str:"Give Photocopies",
 								onClick:function(ap){
 									ap.hide();
-									player.giveItemTo(Photocopy, emp);
+									player.giveItemTo(photocopies, emp);
 								}
 				});
 			}
@@ -304,5 +305,11 @@ class Level extends dn.Process {
 
 	override function postUpdate() {
 		super.postUpdate();
+
+		if (hxd.Key.isPressed(hxd.Key.F1)) {
+			for (object in player.inventory) {
+				trace(object);
+			}
+		}
 	}
 }
