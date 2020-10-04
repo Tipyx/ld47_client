@@ -8,18 +8,25 @@
 					"name": "ID"
 				},
 				{
+					"typeStr": "2",
+					"name": "isDebug",
+					"display": null
+				},
+				{
 					"typeStr": "3",
 					"name": "maximumScore"
 				}
 			],
 			"lines": [
 				{
-					"ID": "Test_Level",
-					"maximumScore": 50
+					"ID": "TestLevel",
+					"maximumScore": 50,
+					"isDebug": true
 				},
 				{
 					"ID": "Level1",
-					"maximumScore": 0
+					"maximumScore": 0,
+					"isDebug": false
 				}
 			],
 			"separators": [],

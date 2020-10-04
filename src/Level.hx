@@ -19,17 +19,14 @@ class Level extends dn.Process {
 	var arActionPopups : Array<ui.ActionPopup>;
 	var arRequestPopups : Array<ui.RequestPopup>;
 
-	public function new(lvlData:LedData.LedData_Level) {
+	public function new(lvlInfo:Data.LevelInfo) {
 		super(Game.ME);
 
-		this.lvlData = lvlData;
+		this.lvlInfo = lvlInfo;
 
-		for (li in Data.LevelInfo.all) {
-			if (li.ID.toString() == lvlData.identifier) {
-				lvlInfo = li;
-				break;
-			}
-		}
+		lvlData = Const.LED_DATA.resolveLevel(lvlInfo.ID.toString());
+		if (lvlData == null)
+			throw "There is no level in LED named " + lvlInfo.ID;
 
 		createRootInLayers(Game.ME.scroller, Const.DP_BG);
 

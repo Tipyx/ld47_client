@@ -11,9 +11,14 @@ class Game extends Process {
 	public var level : Level;
 	public var hud : ui.Hud;
 
-	public function new() {
+	var levelsToDo : Array<Data.LevelInfo> = [];
+
+	public function new(levelsToDo:Array<Data.LevelInfo>) {
 		super(Main.ME);
 		ME = this;
+
+		this.levelsToDo = levelsToDo;
+
 		ca = Main.ME.controller.createAccess("game");
 		ca.setLeftDeadZone(0.2);
 		ca.setRightDeadZone(0.2);
@@ -24,7 +29,7 @@ class Game extends Process {
 		scroller.filter = new h2d.filter.ColorMatrix(); // force rendering for pixel perfect
 
 		camera = new Camera();
-		level = new Level(Const.LED_DATA.all_levels.TestLevel);
+		level = new Level(levelsToDo.shift());
 		fx = new Fx();
 		hud = new ui.Hud();
 
@@ -109,8 +114,8 @@ class Game extends Process {
 			#end
 
 			// Restart
-			if( ca.selectPressed() )
-				Main.ME.startGame();
+			// if( ca.selectPressed() )
+			// 	Main.ME.startGame();
 		}
 	}
 }

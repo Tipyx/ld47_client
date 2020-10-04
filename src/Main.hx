@@ -88,15 +88,22 @@ class Main extends dn.Process {
 			new TitleScreen();
 	}
 
-	public function startGame() {
+	public function startGame(debug:Bool) {
+		var levelsToDo = [];
+
+		for (lvl in Data.LevelInfo.all) {
+			if (lvl.isDebug == debug)
+				levelsToDo.push(lvl);
+		}
+
 		if( Game.ME!=null ) {
 			Game.ME.destroy();
 			delayer.addF(function() {
-				new Game();
+				new Game(levelsToDo);
 			}, 1);
 		}
 		else
-			new Game();
+			new Game(levelsToDo);
 	}
 
 	public function startNotepad() {
@@ -118,7 +125,7 @@ class Main extends dn.Process {
 
 	public function showDebugTipyx() {
 		clean();
-		startGame();
+		startGame(true);
 	}
 
 	override public function onResize() {
