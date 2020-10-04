@@ -1,21 +1,24 @@
 package ui;
 
 class ChangePeopleID extends h2d.Layers {
-    
     public var wid(default, null) : Int = 40;
     public var hei(default, null) : Int = 40;
     
-    var idText : h2d.Text;
-
+    var currentPeopleID : Int;
+    var maxIconID : Int;
+    
     var notepadData : NotepadData;
 
     var flow : h2d.Flow;
+
+    var spr : HSprite;
 
     public function new(notepadData:NotepadData) {
         super();
 
         this.notepadData = notepadData;
-
+        maxIconID = 3;
+        
         flow = new h2d.Flow(this);
         flow.layout = Horizontal;
         flow.verticalAlign = Middle;
@@ -32,11 +35,15 @@ class ChangePeopleID extends h2d.Layers {
         var rectID = new h2d.Graphics(flow);
         rectID.lineStyle(1, 0);
         rectID.drawRect(0, 0, 40, 40);
-
         flow.getProperties(rectID).horizontalAlign = Middle;
-        
-        idText = new h2d.Text(Assets.fontPixel, rectID);
-        updateidText();
+
+        spr = new HSprite(Assets.tiles);
+        rectID.addChild(spr);
+		spr.colorAdd= new h3d.Vector();
+        spr.set("employee", notepadData.peopleID);
+        spr.setCenterRatio(0.5, 0.5);
+
+        updatePeopleIcon();
 
         var interPlus = new h2d.Interactive(24, 24, flow);
         interPlus.backgroundColor = 0xFFFF00FF;
@@ -46,19 +53,19 @@ class ChangePeopleID extends h2d.Layers {
     }
 
     function addNumber (nb:Int) {
-        notepadData.peopleID += nb;
+        if (notepadData.peopleID != maxIconID) notepadData.peopleID += nb;
 
-        updateidText();
+        updatePeopleIcon();
     }
 
     function retrieveNumber (nb:Int) {
         if (notepadData.peopleID >= nb) notepadData.peopleID -= nb;
 
-        updateidText();
+        updatePeopleIcon();
     }
 
-    function updateidText () {
-        idText.text = '${notepadData.peopleID}';
-        idText.setPosition(wid/2-idText.textWidth/2, hei/2-idText.textHeight/2);
+    function updatePeopleIcon () {
+        spr.set("employee", notepadData.peopleID);
+        spr.setPosition(wid/2, hei/2);
     }
 }
