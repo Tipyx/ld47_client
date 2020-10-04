@@ -5,13 +5,14 @@ class ChangeTU extends h2d.Layers {
     public var wid(default, null) : Int = 40;
     public var hei(default, null) : Int = 40;
     
-    var currentTU : Int;
     var numTUText : h2d.Text;
 
-    public function new(numTU:Int) {
+    var notepadData : NotepadData;
+
+    public function new(notepadData:NotepadData) {
         super();
 
-        currentTU = numTU;
+        this.notepadData = notepadData;
 
         var rectTU = new h2d.Graphics(this);
         rectTU.lineStyle(1, 0);
@@ -42,20 +43,20 @@ class ChangeTU extends h2d.Layers {
     }
 
     function addNumber (nb:Int) {
-        currentTU += nb;
+        notepadData.tu += nb;
 
         updateTUText();
     }
 
     function retrieveNumber (nb:Int) {
-        if (currentTU >= nb) currentTU -= nb;
-        else currentTU = 0;
+        if (notepadData.tu >= nb) notepadData.tu -= nb;
+        else notepadData.tu = 0;
 
         updateTUText();
     }
 
     function updateTUText () {
-        numTUText.text = '$currentTU';
+        numTUText.text = '${notepadData.tu}';
         numTUText.setPosition(30 + wid/2-numTUText.textWidth/2, hei/2-numTUText.textHeight/2);
     }
 }

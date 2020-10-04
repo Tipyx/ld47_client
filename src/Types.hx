@@ -1,6 +1,6 @@
-typedef NotepadLign = {
+typedef NotepadData = {
     var tu : Int;
-    var icone : ActionType;
+    var actionType : ActionType;
     var peopleID : Int;
 }
 

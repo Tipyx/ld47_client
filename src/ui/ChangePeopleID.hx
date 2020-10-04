@@ -5,13 +5,14 @@ class ChangePeopleID extends h2d.Layers {
     public var wid(default, null) : Int = 40;
     public var hei(default, null) : Int = 40;
     
-    var currentID : Int;
     var idText : h2d.Text;
 
-    public function new(id:Int) {
+    var notepadData : NotepadData;
+
+    public function new(notepadData:NotepadData) {
         super();
 
-        currentID = id;
+        this.notepadData = notepadData;
 
         var rectID = new h2d.Graphics(this);
         rectID.lineStyle(1, 0);
@@ -32,19 +33,19 @@ class ChangePeopleID extends h2d.Layers {
     }
 
     function addNumber (nb:Int) {
-        currentID += nb;
+        notepadData.peopleID += nb;
 
         updateidText();
     }
 
     function retrieveNumber (nb:Int) {
-        if (currentID >= nb) currentID -= nb;
+        if (notepadData.peopleID >= nb) notepadData.peopleID -= nb;
 
         updateidText();
     }
 
     function updateidText () {
-        idText.text = '$currentID';
+        idText.text = '${notepadData.peopleID}';
         idText.setPosition(30 + wid/2-idText.textWidth/2, hei/2-idText.textHeight/2);
     }
 }

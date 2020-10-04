@@ -15,16 +15,24 @@ class Notepad extends dn.Process {
     var previousPageBtn : h2d.Graphics;
     var nextPageBtn : h2d.Graphics;
 
+    var arNotepadData : Array<NotepadData>;
+
 	public function new(numLign:Int) {
         super(Main.ME);
         
         ME = this;
         this.numLign = numLign;
+        arNotepadData = [];
+        var actionTypeLenght = ActionType.createAll().length;
 
-        nbPage = Std.int(numLign / Const.NB_LIGN_PER_PAGE) + 1;
-        trace('${nbPage}');
+        for (i in 0...20) {
+            arNotepadData.push({ tu : irnd(0, 100),
+                                actionType : ActionType.createByIndex(irnd(0, actionTypeLenght-1)),
+                                peopleID : irnd(0, 5) });
+        }
+
+        nbPage = Std.int(numLign / Const.NB_LIGN_PER_PAGE);
         nbLignLastPage = numLign % Const.NB_LIGN_PER_PAGE;
-        trace('${nbLignLastPage}');
 
         createRootInLayers(Main.ME.root, Const.DP_UI);
  
@@ -50,9 +58,7 @@ class Notepad extends dn.Process {
         interNext.onClick = (e)->showPage(currentPage+1);
         flowBtn.getProperties(nextPageBtn).horizontalAlign = Right;
 
-        showPage(1);
-
-        // var ut1 : NotepadLign = {ut: 0, icone: Coffee, peopleID: 1};
+        showPage(0);
 
         onResize();
 
@@ -81,33 +87,32 @@ class Notepad extends dn.Process {
         }
 
         var title = new h2d.Text(Assets.fontPixel, flow);
-        title.text = "Planning";
+        title.text = "PLANNING";
         flow.getProperties(title).horizontalAlign = Middle;
-
-        trace('${currentPage}');
-        trace('${nbPage}');
 
         if (currentPage == nbPage) numLignLeft = nbLignLastPage;
         else numLignLeft = Const.NB_LIGN_PER_PAGE;
 
-        trace('${numLignLeft}');
+        trace('${arNotepadData[0]}');
 
         for (i in 0...numLignLeft) {
             var flowLign = new h2d.Flow(flow);
             flowLign.layout = Horizontal;
             flowLign.horizontalSpacing = 125;
 
-            var changeTU = new ChangeTU(0);
+            var notepadID = i+currentPage*Const.NB_LIGN_PER_PAGE;
+
+            var changeTU = new ChangeTU(arNotepadData[notepadID]);
             flowLign.addChild(changeTU);
 
-            var changeActionTypeIcon = new ChangeActionTypeIcon(0);
+            var changeActionTypeIcon = new ChangeActionTypeIcon(arNotepadData[notepadID]);
             flowLign.addChild(changeActionTypeIcon);
 
-            var changePeopleID = new ChangePeopleID(0);
+            var changePeopleID = new ChangePeopleID(arNotepadData[notepadID]);
             flowLign.addChild(changePeopleID);
         }
 
-        previousPageBtn.visible = currentPage != 1;
+        previousPageBtn.visible = currentPage != 0;
         nextPageBtn.visible = currentPage < nbPage;
     }
 
