@@ -36,7 +36,7 @@ class Hud extends dn.Process {
 
 		mainFlow.minWidth = Std.int(w() / Const.SCALE);
 		mainFlow.reflow();
-		mainFlow.y = Std.int((h() / Const.SCALE) * 0.8);
+		mainFlow.y = Std.int((game.scroller.y / Const.UI_SCALE) + game.level.lvlData.pxHei + 10);
 	}
 
 	public inline function invalidate() invalidated = true;

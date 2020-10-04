@@ -49,6 +49,12 @@ class Camera extends dn.Process {
 		shakePower = pow;
 	}
 
+	override function onResize() {
+		super.onResize();
+
+		calculateScrollerPosition();
+	}
+
 	override function update() {
 		super.update();
 
@@ -85,51 +91,54 @@ class Camera extends dn.Process {
 		bumpOffY+=y;
 	}
 
+	public inline function calculateScrollerPosition() {
+		var level = Game.ME.level;
+		var scroller = Game.ME.scroller;
+	
+		// Update scroller
+		if( wid<level.wid*Const.GRID)
+			scroller.x = -x + wid*0.5;
+		else
+			scroller.x = wid*0.5 - level.wid*0.5*Const.GRID;
+		if( hei<level.hei*Const.GRID)
+			scroller.y = -y + hei*0.5;
+		else
+			scroller.y = hei*0.5 - level.hei*0.5*Const.GRID;
+	
+		// Clamp
+		if( wid<level.wid*Const.GRID)
+			scroller.x = M.fclamp(scroller.x, wid-level.wid*Const.GRID, 0);
+		if( hei<level.hei*Const.GRID)
+			scroller.y = M.fclamp(scroller.y, hei-level.hei*Const.GRID, 0);
+	
+		// Bumps friction
+		bumpOffX *= Math.pow(0.75, tmod);
+		bumpOffY *= Math.pow(0.75, tmod);
+	
+		// Bump
+		scroller.x += bumpOffX;
+		scroller.y += bumpOffY;
+	
+		// Shakes
+		if( cd.has("shaking") ) {
+			scroller.x += Math.cos(ftime*1.1)*2.5*shakePower * cd.getRatio("shaking");
+			scroller.y += Math.sin(0.3+ftime*1.7)*2.5*shakePower * cd.getRatio("shaking");
+		}
+	
+		// Scaling
+		scroller.x*=Const.SCALE;
+		scroller.y*=Const.SCALE;
+	
+		// Rounding
+		scroller.x = M.round(scroller.x);
+		scroller.y = M.round(scroller.y);
+	}
 
 	override function postUpdate() {
 		super.postUpdate();
 
 		if( !ui.Console.ME.hasFlag("scroll") ) {
-			var level = Game.ME.level;
-			var scroller = Game.ME.scroller;
-
-			// Update scroller
-			if( wid<level.wid*Const.GRID)
-				scroller.x = -x + wid*0.5;
-			else
-				scroller.x = wid*0.5 - level.wid*0.5*Const.GRID;
-			if( hei<level.hei*Const.GRID)
-				scroller.y = -y + hei*0.5;
-			else
-				scroller.y = hei*0.5 - level.hei*0.5*Const.GRID;
-
-			// Clamp
-			if( wid<level.wid*Const.GRID)
-				scroller.x = M.fclamp(scroller.x, wid-level.wid*Const.GRID, 0);
-			if( hei<level.hei*Const.GRID)
-				scroller.y = M.fclamp(scroller.y, hei-level.hei*Const.GRID, 0);
-
-			// Bumps friction
-			bumpOffX *= Math.pow(0.75, tmod);
-			bumpOffY *= Math.pow(0.75, tmod);
-
-			// Bump
-			scroller.x += bumpOffX;
-			scroller.y += bumpOffY;
-
-			// Shakes
-			if( cd.has("shaking") ) {
-				scroller.x += Math.cos(ftime*1.1)*2.5*shakePower * cd.getRatio("shaking");
-				scroller.y += Math.sin(0.3+ftime*1.7)*2.5*shakePower * cd.getRatio("shaking");
-			}
-
-			// Scaling
-			scroller.x*=Const.SCALE;
-			scroller.y*=Const.SCALE;
-
-			// Rounding
-			scroller.x = M.round(scroller.x);
-			scroller.y = M.round(scroller.y);
+			calculateScrollerPosition();
 		}
 	}
 }
