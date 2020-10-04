@@ -9,6 +9,8 @@ class Player extends Entity {
 
 	public var inventory(default, null) : Array<Object>;
 
+	public var inventoryIsFull(get, never) : Bool; inline function get_inventoryIsFull() return inventory.length == Const.PLAYER_DATA.maximumInventoryStorage;
+
 	public var isMoving(get, never) : Bool; inline function get_isMoving() return nextCPoint != null;
 
 	public function new(cx:Int, cy:Int) {

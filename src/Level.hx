@@ -126,8 +126,10 @@ class Level extends dn.Process {
 		if (entity.is(en.CoffeeMaker)) {
 			actions.push({	str:"Take Coffee",
 							onClick:function(ap){
-								ap.hide();
-								player.addToInventory(Coffee);
+								if (!player.inventoryIsFull) {
+									ap.hide();
+									player.addToInventory(Coffee);
+								}
 							}
 			});
 		}
@@ -157,9 +159,11 @@ class Level extends dn.Process {
 			if (files != null)
 				actions.push({	str:"Do Copy",
 								onClick:function(ap){
-									ap.hide();
-									player.addToInventory(Photocopy, files.linkedEmployee);
-									files.linkedEmployee = null;
+									if (!player.inventoryIsFull) {
+										ap.hide();
+										player.addToInventory(Photocopy, files.linkedEmployee);
+										files.linkedEmployee = null;
+									}
 								}
 				});
 		}
@@ -169,9 +173,11 @@ class Level extends dn.Process {
 			if (entity.as(en.File).isThere) {
 				actions.push({	str:"Take Files",
 								onClick:function(ap){
-									ap.hide();
-									player.addToInventory(Files, entity.as(en.File).linkedEmployee);
-									entity.destroy();
+									if (!player.inventoryIsFull) {
+										ap.hide();
+										player.addToInventory(Files, entity.as(en.File).linkedEmployee);
+										entity.destroy();
+									}
 								}
 				});
 			}
