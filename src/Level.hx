@@ -128,6 +128,26 @@ class Level extends dn.Process {
 								}
 				});
 		}
+		else if (entity.is(en.File) && entitiesAreNearEachOther(player, entity)) {
+			if (entity.as(en.File).isThere) {
+				actions.push({	str:"Take Files",
+								onClick:function(ap){
+									ap.hide();
+									player.addToInventory(Files);
+									entity.destroy();
+								}
+				});
+			}
+			else if (player.hasInInventory(Files)) {
+				actions.push({	str:"Give Files",
+								onClick:function(ap){
+									ap.hide();
+									player.removeObject(Files);
+									entity.as(en.File).isGivenToEmployee();
+								}
+				});
+			}
+		}
 		else if (entity.is(en.Employee) && entitiesAreNearEachOther(player, entity)) {
 			var emp = entity.as(en.Employee);
 			if (player.hasInInventory(Coffee) && emp.hasRequest(NeedCoffee)) {
@@ -138,14 +158,14 @@ class Level extends dn.Process {
 								}
 				});
 			}
-			if (emp.hasRequest(CopyFiles) && emp.hasInInventory(Files)) {
+			/* if (emp.hasRequest(CopyFiles) && emp.hasInInventory(Files)) {
 				actions.push({	str:"Take Files",
 								onClick:function(ap){
 									ap.hide();
 									emp.giveItemToPlayer(Files);
 								}
 				});
-			}
+			} */
 			if (emp.hasRequest(CopyFiles) && player.hasInInventory(Photocopy)) {
 				actions.push({	str:"Give Photocopies",
 								onClick:function(ap){
@@ -218,8 +238,12 @@ class Level extends dn.Process {
 	}
 
 	public inline function hasCollisionAt(cx:Int, cy:Int, except:Entity = null) {
-		return lvlData.l_Collisions.getName(cx, cy) == "Wall" || hasEntityAt(cx, cy, except);
+		return lvlData.l_Collisions.getName(cx, cy) == "Wall"
+			|| hasDeskAt(cx, cy)
+			|| hasEntityAt(cx, cy, except);
 	}
+
+	public inline function hasDeskAt(cx:Int, cy:Int) return lvlData.l_Collisions.getName(cx, cy) == "Desk";
 	
 	public function hasEntityAt(cx:Int, cy:Int, except:Entity = null) {
 		for (entity in Entity.ALL) {

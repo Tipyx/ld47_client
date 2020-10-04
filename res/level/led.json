@@ -38,7 +38,7 @@
 				"uid": 2,
 				"gridSize": 24,
 				"displayOpacity": 1,
-				"intGridValues": [ { "identifier": "Wall", "color": "#000000" }, { "identifier": "Floor", "color": "#787878" } ],
+				"intGridValues": [ { "identifier": "Wall", "color": "#000000" }, { "identifier": "Floor", "color": "#787878" }, { "identifier": "Desk", "color": "#7A5B05" } ],
 				"autoTilesetDefUid": null,
 				"autoRuleGroups": [],
 				"autoSourceLayerDefUid": null,
@@ -69,7 +69,7 @@
 				"uid": 5,
 				"width": 24,
 				"height": 24,
-				"color": "#76561E",
+				"color": "#76341E",
 				"renderMode": "Rectangle",
 				"tilesetId": null,
 				"tileId": null,
@@ -220,9 +220,24 @@
 							} ]
 						}
 					] },
-					{ "__identifier": "Employee", "__cx": 9, "__cy": 5, "defUid": 6, "x": 216, "y": 120, "fieldInstances": [
-						{ "__identifier": "timing", "__value": [], "__type": "Array<Int>", "defUid": 10, "realEditorValues": [] },
-						{ "__identifier": "request", "__value": [], "__type": "Array<ExternEnum.RequestType>", "defUid": 17, "realEditorValues": [] }
+					{ "__identifier": "Employee", "__cx": 10, "__cy": 5, "defUid": 6, "x": 240, "y": 120, "fieldInstances": [
+						{
+							"__identifier": "timing",
+							"__value": [ 3 ],
+							"__type": "Array<Int>",
+							"defUid": 10,
+							"realEditorValues": [ { "id": "V_Int", "params": [ 3 ] } ]
+						},
+						{
+							"__identifier": "request",
+							"__value": [ "NeedFiles" ],
+							"__type": "Array<ExternEnum.RequestType>",
+							"defUid": 17,
+							"realEditorValues": [ {
+								"id": "V_String",
+								"params": [ "NeedFiles" ]
+							} ]
+						}
 					] },
 					{ "__identifier": "Copier", "__cx": 11, "__cy": 2, "defUid": 18, "x": 264, "y": 48, "fieldInstances": [] }
 				]
@@ -267,8 +282,8 @@
 					{ "coordId": 26, "v": 0 },
 					{ "coordId": 27, "v": 1 },
 					{ "coordId": 28, "v": 1 },
-					{ "coordId": 29, "v": 0 },
-					{ "coordId": 30, "v": 0 },
+					{ "coordId": 29, "v": 2 },
+					{ "coordId": 30, "v": 2 },
 					{ "coordId": 31, "v": 1 },
 					{ "coordId": 32, "v": 1 },
 					{ "coordId": 33, "v": 1 },
@@ -299,15 +314,15 @@
 					{ "coordId": 58, "v": 1 },
 					{ "coordId": 59, "v": 1 },
 					{ "coordId": 60, "v": 1 },
-					{ "coordId": 61, "v": 0 },
-					{ "coordId": 62, "v": 0 },
+					{ "coordId": 61, "v": 2 },
+					{ "coordId": 62, "v": 2 },
 					{ "coordId": 63, "v": 1 },
 					{ "coordId": 64, "v": 0 },
 					{ "coordId": 65, "v": 0 },
 					{ "coordId": 66, "v": 1 },
 					{ "coordId": 67, "v": 1 },
-					{ "coordId": 68, "v": 0 },
-					{ "coordId": 69, "v": 0 },
+					{ "coordId": 68, "v": 2 },
+					{ "coordId": 69, "v": 2 },
 					{ "coordId": 70, "v": 1 },
 					{ "coordId": 71, "v": 1 },
 					{ "coordId": 72, "v": 1 },

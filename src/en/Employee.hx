@@ -44,13 +44,16 @@ class Employee extends Entity {
 	}
 
 	public function gotItem(object:ObjectType) {
+		switch object {
+			case Coffee: removeRequestType(NeedCoffee);
+			case Files: removeRequestType(NeedFiles);
+			case Photocopy: removeRequestType(CopyFiles);
+		}
+	}
+
+	public function removeRequestType(rt:RequestType) {
 		for (pr in pendingRequest) {
-			if (pr.type == NeedCoffee && object == Coffee) {
-				pendingRequest.remove(pr);
-				level.removeRequestPopup(pr);
-				return;
-			}
-			else if (pr.type == CopyFiles && object == Photocopy) {
+			if (pr.type == rt) {
 				pendingRequest.remove(pr);
 				level.removeRequestPopup(pr);
 				return;
@@ -94,7 +97,13 @@ class Employee extends Entity {
 				switch rtd.request {
 					case NeedCoffee :
 					case NeedFiles : 
-					case CopyFiles, PutFilesAway : addToInventory(Files);
+						if (level.hasDeskAt(cx + 1, cy - 1)) new File(cx + 1, cy - 1, false, this);
+						else if (level.hasDeskAt(cx - 1, cy - 1)) new File(cx - 1, cy - 1, false, this);
+					case CopyFiles, PutFilesAway : 
+						if (level.hasDeskAt(cx + 1, cy - 1)) new File(cx + 1, cy - 1, true);
+						else if (level.hasDeskAt(cx - 1, cy - 1)) new File(cx - 1, cy - 1, true);
+					
+					// addToInventory(Files);
 				}
 				level.showRequestPopup(this, pr);
 			}

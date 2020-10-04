@@ -1,6 +1,6 @@
 
 tiles.png
-size: 65,65
+size: 66,66
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -41,7 +41,7 @@ fxCircle
   index: -1
 iconCoffee
   rotate: false
-  xy: 19, 37
+  xy: 36, 37
   size: 14, 16
   orig: 16, 16
   offset: 2, 0
@@ -55,15 +55,15 @@ iconCopyFiles
   index: -1
 iconFile
   rotate: false
-  xy: 51, 35
+  xy: 52, 35
   size: 13, 16
   orig: 16, 16
   offset: 1, 0
   index: -1
 iconNeedFiles
   rotate: false
-  xy: 35, 37
-  size: 14, 16
+  xy: 19, 37
+  size: 15, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
