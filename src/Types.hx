@@ -11,7 +11,7 @@ typedef PendingRequest = {
 
 enum NPActionType {
     Coffee;
-    Copy;
+    File;
 }
 
 enum RequestType {

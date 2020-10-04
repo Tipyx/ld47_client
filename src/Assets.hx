@@ -21,4 +21,10 @@ class Assets {
 		fontLarge = hxd.Res.fonts.barlow_condensed_medium_regular_32.toFont();
 		tiles = dn.heaps.assets.Atlas.load("atlas/tiles.atlas");
 	}
+
+	public static function GET_ICON_FOR_REQUEST(rt:RequestType):String {
+		return switch (rt) {
+			case NeedCoffee: "iconCoffee";
+		}
+	}
 }

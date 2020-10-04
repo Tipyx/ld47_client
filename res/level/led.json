@@ -179,7 +179,15 @@
 							} ]
 						}
 					] },
-					{ "__identifier": "Player", "__cx": 8, "__cy": 1, "defUid": 4, "x": 128, "y": 16, "fieldInstances": [] }
+					{ "__identifier": "Player", "__cx": 8, "__cy": 1, "defUid": 4, "x": 128, "y": 16, "fieldInstances": [] },
+					{ "__identifier": "Employee", "__cx": 4, "__cy": 6, "defUid": 6, "x": 64, "y": 96, "fieldInstances": [
+						{ "__identifier": "timing", "__value": [], "__type": "Array<Int>", "defUid": 10, "realEditorValues": [] },
+						{ "__identifier": "request", "__value": [], "__type": "Array<ExternEnum.RequestType>", "defUid": 17, "realEditorValues": [] }
+					] },
+					{ "__identifier": "Employee", "__cx": 11, "__cy": 6, "defUid": 6, "x": 176, "y": 96, "fieldInstances": [
+						{ "__identifier": "timing", "__value": [], "__type": "Array<Int>", "defUid": 10, "realEditorValues": [] },
+						{ "__identifier": "request", "__value": [], "__type": "Array<ExternEnum.RequestType>", "defUid": 17, "realEditorValues": [] }
+					] }
 				]
 			},
 			{

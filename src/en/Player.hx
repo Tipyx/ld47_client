@@ -80,7 +80,7 @@ class Player extends Entity {
 	}
 
 	function onReachEnd() {
-		level.newTurn();
+		level.endNewTurn();
 	}
 
 	override function update() {
@@ -99,6 +99,9 @@ class Player extends Entity {
 					nextCPoint = new CPoint(cx, cy - 1);
 				else if (game.ca.downPressed() && !level.hasCollisionAt(cx, cy + 1))
 					nextCPoint = new CPoint(cx, cy + 1);
+
+				if (nextCPoint != null)
+					level.startNewTurn();
 			}
 	
 			if (nextCPoint != null) {

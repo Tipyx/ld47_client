@@ -26,9 +26,6 @@ class TitleScreen extends dn.Process {
 
         flow.addSpacing(50);
 
-        titaBtn = new Button("Tita", Main.ME.showDebugTita);
-        flow.addChild(titaBtn);
-
         tipyxBtn = new Button("Tipyx", Main.ME.showDebugTipyx);
         flow.addChild(tipyxBtn);
         

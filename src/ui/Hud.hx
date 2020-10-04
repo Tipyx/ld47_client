@@ -46,11 +46,10 @@ class Hud extends dn.Process {
 
 		inventoryFlow.removeChildren();
 		for (type in level.player.inventory) {
-			var color = switch type {
-				case Coffee: 0x865528;
-				case Files: 0xeedc8c;
+			switch (type) {
+				case Coffee : Assets.tiles.h_get("iconCoffee", inventoryFlow);
+				case Files : Assets.tiles.h_get("iconFile", inventoryFlow);
 			}
-			new h2d.Bitmap(h2d.Tile.fromColor(color, 20, 20), inventoryFlow);
 		}
 
 		onResize();

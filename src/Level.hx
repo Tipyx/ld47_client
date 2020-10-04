@@ -16,7 +16,7 @@ class Level extends dn.Process {
 
 	public var arEmployee : Array<en.Employee>;
 
-	var arActionPopups : Array<ui.ActionPopup>;
+	public var arActionPopups : Array<ui.ActionPopup>;
 	var arRequestPopups : Array<ui.RequestPopup>;
 
 	public function new(lvlInfo:Data.LevelInfo) {
@@ -87,7 +87,7 @@ class Level extends dn.Process {
 				if (e.f_timing.length != e.f_request.length)
 					throw "There is not the same number of timing and request for an employee";
 				
-				var em = new en.Employee(e.cx, e.cy);
+				var em = new en.Employee(e.cx, e.cy, arEmployee.length);
 				arEmployee.push(em);
 				for (i in 0...e.f_timing.length) {
 					em.addRequest(e.f_timing[i], e.f_request[i]);
@@ -110,7 +110,8 @@ class Level extends dn.Process {
 		else if (entity.is(en.Employee) && entitiesAreNearEachOther(player, entity)) {
 			if (player.hasInInventory(Coffee)) {
 				showActionPopup(entity, "Give Coffee", function(ap){
-					removeActionPopup(ap);
+					// removeActionPopup(ap);
+					ap.hide();
 					player.giveItemTo(Coffee, entity.as(en.Employee));
 				});
 			}
@@ -119,14 +120,8 @@ class Level extends dn.Process {
 
 	function showActionPopup(entity:Entity, str:String, cb:ui.ActionPopup->Void) {
 		var ap = new ui.ActionPopup(entity, str, cb);
-		ap.setPosition(entity.headX - (ap.wid >> 1), entity.headY - ap.hei);
 		game.scroller.add(ap, Const.DP_UI);
 		arActionPopups.push(ap);
-	}
-
-	public function removeActionPopup(ap:ui.ActionPopup) {
-		ap.remove();
-		arActionPopups.remove(ap);
 	}
 
 	public function showRequestPopup(entity:Entity, request:PendingRequest) {
@@ -148,16 +143,19 @@ class Level extends dn.Process {
 		checkEnd();
 	}
 
-	public function newTurn() {
+	public function startNewTurn() {
+		for (popup in arActionPopups.copy()) {
+			popup.startNewTurn();
+		}
+	}
+
+	public function endNewTurn() {
 		currentTU++;
 
 		for (employee in arEmployee) {
 			employee.onNewTurn();
 		}
 
-		for (popup in arActionPopups.copy()) {
-			popup.onNewTurn();
-		}
 		for (popup in arRequestPopups.copy()) {
 			popup.onNewTurn();
 		}

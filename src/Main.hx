@@ -118,8 +118,7 @@ class Main extends dn.Process {
 	}
 
 	public function showDebugTita() {
-		clean();
-		startNotepad();
+		
 	}
 
 	public function showDebugTipyx() {

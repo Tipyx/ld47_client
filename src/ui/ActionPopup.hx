@@ -20,11 +20,25 @@ class ActionPopup extends h2d.Layers {
 		this.addChild(btn);
 
 		btn.setPosition((wid - btn.wid) >> 1, (hei - btn.hei) >> 1);
+
+		this.setPosition(linkedEntity.headX - (wid >> 1), linkedEntity.headY - hei);
+
+		level.tw.createS(this.alpha, 0 > 1, 0.2);
+		this.y += 5;
+		level.tw.createS(this.y, this.y - 5 , 0.2);
 	}
 
-	public function onNewTurn() {
-		if (!level.entitiesAreNearEachOther(level.player, linkedEntity))
-			level.removeActionPopup(this);
+	public function hide() {
+		level.tw.createS(this.alpha, 0, 0.2);
+		level.tw.createS(this.y, this.y - 5 , 0.2).onEnd = function() {
+			remove();
+			level.arActionPopups.remove(this);
+		}
+	}
+
+	public function startNewTurn() {
+		// if (!level.entitiesAreNearEachOther(level.player, linkedEntity))
+			hide();
 	}
 
 }

@@ -14,7 +14,7 @@ class CoffeeMaker extends Entity {
 
 		var inter = new h2d.Interactive(Const.GRID, Const.GRID, spr);
 		inter.setPosition(-(Const.GRID >> 1), -(Const.GRID >> 1));
-		inter.backgroundColor = 0x55FF00FF;
+		// inter.backgroundColor = 0x55FF00FF;
 
 		inter.onClick = (e)->level.onClickEntity(this);
 	}

@@ -4,20 +4,21 @@ class Employee extends Entity {
 
 	var requestsToDo : Array<{tu:Int, request:RequestType}>;
 	var pendingRequest : Array<PendingRequest>;
+
+	public var id : Int;
 	
-	public function new(cx, cy) {
+	public function new(cx, cy, id:Int) {
 		super(cx, cy);
 
 		xr = 0.5;
 		yr = 0.5;
 
-		spr.set("fxCircle");
+		spr.set("employee", id);
 		spr.setCenterRatio(0.5, 0.5);
-		spr.colorize(0x583018);
 
 		var inter = new h2d.Interactive(Const.GRID, Const.GRID, spr);
 		inter.setPosition(-(Const.GRID >> 1), -(Const.GRID >> 1));
-		inter.backgroundColor = 0x55FF00FF;
+		// inter.backgroundColor = 0x55FF00FF;
 
 		inter.onClick = (e)->level.onClickEntity(this);
 
