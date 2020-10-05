@@ -29,8 +29,11 @@ class ChangeActionTypeIcon extends h2d.Layers {
         flow.minHeight = Notepad.HEIGHT_BTN;
 
         var interMinus = new h2d.Interactive(24, 24, flow);
-        interMinus.backgroundColor = 0xFFFF00FF;
+        interMinus.backgroundColor = 0xFFF0E68C;
         interMinus.onClick = (e)->retrieveNumber(1);
+        var minus = new h2d.Text(Assets.fontPixel, interMinus);
+        minus.text = '<';
+        minus.setPosition((interMinus.width - minus.textWidth) / 2, (interMinus.height - minus.textHeight) / 2);
 
         flow.getProperties(interMinus).horizontalAlign = Left;
 
@@ -44,8 +47,11 @@ class ChangeActionTypeIcon extends h2d.Layers {
         updateIconText();
 
         var interPlus = new h2d.Interactive(24, 24, flow);
-        interPlus.backgroundColor = 0xFFFF00FF;
+        interPlus.backgroundColor = 0xFFF0E68C;
         interPlus.onClick = (e)->addNumber(1);
+        var plus = new h2d.Text(Assets.fontPixel, interPlus);
+        plus.text = '>';
+        plus.setPosition((interPlus.width - plus.textWidth) / 2, (interPlus.height - plus.textHeight) / 2);
 
         flow.getProperties(interPlus).horizontalAlign = Right;
     }

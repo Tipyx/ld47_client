@@ -34,16 +34,22 @@ class ChangeTU extends h2d.Layers {
         var flowMinusOne = new h2d.Flow(flowMinus);
         flowMinusOne.minHeight = Std.int(flowMinus.minHeight / 2);
         var interMinusOne = new h2d.Interactive(24, 16, flowMinusOne);
-        interMinusOne.backgroundColor = 0xFFFF00FF;
+        interMinusOne.backgroundColor = 0xFFF0E68C;
         interMinusOne.onClick = (e)->retrieveNumber(1);
         flowMinusOne.getProperties(interMinusOne).verticalAlign = Middle;
+        var minusOne = new h2d.Text(Assets.fontPixel, interMinusOne);
+        minusOne.text = '-1';
+        minusOne.setPosition((interMinusOne.width - minusOne.textWidth) / 2, (interMinusOne.height - minusOne.textHeight) / 2);
 
         var flowMinusTen = new h2d.Flow(flowMinus);
         flowMinusTen.minHeight = Std.int(flowMinus.minHeight / 2);
         var interMinusTen = new h2d.Interactive(24, 16, flowMinusTen);
-        interMinusTen.backgroundColor = 0xFFFF00FF;
+        interMinusTen.backgroundColor = 0xFFF0E68C;
         interMinusTen.onClick = (e)->retrieveNumber(10);
         flowMinusTen.getProperties(interMinusTen).verticalAlign = Middle;
+        var minusTen = new h2d.Text(Assets.fontPixel, interMinusTen);
+        minusTen.text = '-10';
+        minusTen.setPosition((interMinusTen.width - minusTen.textWidth) / 2, (interMinusTen.height - minusTen.textHeight) / 2);
 
         flow.getProperties(flowMinus).horizontalAlign = Left;
 
@@ -63,16 +69,22 @@ class ChangeTU extends h2d.Layers {
         var flowPlusOne = new h2d.Flow(flowPlus);
         flowPlusOne.minHeight = Std.int(flowPlus.minHeight / 2);
         var interPlusOne = new h2d.Interactive(24, 16, flowPlusOne);
-        interPlusOne.backgroundColor = 0xFFFF00FF;
+        interPlusOne.backgroundColor = 0xFFF0E68C;
         interPlusOne.onClick = (e)->addNumber(1);
         flowPlusOne.getProperties(interPlusOne).verticalAlign = Middle;
+        var plusOne = new h2d.Text(Assets.fontPixel, interPlusOne);
+        plusOne.text = '+1';
+        plusOne.setPosition((interPlusOne.width - plusOne.textWidth) / 2, (interPlusOne.height - plusOne.textHeight) / 2);
 
         var flowPlusTen = new h2d.Flow(flowPlus);
         flowPlusTen.minHeight = Std.int(flowPlus.minHeight / 2);
         var interPlusTen = new h2d.Interactive(24, 16, flowPlusTen);
-        interPlusTen.backgroundColor = 0xFFFF00FF;
+        interPlusTen.backgroundColor = 0xFFF0E68C;
         interPlusTen.onClick = (e)->addNumber(10);
         flowPlusTen.getProperties(interPlusTen).verticalAlign = Middle;
+        var plusTen = new h2d.Text(Assets.fontPixel, interPlusTen);
+        plusTen.text = '+10';
+        plusTen.setPosition((interPlusTen.width - plusTen.textWidth) / 2, (interPlusTen.height - plusTen.textHeight) / 2);
 
         flow.getProperties(flowPlus).horizontalAlign = Right;
     }
