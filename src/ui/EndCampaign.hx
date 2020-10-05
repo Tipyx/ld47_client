@@ -13,16 +13,17 @@ class EndCampaign extends dn.Process {
 
         flow = new h2d.Flow(root);
 		flow.layout = Vertical;
-		flow.verticalSpacing = 20;
+		flow.verticalSpacing = 40;
 		flow.horizontalAlign = Middle;
         
-        var congrats = new h2d.Text(Assets.fontPixel, flow);
+        var congrats = new h2d.Text(Assets.fontExpress18, flow);
 		congrats.text = 'Congratulations!';
-		congrats.setScale(Const.SCALE);
-
-		var endCampaign = new h2d.Text(Assets.fontPixel, flow);
+		
+		var endCampaign = new h2d.Text(Assets.fontExpress9, flow);
 		endCampaign.text = 'You finished the Campaign!';
-		endCampaign.setScale(Const.SCALE);
+
+		var endCampaign = new h2d.Text(Assets.fontExpress9, flow);
+		endCampaign.text = '"Now I\'m ready for the real world!!"';
 
 		flow.addSpacing(20);
 

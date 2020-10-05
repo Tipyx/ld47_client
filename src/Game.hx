@@ -80,7 +80,10 @@ class Game extends Process {
 	public function showEndLevel(levelisSuccessed:Bool) {
 		Const.SAVE_PROGRESS();
 
-		new ui.EndLevel(levelisSuccessed);
+		if (levelisSuccessed && levelsToDo.length == 0)
+			new EndCampaign();
+		else
+			new ui.EndLevel(levelisSuccessed);
 
 		level.destroy();
 		hud.destroy();
