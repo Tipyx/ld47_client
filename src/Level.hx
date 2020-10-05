@@ -127,6 +127,7 @@ class Level extends dn.Process {
 								ap.hide();
 								if (!player.inventoryIsFull) {
 									player.addToInventory(Coffee);
+									// new dn.heaps.Sfx(hxd.Res.sfx.coffeeGrinder).playOnGroup(VolumeGroup.CoffeeGrinder.getIndex());
 									startNewTurn();
 									endNewTurn();
 								}
@@ -248,7 +249,7 @@ class Level extends dn.Process {
 								}
 				});
 			}
-			var photocopies = player.getPhotocopyToBeGiven();
+			var photocopies = player.getPhotocopyToBeGivenTo(emp);
 			if (emp.hasRequest(NeedPhotocopies)) {
 				actions.push({	str:"Give Photocopies",
 								isEnable:photocopies != null && photocopies.linkedEmployee == emp,

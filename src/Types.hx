@@ -40,3 +40,14 @@ typedef Object = {
 	var type : ObjectType;
 	var linkedEmployee : Null<en.Employee>;
 }
+
+enum VolumeGroup {
+	@volume(0.5) CoffeeGrinder;
+// 	@volume(0.45) ClickTile;
+// 	@volume(0.75) ClickButton;
+// 	@volume(0.75) WrongTile;
+// 	@volume(0.75) Whoosh;
+// 	@volume(1) FieldAppear;
+// 	@volume(1) Music;
+// 	@volume(0.75) Defeat;
+}

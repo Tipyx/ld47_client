@@ -16,6 +16,11 @@ class Assets {
 		fontExpress9 = hxd.Res.fonts.chevyray_express_regular_9.toFont();
 		fontExpress18 = hxd.Res.fonts.chevyray_express_regular_18.toFont();
 		tiles = dn.heaps.assets.Atlas.load("atlas/tiles.atlas");
+
+		for (vg in VolumeGroup.createAll()) {
+			// if (vg != VolumeGroup.Music)
+				dn.heaps.Sfx.setGroupVolume(vg.getIndex(), dn.Lib.getEnumMetaFloat(vg, "volume") /* * OPTIONS_DATA.SFX_VOLUME */);
+		}
 	}
 
 	public static function GET_ICON_FOR_REQUEST(rt:RequestType):String {

@@ -78,9 +78,9 @@ class Player extends Entity {
 		return null;
 	}
 
-	public function getPhotocopyToBeGiven():Null<Object> {
+	public function getPhotocopyToBeGivenTo(emp:Employee):Null<Object> {
 		for (object in inventory) {
-			if (object.type == Photocopy && object.linkedEmployee != null && object.linkedEmployee.hasRequest(NeedPhotocopies))
+			if (object.type == Photocopy && object.linkedEmployee == emp && object.linkedEmployee.hasRequest(NeedPhotocopies))
 				return object;
 		}
 
