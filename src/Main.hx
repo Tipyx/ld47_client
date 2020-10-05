@@ -78,14 +78,8 @@ class Main extends dn.Process {
 	}
 
 	public function startTitleScreen() {
-		if( TitleScreen.ME!=null ) {
-			TitleScreen.ME.destroy();
-			delayer.addF(function() {
-				new TitleScreen();
-			}, 1);
-		}
-		else
-			new TitleScreen();
+		clean();
+		new TitleScreen();
 	}
 
 	public function startGame(debug:Bool) {

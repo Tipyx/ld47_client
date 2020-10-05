@@ -1,3 +1,5 @@
+import ui.EndCampaign;
+import ui.EndLevel;
 import ui.UpgradePlayer;
 import dn.Process;
 import hxd.Key;
@@ -138,6 +140,12 @@ class Game extends Process {
 					level.destroy();
 					hud.destroy();
 					new UpgradePlayer();
+				}
+
+				if( ca.isKeyboardPressed(Key.F2) ) {
+					level.destroy();
+					hud.destroy();
+					new EndCampaign();
 				}
 			#end
 
