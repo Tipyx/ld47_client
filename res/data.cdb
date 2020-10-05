@@ -26,21 +26,21 @@
 				{
 					"ID": "Level_1",
 					"maximumScore": 31,
-					"isDebug": false
+					"isDebug": true
 				},
 				{
 					"ID": "Level_2",
-					"isDebug": false,
+					"isDebug": true,
 					"maximumScore": 29
 				},
 				{
 					"ID": "Level_3",
-					"isDebug": false,
+					"isDebug": true,
 					"maximumScore": 38
 				},
 				{
 					"ID": "Level_4",
-					"isDebug": false,
+					"isDebug": true,
 					"maximumScore": 51
 				},
 				{
