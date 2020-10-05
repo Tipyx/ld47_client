@@ -115,7 +115,12 @@ class Main extends dn.Process {
 		
 	}
 
-	public function showDebugTipyx() {
+	/* public function showDebugTipyx() {
+		clean();
+		startGame(true);
+	} */
+
+	public function start() {
 		clean();
 		startGame(true);
 	}

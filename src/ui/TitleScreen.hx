@@ -9,7 +9,8 @@ class TitleScreen extends dn.Process {
     var flow : h2d.Flow;
 	var title : h2d.Text;
 	var titaBtn : Button;
-    var tipyxBtn : Button;
+    // var tipyxBtn : Button;
+    var startBtn : Button;
 
     var controlLock(default, null) = false;
     
@@ -35,16 +36,21 @@ class TitleScreen extends dn.Process {
 
         flow.addSpacing(50);
 
-        tipyxBtn = new Button("Tipyx", onClickBtn);
-        flow.addChild(tipyxBtn);
+        // tipyxBtn = new Button("Tipyx", onClickBtn);
+        // flow.addChild(tipyxBtn);
+
+        startBtn = new Button("Start", onClickBtn);
+        flow.addChild(startBtn);
         
         onResize();
 
-        tipyxBtn.x -= w() / Const.SCALE;
+        // tipyxBtn.x -= w() / Const.SCALE;
+        startBtn.x -= w() / Const.SCALE;
 
         cinematic.create({
             tw.createS(title.alpha, 0>1, 0.5);
-            tw.createS(tipyxBtn.x, tipyxBtn.x + (w() / Const.SCALE), 0.45);
+            // tw.createS(tipyxBtn.x, tipyxBtn.x + (w() / Const.SCALE), 0.45);
+            tw.createS(startBtn.x, startBtn.x + (w() / Const.SCALE), 0.45);
         });
     }
 
@@ -53,9 +59,10 @@ class TitleScreen extends dn.Process {
 		controlLock = true;
 		cinematic.create({
             tw.createS(title.alpha, 0, 0.5);
-            tw.createS(tipyxBtn.x, tipyxBtn.x + (w() / Const.SCALE), 0.45).end(()->cinematic.signal());
+            // tw.createS(tipyxBtn.x, tipyxBtn.x + (w() / Const.SCALE), 0.45).end(()->cinematic.signal());
+            tw.createS(startBtn.x, startBtn.x + (w() / Const.SCALE), 0.45).end(()->cinematic.signal());
             end;
-			Main.ME.showDebugTipyx();
+			Main.ME.start();
 		});
 	}
 
