@@ -36,7 +36,7 @@ class Const {
 		PLAYER_DATA = dn.LocalStorage.readObject("playerData", {maximumNotepadEntry:3,
 																maximumInventoryStorage:2,
 																planningDatas:new Map(),
-																xp:100,
+																xp:0,
 																nextCostInventory:1,
 																nextCostNotepad:1});
 	}
