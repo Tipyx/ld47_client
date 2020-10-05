@@ -188,6 +188,7 @@ class Level extends dn.Process {
 								else if (!player.inventoryIsFull) {
 									player.addToInventory(Photocopy, files.linkedEmployee);
 									files.linkedEmployee = null;
+									new dn.heaps.Sfx(hxd.Res.sfx.photocopy).playOnGroup(VolumeGroup.Photocopy.getIndex());
 									startNewTurn();
 									endNewTurn();
 								}
@@ -225,6 +226,8 @@ class Level extends dn.Process {
 									ap.hide();
 									player.removeObject(files);
 									entity.as(en.File).isGivenToEmployee();
+									startNewTurn();
+									endNewTurn();
 								}
 				});
 			}
