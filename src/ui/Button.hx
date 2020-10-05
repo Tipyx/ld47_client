@@ -26,7 +26,7 @@ class Button extends h2d.Layers {
         // inter.backgroundColor = 0xFF888888;
 		inter.onClick = (e)->onClick();
 
-		text = new h2d.Text(Assets.fontPixel, this);
+		text = new h2d.Text(Assets.fontExpress9, this);
 		text.text = str;
 		text.textAlign = Center;
 		text.maxWidth = wid;

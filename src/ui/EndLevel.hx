@@ -13,6 +13,7 @@ class EndLevel extends dn.Process {
 
 	var flow : h2d.Flow;
 	var endLevel : h2d.Text;
+	var numLevel : h2d.Text;
 	var score : h2d.Text;
 	var btn : Button;
 	var upgradeBtn : Button;
@@ -38,8 +39,7 @@ class EndLevel extends dn.Process {
 		flow.verticalSpacing = 20;
 		flow.horizontalAlign = Middle;
 
-		endLevel = new h2d.Text(Assets.fontPixel, flow);
-		endLevel.setScale(Const.SCALE);
+		endLevel = new h2d.Text(Assets.fontExpress18, flow);
 
 		showEndLevel(levelisSuccessed);
 	}
@@ -50,11 +50,10 @@ class EndLevel extends dn.Process {
 
 			flow.addSpacing(30);
 
-			var flowScore = new h2d.Flow(flow);
-			flowScore.layout = Horizontal;
-			flowScore.horizontalSpacing = 20;
+			numLevel = new h2d.Text(Assets.fontExpress9, flow);
+			numLevel.text = 'Level ${level.getLevelNumber()}';
 
-			score = new h2d.Text(Assets.fontPixel, flowScore);
+			score = new h2d.Text(Assets.fontExpress9, flow);
 			score.text = 'Your score: ${level.currentTU}';
 
 			flow.addSpacing(30);
@@ -67,6 +66,7 @@ class EndLevel extends dn.Process {
 
 			onResize();
 
+			numLevel.x -= w() / Const.SCALE;
 			score.x -= w() / Const.SCALE;
 			btn.x += w() / Const.SCALE;
 			upgradeBtn.x -= w() / Const.SCALE;
@@ -78,6 +78,11 @@ class EndLevel extends dn.Process {
 
 			flow.addSpacing(20);
 
+			numLevel = new h2d.Text(Assets.fontExpress9, flow);
+			numLevel.text = 'Level ${level.getLevelNumber()}';
+
+			flow.addSpacing(20);
+
 			upgradeBtn = new Button("Upgrades", goToUpgradeScreen.bind(levelisSuccessed));
 			flow.addChild(upgradeBtn);
 
@@ -86,6 +91,7 @@ class EndLevel extends dn.Process {
 
 			onResize();
 
+			numLevel.x -= w() / Const.SCALE;
 			btn.x -= w() / Const.SCALE;
 			upgradeBtn.x += w() / Const.SCALE;
 
@@ -113,6 +119,7 @@ class EndLevel extends dn.Process {
 			controlLock = true;
 			cinematic.create({
 				tw.createS(endLevel.alpha, 0, 0.5);
+				tw.createS(numLevel.x, numLevel.x - (w() / Const.SCALE), 0.5);
 				tw.createS(score.x, score.x - (w() / Const.SCALE), 0.5);
 				tw.createS(btn.x, btn.x + (w() / Const.SCALE), 0.5);
 				tw.createS(upgradeBtn.x, upgradeBtn.x - (w() / Const.SCALE), 0.5).end(()->cinematic.signal());
@@ -125,6 +132,7 @@ class EndLevel extends dn.Process {
 			controlLock = true;
 			cinematic.create({
 				tw.createS(endLevel.alpha, 0, 0.5);
+				tw.createS(numLevel.x, numLevel.x - (w() / Const.SCALE), 0.5);
 				tw.createS(upgradeBtn.x, upgradeBtn.x + (w() / Const.SCALE), 0.5);
 				tw.createS(btn.x, btn.x - (w() / Const.SCALE), 0.5).end(()->cinematic.signal());
 				end;
@@ -138,6 +146,7 @@ class EndLevel extends dn.Process {
 		controlLock = true;
 		cinematic.create({
 			tw.createS(endLevel.alpha, 0, 0.5);
+			tw.createS(numLevel.x, numLevel.x - (w() / Const.SCALE), 0.5);
 			tw.createS(upgradeBtn.x, upgradeBtn.x + (w() / Const.SCALE), 0.5);
 			tw.createS(btn.x, btn.x - (w() / Const.SCALE), 0.5).end(()->cinematic.signal());
 			end;
@@ -152,6 +161,8 @@ class EndLevel extends dn.Process {
 		cinematic.create({
 			tw.createS(endLevel.alpha, 0>1, 0.5).end(()->cinematic.signal());
 			end;
+			tw.createS(numLevel.x, numLevel.x + (w() / Const.SCALE), 0.5).end(()->cinematic.signal());
+			end;
 			tw.createS(upgradeBtn.x, upgradeBtn.x - (w() / Const.SCALE), 0.5).end(()->cinematic.signal());
 			end;
 			tw.createS(btn.x, btn.x + (w() / Const.SCALE), 0.5);
@@ -163,6 +174,8 @@ class EndLevel extends dn.Process {
 
 		cinematic.create({
 			tw.createS(endLevel.alpha, 0>1, 0.5).end(()->cinematic.signal());
+			end;
+			tw.createS(numLevel.x, numLevel.x + (w() / Const.SCALE), 0.5).end(()->cinematic.signal());
 			end;
 			tw.createS(score.x, score.x + (w() / Const.SCALE), 0.5).end(()->cinematic.signal());
 			end;

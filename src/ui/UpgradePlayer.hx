@@ -40,13 +40,12 @@ class UpgradePlayer extends dn.Process {
         flow.minWidth = 250;
         flow.horizontalAlign = Middle;
 
-        upgrade = new h2d.Text(Assets.fontPixel, flow);
-        upgrade.setScale(Const.SCALE);
+        upgrade = new h2d.Text(Assets.fontExpress18, flow);
         upgrade.text = "UPGRADES";
 
         flow.addSpacing(20);
 
-        currentPoints = new h2d.Text(Assets.fontPixel, flow);
+        currentPoints = new h2d.Text(Assets.fontExpress9, flow);
         currentPoints.text = 'Current Points : ${Const.PLAYER_DATA.xp}';
         flow.getProperties(currentPoints).horizontalAlign = Left;
 
@@ -58,7 +57,7 @@ class UpgradePlayer extends dn.Process {
         flowInventory.verticalAlign = Middle;
         flowInventory.minWidth = flow.minWidth;
 
-        currentInventory = new h2d.Text(Assets.fontPixel, flowInventory);
+        currentInventory = new h2d.Text(Assets.fontExpress9, flowInventory);
         currentInventory.text = 'Current Inventory Places : ${Const.PLAYER_DATA.maximumInventoryStorage}';
         flowInventory.getProperties(currentInventory).horizontalAlign = Left;
 
@@ -79,7 +78,7 @@ class UpgradePlayer extends dn.Process {
         flowNotepad.verticalAlign = Middle;
         flowNotepad.minWidth = flow.minWidth;
 
-        currentNotepad = new h2d.Text(Assets.fontPixel, flowNotepad);
+        currentNotepad = new h2d.Text(Assets.fontExpress9, flowNotepad);
         currentNotepad.text = 'Current Notepad Ligns : ${Const.PLAYER_DATA.maximumNotepadEntry}';
         flowNotepad.getProperties(currentNotepad).horizontalAlign = Left;
 

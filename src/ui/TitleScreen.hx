@@ -30,9 +30,8 @@ class TitleScreen extends dn.Process {
         flow.horizontalAlign = Middle;
         flow.verticalSpacing = 20;
 
-        title = new h2d.Text(Assets.fontPixel, flow);
+        title = new h2d.Text(Assets.fontExpress18, flow);
         title.text = "The Perfect Day";
-        title.setScale(Const.SCALE);
 
         flow.addSpacing(50);
 

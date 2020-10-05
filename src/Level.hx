@@ -130,6 +130,12 @@ class Level extends dn.Process {
 		});
 	}
 
+	public inline function getLevelNumber() {
+		var idLevel = Std.string(lvlInfo.ID);
+		var splitId = idLevel.split("_");
+		return Std.parseInt(splitId[1]);
+	}
+
 	public function onClickEntity(entity:Entity) {
 		if (!entitiesAreNearEachOther(player, entity) || controlLocked)
 			return;
