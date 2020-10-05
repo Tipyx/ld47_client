@@ -42,8 +42,10 @@ class TitleScreen extends dn.Process {
         startBtn = new Button("Start", onClickBtn);
         flow.addChild(startBtn);
 
+		#if debug
         var startDbgBtn = new Button("Start DEBUG", Main.ME.startGame.bind(true));
-        flow.addChild(startDbgBtn);
+		flow.addChild(startDbgBtn);
+		#end
         
         onResize();
 
