@@ -109,8 +109,8 @@ class UpgradePlayer extends dn.Process {
         backBtn.y += h() / Const.SCALE;
 
         cinematic.create({
-            tw.createS(upgrade.alpha, 0>1, 0.4).end(()->cinematic.signal());
-            end;
+            tw.createS(upgrade.alpha, 0>1, 0.4);
+            200;
             tw.createS(currentPoints.x, currentPoints.x + (w() / Const.SCALE), 0.4);
             200;
             tw.createS(currentInventory.x, currentInventory.x + (w() / Const.SCALE), 0.4);
