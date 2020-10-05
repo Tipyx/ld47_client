@@ -36,7 +36,8 @@ class ActionPopup extends h2d.Layers {
 		bg.scaleX = wid = flow.outerWidth;
 		bg.scaleY = hei = flow.outerHeight;
 
-		this.setPosition(linkedEntity.headX - (wid >> 1), linkedEntity.headY - hei);
+		// this.setPosition(linkedEntity.headX - (wid >> 1), linkedEntity.headY - hei);
+		this.setPosition((linkedEntity.cx + 0.5) * Const.GRID - (wid >> 1), (linkedEntity.cy + 0.5 - 1) * Const.GRID - hei);
 
 		level.tw.createS(this.alpha, 0 > 1, 0.2);
 		this.y += 5;

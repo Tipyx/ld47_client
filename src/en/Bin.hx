@@ -8,9 +8,8 @@ class Bin extends Entity {
 		xr = 0.5;
 		yr = 0.5;
 
-		spr.set("fxCircle");
+		spr.set("bin");
 		spr.setCenterRatio(0.5, 0.5);
-		spr.colorize(0xd887e3);
 
 		var inter = new h2d.Interactive(Const.GRID, Const.GRID, spr);
 		inter.setPosition(-(Const.GRID >> 1), -(Const.GRID >> 1));

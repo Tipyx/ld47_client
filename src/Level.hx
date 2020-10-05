@@ -43,32 +43,14 @@ class Level extends dn.Process {
 			// Get corresponding H2D.Tile from tileset
 			var tile = collisionLayer.tileset.getAutoLayerHeapsTile(tilesetTile, at);
 
+			// collisionLayer.
+
 			// Display it
 			var bitmap = new h2d.Bitmap(tile);
 			root.add(bitmap, Const.DP_BG);
 			bitmap.x = at.renderX; // we use the auto-generated coords directly, because it's easier :)
 			bitmap.y = at.renderY;
 		}
-
-		// var g = new h2d.Graphics();
-		// root.add(g, Const.DP_BG);
-		// g.beginFill(Const.LED_DATA.bgColor_int);
-		// g.drawRect(0, 0, collisionLayer.cWid*collisionLayer.gridSize, collisionLayer.cHei*collisionLayer.gridSize);
-		// g.endFill();
-
-		// for(cx in 0...collisionLayer.cWid)
-		// for(cy in 0...collisionLayer.cHei) {
-		// 	if( !collisionLayer.hasValue(cx,cy) )
-		// 		continue;
-
-		// 	var c = collisionLayer.getColorInt(cx,cy);
-		// 	g.lineStyle(1, 0, 0.5);
-		// 	g.beginFill(c);
-		// 	g.drawRect(cx*collisionLayer.gridSize, cy*collisionLayer.gridSize, collisionLayer.gridSize, collisionLayer.gridSize);
-		// 	if (collisionLayer.getName(cx, cy) == "Floor") {
-		// 		g.lineStyle(1, 0.25);
-		// 	}
-		// }
 
 		pf = new dn.pathfinder.AStar((x, y)->new CPoint(x, y, 0.5, 0.5));
 
@@ -133,6 +115,8 @@ class Level extends dn.Process {
 	public function onClickEntity(entity:Entity) {
 		if (!entitiesAreNearEachOther(player, entity))
 			return;
+
+		player.lookAt(entity.cx, entity.cy);
 
 		var actions : Array<{str:String, onClick:ui.ActionPopup->Void}> = [];
 		if (entity.is(en.CoffeeMaker)) {
@@ -274,6 +258,8 @@ class Level extends dn.Process {
 		for (popup in arRequestPopups.copy()) {
 			popup.onNewTurn();
 		}
+
+		game.scroller.ysort(Const.DP_MAIN);
 
 		game.hud.invalidate();
 

@@ -5,7 +5,7 @@ class Player extends Entity {
 	var currentPath : Array<CPoint> = null;
 	var nextCPoint : CPoint = null;
 
-	var speed = 0.2; // case per frame
+	var speed = 0.1; // case per frame
 
 	public var inventory(default, null) : Array<Object>;
 
@@ -19,9 +19,8 @@ class Player extends Entity {
 		xr = 0.5;
 		yr = 0.5;
 
-		spr.set("fxCircle");
-		spr.setCenterRatio(0.5, 0.5);
-		spr.colorize(0xFF0000);
+		spr.set("playerFront");
+		spr.setCenterRatio(0.5, 0.75);
 
 		inventory = [];
 	}
@@ -135,6 +134,17 @@ class Player extends Entity {
 		level.endNewTurn();
 	}
 
+	public function lookAt(tx:Int, ty:Int) {
+		if (tx == cx + 1)
+			spr.set("playerSideRight");
+		else if (tx == cx - 1)
+			spr.set("playerSideLeft");
+		else if (ty == cy + 1)
+			spr.set("playerFront");
+		else if (ty == cy - 1)
+			spr.set("playerBack");
+	}
+
 	override function update() {
 		if (game.ca.xPressed())
 			level.paused ? game.hideNotepad() : game.showNotepad();
@@ -150,8 +160,10 @@ class Player extends Entity {
 				else if (game.ca.downPressed() && !level.hasCollisionAt(cx, cy + 1))
 					nextCPoint = new CPoint(cx, cy + 1);
 
-				if (nextCPoint != null)
+				if (nextCPoint != null) {
+					lookAt(nextCPoint.cx, nextCPoint.cy);
 					level.startNewTurn();
+				}
 			}
 
 			if (isMoving) {

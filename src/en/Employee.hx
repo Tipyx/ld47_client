@@ -17,8 +17,8 @@ class Employee extends Entity {
 		xr = 0.5;
 		yr = 0.5;
 
-		spr.set("employee", id);
-		spr.setCenterRatio(0.5, 0.5);
+		spr.set("employeeFront", id);
+		spr.setCenterRatio(0.5, 0.75);
 
 		var inter = new h2d.Interactive(Const.GRID, Const.GRID, spr);
 		inter.setPosition(-(Const.GRID >> 1), -(Const.GRID >> 1));

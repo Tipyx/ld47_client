@@ -1,83 +1,195 @@
 
 tiles.png
-size: 66,66
+size: 145,145
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-employee0
+bin
+  rotate: false
+  xy: 27, 120
+  size: 18, 22
+  orig: 24, 24
+  offset: 3, 1
+  index: -1
+coffeeMaker
   rotate: false
   xy: 1, 1
-  size: 16, 16
-  orig: 16, 16
+  size: 24, 52
+  orig: 24, 52
   offset: 0, 0
   index: -1
-employee1
+copier
   rotate: false
-  xy: 1, 19
-  size: 16, 16
-  orig: 16, 16
+  xy: 1, 55
+  size: 24, 48
+  orig: 24, 48
   offset: 0, 0
   index: -1
-employee2
+cupboard
   rotate: false
-  xy: 1, 37
-  size: 16, 16
-  orig: 16, 16
+  xy: 27, 1
+  size: 22, 47
+  orig: 22, 47
   offset: 0, 0
   index: -1
-employee3
+employeeFront0
   rotate: false
-  xy: 19, 1
-  size: 16, 16
-  orig: 16, 16
+  xy: 1, 105
+  size: 24, 33
+  orig: 24, 33
+  offset: 0, 0
+  index: -1
+employeeFront1
+  rotate: false
+  xy: 51, 1
+  size: 24, 33
+  orig: 24, 33
+  offset: 0, 0
+  index: -1
+employeeFront2
+  rotate: false
+  xy: 77, 1
+  size: 24, 33
+  orig: 24, 33
+  offset: 0, 0
+  index: -1
+employeeFront3
+  rotate: false
+  xy: 103, 1
+  size: 24, 33
+  orig: 24, 33
+  offset: 0, 0
+  index: -1
+employeeSideLeft0
+  rotate: false
+  xy: 27, 50
+  size: 24, 33
+  orig: 24, 33
+  offset: 0, 0
+  index: -1
+employeeSideLeft1
+  rotate: false
+  xy: 27, 85
+  size: 24, 33
+  orig: 24, 33
+  offset: 0, 0
+  index: -1
+employeeSideLeft2
+  rotate: false
+  xy: 53, 36
+  size: 24, 33
+  orig: 24, 33
+  offset: 0, 0
+  index: -1
+employeeSideLeft3
+  rotate: false
+  xy: 53, 71
+  size: 24, 33
+  orig: 24, 33
+  offset: 0, 0
+  index: -1
+employeeSideRight0
+  rotate: false
+  xy: 79, 36
+  size: 24, 33
+  orig: 24, 33
+  offset: 0, 0
+  index: -1
+employeeSideRight1
+  rotate: false
+  xy: 79, 71
+  size: 24, 33
+  orig: 24, 33
+  offset: 0, 0
+  index: -1
+employeeSideRight2
+  rotate: false
+  xy: 105, 36
+  size: 24, 33
+  orig: 24, 33
+  offset: 0, 0
+  index: -1
+employeeSideRight3
+  rotate: false
+  xy: 105, 71
+  size: 24, 33
+  orig: 24, 33
   offset: 0, 0
   index: -1
 fxCircle
   rotate: false
-  xy: 37, 1
+  xy: 53, 106
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 iconCoffee
   rotate: false
-  xy: 36, 37
+  xy: 89, 106
   size: 14, 16
   orig: 16, 16
   offset: 2, 0
   index: -1
 iconCopyFiles
   rotate: false
-  xy: 19, 19
+  xy: 71, 106
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 iconFile
   rotate: false
-  xy: 52, 35
+  xy: 47, 124
   size: 13, 16
   orig: 16, 16
   offset: 1, 0
   index: -1
 iconNeedFiles
   rotate: false
-  xy: 19, 37
+  xy: 129, 1
   size: 15, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 iconPhotocopy
   rotate: false
-  xy: 19, 19
+  xy: 71, 106
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 iconPutFilesAway
   rotate: false
-  xy: 37, 19
+  xy: 105, 106
   size: 16, 14
   orig: 16, 16
+  offset: 0, 0
+  index: -1
+playerBack
+  rotate: false
+  xy: 131, 19
+  size: 13, 29
+  orig: 13, 29
+  offset: 0, 0
+  index: -1
+playerFront
+  rotate: false
+  xy: 131, 50
+  size: 13, 29
+  orig: 13, 29
+  offset: 0, 0
+  index: -1
+playerSideLeft
+  rotate: false
+  xy: 131, 81
+  size: 13, 29
+  orig: 13, 29
+  offset: 0, 0
+  index: -1
+playerSideRight
+  rotate: false
+  xy: 123, 112
+  size: 13, 29
+  orig: 13, 29
   offset: 0, 0
   index: -1

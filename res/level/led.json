@@ -11,7 +11,7 @@
 	"defaultPivotY": 0,
 	"defaultGridSize": 24,
 	"bgColor": "#7F8093",
-	"nextUid": 38,
+	"nextUid": 41,
 	"minifyJson": false,
 	"exportTiled": false,
 	"defs": {
@@ -96,6 +96,26 @@
 						"collapsed": false,
 						"rules": [
 							{
+								"uid": 40,
+								"active": true,
+								"size": 3,
+								"tileIds": [ 20 ],
+								"chance": 1,
+								"pattern": [ 0, 1, 2, 1, 1, 1, 0, 1, 0 ],
+								"flipX": true,
+								"flipY": false,
+								"xModulo": 1,
+								"yModulo": 1,
+								"checker": "None",
+								"tileMode": "Single",
+								"pivotX": 0,
+								"pivotY": 0,
+								"perlinActive": false,
+								"perlinSeed": 5021678,
+								"perlinScale": 0.2,
+								"perlinOctaves": 2
+							},
+							{
 								"uid": 36,
 								"active": true,
 								"size": 3,
@@ -112,6 +132,46 @@
 								"pivotY": 0,
 								"perlinActive": false,
 								"perlinSeed": 8974399,
+								"perlinScale": 0.2,
+								"perlinOctaves": 2
+							},
+							{
+								"uid": 39,
+								"active": true,
+								"size": 5,
+								"tileIds": [ 21 ],
+								"chance": 1,
+								"pattern": [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 2, 0 ],
+								"flipX": true,
+								"flipY": false,
+								"xModulo": 1,
+								"yModulo": 1,
+								"checker": "None",
+								"tileMode": "Single",
+								"pivotX": 0,
+								"pivotY": 0,
+								"perlinActive": false,
+								"perlinSeed": 8837968,
+								"perlinScale": 0.2,
+								"perlinOctaves": 2
+							},
+							{
+								"uid": 38,
+								"active": true,
+								"size": 3,
+								"tileIds": [ 10 ],
+								"chance": 1,
+								"pattern": [ 0, 0, 0, 0, 1, 1, 0, 1, 2 ],
+								"flipX": true,
+								"flipY": false,
+								"xModulo": 1,
+								"yModulo": 1,
+								"checker": "None",
+								"tileMode": "Single",
+								"pivotX": 0,
+								"pivotY": 0,
+								"perlinActive": false,
+								"perlinSeed": 372564,
 								"perlinScale": 0.2,
 								"perlinOctaves": 2
 							},
@@ -784,6 +844,25 @@
 						]
 					},
 					{
+						"ruleId": 40,
+						"results": [
+							{
+								"__cx": 1,
+								"__cy": 10,
+								"coordId": 151,
+								"tiles": [ { "tileId": 20, "__x": 24, "__y": 240, "__srcX": 0, "__srcY": 48 } ],
+								"flips": 0
+							},
+							{
+								"__cx": 13,
+								"__cy": 10,
+								"coordId": 163,
+								"tiles": [ { "tileId": 20, "__x": 312, "__y": 240, "__srcX": 0, "__srcY": 48 } ],
+								"flips": 1
+							}
+						]
+					},
+					{
 						"ruleId": 36,
 						"results": [
 							{
@@ -862,6 +941,44 @@
 								"coordId": 162,
 								"tiles": [ { "tileId": 11, "__x": 288, "__y": 240, "__srcX": 24, "__srcY": 24 } ],
 								"flips": 0
+							}
+						]
+					},
+					{
+						"ruleId": 39,
+						"results": [
+							{
+								"__cx": 1,
+								"__cy": 1,
+								"coordId": 16,
+								"tiles": [ { "tileId": 21, "__x": 24, "__y": 24, "__srcX": 24, "__srcY": 48 } ],
+								"flips": 0
+							},
+							{
+								"__cx": 13,
+								"__cy": 1,
+								"coordId": 28,
+								"tiles": [ { "tileId": 21, "__x": 312, "__y": 24, "__srcX": 24, "__srcY": 48 } ],
+								"flips": 1
+							}
+						]
+					},
+					{
+						"ruleId": 38,
+						"results": [
+							{
+								"__cx": 1,
+								"__cy": 2,
+								"coordId": 31,
+								"tiles": [ { "tileId": 10, "__x": 24, "__y": 48, "__srcX": 0, "__srcY": 24 } ],
+								"flips": 0
+							},
+							{
+								"__cx": 13,
+								"__cy": 2,
+								"coordId": 43,
+								"tiles": [ { "tileId": 10, "__x": 312, "__y": 48, "__srcX": 0, "__srcY": 24 } ],
+								"flips": 1
 							}
 						]
 					},
