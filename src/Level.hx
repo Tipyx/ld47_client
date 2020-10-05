@@ -19,10 +19,16 @@ class Level extends dn.Process {
 	public var arActionPopups : Array<ui.ActionPopup>;
 	var arRequestPopups : Array<ui.RequestPopup>;
 
+	var cm : dn.Cinematic;
+
+	public var controlLocked(default, null) : Bool;
+
 	public function new(lvlInfo:Data.LevelInfo) {
 		super(Game.ME);
 
 		this.lvlInfo = lvlInfo;
+
+		cm = new dn.Cinematic(Const.FPS);
 
 		lvlData = Const.LED_DATA.resolveLevel(lvlInfo.ID.toString());
 		if (lvlData == null)
@@ -106,15 +112,26 @@ class Level extends dn.Process {
 
 		arRequestPopups = [];
 		arActionPopups = [];
+
+		controlLocked = true;
 	}
 
 	public function start() {
 		game.camera.trackTarget(player, true);
 		game.hud.invalidate();
+
+		game.scroller.y -= h();
+		cm.create({
+			tw.createS(game.scroller.y, game.scroller.y + h(), 0.5).end(()->cm.signal());
+			end;
+			game.hud.show();
+			500;
+			controlLocked = false;
+		});
 	}
 
 	public function onClickEntity(entity:Entity) {
-		if (!entitiesAreNearEachOther(player, entity))
+		if (!entitiesAreNearEachOther(player, entity) || controlLocked)
 			return;
 
 		player.lookAt(entity.cx, entity.cy);
@@ -341,7 +358,15 @@ class Level extends dn.Process {
 		}
 
 		if (currentTU == lvlInfo.maximumScore || allRequestsCompleted) {
-			game.showEndLevel(allRequestsCompleted);
+			controlLocked = true;
+
+			cm.create({
+				game.hud.hide();
+				500;
+				tw.createS(game.scroller.y, game.scroller.y + h(), 0.5).end(()->cm.signal());
+				end;
+				game.showEndLevel(allRequestsCompleted);
+			});
 		}
 	}
 
@@ -388,6 +413,12 @@ class Level extends dn.Process {
 		for (ap in arActionPopups) {
 			ap.remove();
 		}
+	}
+
+	override function update() {
+		super.update();
+
+		cm.update(tmod);
 	}
 
 	override function postUpdate() {

@@ -102,6 +102,18 @@ class Hud extends dn.Process {
 		}
 	}
 
+	public function show() {
+		root.x = Std.int((game.scroller.x) + game.level.lvlData.pxWid * Const.SCALE + 10) + w() * 0.5;
+		root.y = Std.int(game.scroller.y);
+
+		tw.createS(root.x, root.x - w() * 0.5, 0.5);
+	}
+
+	public function hide() {
+
+		tw.createS(root.x, root.x + w() * 0.5, 0.5);
+	}
+
 	override function onResize() {
 		super.onResize();
 		root.setScale(Const.SCALE);
@@ -112,9 +124,6 @@ class Hud extends dn.Process {
 
 		root.x = Std.int((game.scroller.x) + game.level.lvlData.pxWid * Const.SCALE + 10);
 		root.y = Std.int(game.scroller.y);
-
-		// root.x = game.scroller.x;
-		// root.y = game.scroller.y;
 	}
 
 	public inline function invalidate() invalidated = true;

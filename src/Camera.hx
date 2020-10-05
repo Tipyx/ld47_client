@@ -91,7 +91,7 @@ class Camera extends dn.Process {
 		bumpOffY+=y;
 	}
 
-	public inline function calculateScrollerPosition() {
+	public /* inline */ function calculateScrollerPosition() {
 		var level = Game.ME.level;
 		var scroller = Game.ME.scroller;
 	
@@ -137,8 +137,8 @@ class Camera extends dn.Process {
 	override function postUpdate() {
 		super.postUpdate();
 
-		if( !ui.Console.ME.hasFlag("scroll") ) {
-			calculateScrollerPosition();
-		}
+		// if( !ui.Console.ME.hasFlag("scroll") ) {
+		// 	calculateScrollerPosition();
+		// }
 	}
 }

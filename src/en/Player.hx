@@ -151,7 +151,7 @@ class Player extends Entity {
 			level.paused ? game.hideNotepad() : game.showNotepad();
 
 		if (!level.paused) {
-			if (!isMoving) {
+			if (!isMoving && !level.controlLocked) {
 				if (game.ca.leftPressed() && !level.hasCollisionAt(cx - 1, cy))
 					nextCPoint = new CPoint(cx - 1, cy);
 				else if (game.ca.rightPressed() && !level.hasCollisionAt(cx + 1, cy))

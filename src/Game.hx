@@ -37,9 +37,7 @@ class Game extends Process {
 		scroller.filter = new h2d.filter.ColorMatrix(); // force rendering for pixel perfect
 
 		goToLevel(levelsToDo.shift());
-
-		Process.resizeAll();
-		trace(Lang.t._("Game is ready."));
+		// trace(Lang.t._("Game is ready."));
 	}
 
 	public function onCdbReload() {
@@ -59,6 +57,8 @@ class Game extends Process {
 		notepad = new ui.Notepad();
 		fx = new Fx();
 		hud = new ui.Hud();
+
+		Process.resizeAll();
 
 		level.start();
 	}
