@@ -56,7 +56,7 @@ class UpgradePlayer extends dn.Process {
         }, 60, 30);
         flowInventory.addChild(upgradeInventoryBtn);
         flowInventory.getProperties(upgradeInventoryBtn).horizontalAlign = Right;
-                
+                    
         flowNotepad = new h2d.Flow(flow);
         flowNotepad.layout = Horizontal;
         // flowNotepad.horizontalSpacing = 40;
@@ -98,5 +98,11 @@ class UpgradePlayer extends dn.Process {
         
         flow.reflow();
         flow.setPosition(((w() / Const.SCALE) - flow.outerWidth) / 2, ((h() / Const.SCALE) - flow.outerHeight) / 2);
-	}
+    }
+    
+    override function update() {
+        super.update();
+
+        if (Const.PLAYER_DATA.maximumInventoryStorage >= 6) upgradeInventoryBtn.visible = false;
+    }
 }
