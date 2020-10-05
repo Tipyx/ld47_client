@@ -51,7 +51,6 @@ class Employee extends Entity {
 	public function completeRequestType(rt:RequestType) {
 		level.removeRequestPopup(pendingRequest);
 		pendingRequest = null;
-		level.checkEnd();
 
 		checkNewRequest();
 	}

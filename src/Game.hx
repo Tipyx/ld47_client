@@ -66,7 +66,7 @@ class Game extends Process {
 		notepad.hide();
 	}
 
-	public function showEndLevel() {
+	public function showEndLevel(levelisSuccessed:Bool) {
 		new ui.EndLevel();
 
 		level.destroy();

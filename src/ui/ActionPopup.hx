@@ -23,7 +23,11 @@ class ActionPopup extends h2d.Layers {
 		flow.getProperties(bg).isAbsolute = true;
 
 		for (a in actions) {
-			var btn = new Button(a.str, a.onClick.bind(this), Const.BUTTON_WIDTH >> 1, Const.BUTTON_HEIGHT >> 1);
+			var btn = new Button(a.str, function() {
+				a.onClick(this);
+				level.startNewTurn();
+				level.endNewTurn();
+			}, Const.BUTTON_WIDTH >> 1, Const.BUTTON_HEIGHT >> 1);
 			flow.addChild(btn);
 		}
 

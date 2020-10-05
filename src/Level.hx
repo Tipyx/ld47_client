@@ -276,19 +276,21 @@ class Level extends dn.Process {
 		}
 
 		game.hud.invalidate();
+
+		checkEnd();
 	}
 
 	public function checkEnd() {
-		var levelIsOver = true;
+		var allRequestsCompleted = true;
 		for (employee in arEmployee) {
 			if (!employee.isCompleted()) {
-				levelIsOver = false;
+				allRequestsCompleted = false;
 				break;
 			}
 		}
 
-		if (levelIsOver) {
-			game.showEndLevel();
+		if (currentTU == lvlInfo.maximumScore || allRequestsCompleted) {
+			game.showEndLevel(allRequestsCompleted);
 		}
 	}
 
