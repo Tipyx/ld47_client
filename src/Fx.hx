@@ -81,11 +81,25 @@ class Fx extends dn.Process {
 			var p = allocTopAdd(getTile("fxCircleEmpty"), e.headX, e.headY + 5);
 			p.scale = 0;
 			p.ds = 0.1;
-			// p.colorize(0xFF0000);
 			p.alpha = 0.5;
 			p.delayS = 0.1 * i;
 			p.lifeS = 0.25;
 		}
+	}
+
+	public function showFile(f:en.File) {
+		var p = allocTopAdd(getTile("fxCircleEmpty"), f.footX, f.footY - 5);
+		if (f.isThere) {
+			p.scale = 0.5;
+			p.ds = 0.01;
+		}
+		else {
+			p.scale = 1;
+			p.ds = -0.01;
+		}
+		p.alpha = 0.5;
+		p.lifeS = 0.5;
+		p.fadeOutSpeed /= 2;
 	}
 
 	public function markerEntity(e:Entity, ?c=0xFF00FF, ?short=false) {
