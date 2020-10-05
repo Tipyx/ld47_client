@@ -25,7 +25,7 @@ class UpgradePlayer extends dn.Process {
 
     var cinematic : dn.Cinematic;
 
-    public function new() {
+    public function new(levelisSucceed:Bool) {
         super(Game.ME);
 
         ME = this;
@@ -96,7 +96,7 @@ class UpgradePlayer extends dn.Process {
 
         flow.addSpacing(20);
 
-        backBtn = new Button("Back", onClickBtn);
+        backBtn = new Button("Back", onClickBtn.bind(levelisSucceed));
         flow.addChild(backBtn);
 
         onResize();
@@ -122,7 +122,7 @@ class UpgradePlayer extends dn.Process {
         });
     }
 
-    function onClickBtn() {
+    function onClickBtn(levelisSucceed:Bool) {
 		Const.SAVE_PROGRESS();
 		
         if (controlLock) return;
@@ -136,7 +136,7 @@ class UpgradePlayer extends dn.Process {
             tw.createS(upgradeNotepadBtn.x, upgradeNotepadBtn.x + (w() / Const.SCALE), 0.4);
             tw.createS(backBtn.y, backBtn.y + (h() / Const.SCALE), 0.4).end(()->cinematic.signal());
             end;
-            Game.ME.returnToEndLevel();
+            Game.ME.returnToEndLevel(levelisSucceed);
         });
     }
     

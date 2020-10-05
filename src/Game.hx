@@ -94,14 +94,15 @@ class Game extends Process {
 		goToLevel(levelsToDo.shift());
 	}
 
-	public function startUpgradePlayer() {
+	public function startUpgradePlayer(levelisSucceed:Bool) {
 		EndLevel.ME.root.visible = false;
-		new UpgradePlayer();
+		new UpgradePlayer(levelisSucceed);
 	}
 
-	public function returnToEndLevel () {
+	public function returnToEndLevel (levelisSucceed:Bool) {
 		EndLevel.ME.root.visible = true;
-		EndLevel.ME.transitionRewindLevelAppear();
+		if (levelisSucceed) EndLevel.ME.transitionGoodEndLevel();
+		else EndLevel.ME.transitionBadEndLevel();
 		if (UpgradePlayer != null) {
 			UpgradePlayer.ME.destroy();
 		}
@@ -158,11 +159,11 @@ class Game extends Process {
 				else
 					hxd.System.exit();
 
-				if( ca.isKeyboardPressed(Key.F1) ) {
+				/* if( ca.isKeyboardPressed(Key.F1) ) {
 					level.destroy();
 					hud.destroy();
 					new UpgradePlayer();
-				}
+				} */
 
 				if( ca.isKeyboardPressed(Key.F2) ) {
 					level.destroy();
