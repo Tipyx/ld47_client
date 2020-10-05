@@ -9,6 +9,8 @@ class Assets {
 	static var STEP_SFXS : Array<dn.heaps.Sfx> = [];
 	static var NEWREQUEST_SFXS : Array<dn.heaps.Sfx> = [];
 
+	static var MUSIC : dn.heaps.Sfx;
+
 	static var initDone = false;
 	public static function init() {
 		if( initDone )
@@ -56,4 +58,16 @@ class Assets {
 	public static function PLAY_NEWREQUEST_SFX() {
 		NEWREQUEST_SFXS[Std.random(NEWREQUEST_SFXS.length)].playOnGroup(VolumeGroup.Step.getIndex());
 	} 
+
+	public static function playMainMusic(fadeDuration:Float = 1) {
+		if (MUSIC == null) {
+			MUSIC = new dn.heaps.Sfx(#if hl hxd.Res.sfx.music #else hxd.Res.sfx.musicmp3 #end).playOnGroup(VolumeGroup.Music.getIndex(), true);
+			MUSIC.volume = 0;
+		}
+
+		if (fadeDuration > 0)
+			Main.ME.tw.createS(MUSIC.volume, 1, fadeDuration);
+		else 
+			MUSIC.volume = 1;
+	}
 }

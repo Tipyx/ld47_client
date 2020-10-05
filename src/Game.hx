@@ -79,6 +79,8 @@ class Game extends Process {
 
 	public function showEndLevel(levelisSuccessed:Bool) {
 		Const.SAVE_PROGRESS();
+		
+		scroller.removeChildren();
 
 		if (levelisSuccessed && levelsToDo.length == 0)
 			new EndCampaign();

@@ -1,0 +1,1 @@
+haxelib run redisthelper -o redist\hl -p ThePerfectDay hl.hxml

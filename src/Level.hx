@@ -122,6 +122,8 @@ class Level extends dn.Process {
 		game.camera.trackTarget(player, true);
 		game.hud.invalidate();
 
+		Assets.playMainMusic();
+
 		game.scroller.y -= h();
 		cm.create({
 			tw.createS(game.scroller.y, game.scroller.y + h(), 0.5).end(()->cm.signal());

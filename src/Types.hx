@@ -54,6 +54,6 @@ enum VolumeGroup {
 // 	@volume(0.75) WrongTile;
 // 	@volume(0.75) Whoosh;
 // 	@volume(1) FieldAppear;
-// 	@volume(1) Music;
+	@volume(1) Music;
 // 	@volume(0.75) Defeat;
 }

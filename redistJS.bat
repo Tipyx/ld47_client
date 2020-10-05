@@ -1,0 +1,1 @@
+haxelib run redisthelper -o redist\js -p ThePerfectDay js.hxml
