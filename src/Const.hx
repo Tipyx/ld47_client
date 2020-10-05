@@ -22,6 +22,7 @@ class Const {
 	public static var DP_UI = _inc++;
 	public static var DP_HUD = _inc++;
 	public static var DP_NOTEPAD = _inc++;
+	public static var DP_UPGRADE = _inc++;
 
 	public static inline var BUTTON_WIDTH = 100;
 	public static inline var BUTTON_HEIGHT = 50;

@@ -1,3 +1,4 @@
+import ui.UpgradePlayer;
 import dn.Process;
 import hxd.Key;
 
@@ -132,6 +133,12 @@ class Game extends Process {
 					trace(Lang.t._("Press ESCAPE again to exit."));
 				else
 					hxd.System.exit();
+
+				if( ca.isKeyboardPressed(Key.F1) ) {
+					level.destroy();
+					hud.destroy();
+					new UpgradePlayer();
+				}
 			#end
 
 			// Restart
