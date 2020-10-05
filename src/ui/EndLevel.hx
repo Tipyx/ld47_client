@@ -1,5 +1,7 @@
 package ui;
 
+import dn.Cinematic;
+
 class EndLevel extends dn.Process {
 	public var game(get,never) : Game; inline function get_game() return Game.ME;
 	public var level(get,never) : Level; inline function get_level() return Game.ME.level;
@@ -9,7 +11,14 @@ class EndLevel extends dn.Process {
 
 	var flow : h2d.Flow;
 	var endLevel : h2d.Text;
+	var score : h2d.Text;
+	var maximumScore : h2d.Text;
+	var btn : Button;
+
+	var controlLock(default, null) = false;
 	
+	var cinematic : dn.Cinematic;
+
 	public function new(levelisSuccessed:Bool) {
 		super(Game.ME);
 
@@ -17,6 +26,8 @@ class EndLevel extends dn.Process {
 		lvlInfo = level.lvlInfo;
 
 		createRootInLayers(parent.root, Const.DP_UI);
+
+		cinematic = new dn.Cinematic(Const.FPS);
 
 		flow = new h2d.Flow(root);
 		flow.layout = Vertical;
@@ -28,38 +39,85 @@ class EndLevel extends dn.Process {
 
 		if (!levelisSuccessed) showRewindLevel();
 		else showEndLevel();
-
-		onResize();
 	}
 
 	function showEndLevel() {
 		endLevel.text = "Your day is over!";
 
+		flow.addSpacing(30);
+
 		var flowScore = new h2d.Flow(flow);
 		flowScore.layout = Horizontal;
 		flowScore.horizontalSpacing = 20;
 
-		var score = new h2d.Text(Assets.fontPixel, flowScore);
+		score = new h2d.Text(Assets.fontPixel, flowScore);
 		score.text = 'Your score: ${level.currentTU}';
 
-		var maximumScore = new h2d.Text(Assets.fontPixel, flowScore);
+		maximumScore = new h2d.Text(Assets.fontPixel, flowScore);
 		maximumScore.text = 'Level maximum score: ${lvlInfo.maximumScore}';
 
-		var btn = new Button("Next Level", function() {
+		flow.addSpacing(30);
+
+		btn = new Button("Next Level", hideEndLevel);
+		flow.addChild(btn);
+
+		onResize();
+
+		score.x -= w() / Const.SCALE;
+		maximumScore.x += w() / Const.SCALE;
+		btn.y += h() / Const.SCALE;
+
+		cinematic.create({
+			tw.createS(endLevel.alpha, 0>1, 0.5).end(()->cinematic.signal());
+			end;
+			tw.createS(score.x, score.x + (w() / Const.SCALE), 0.5);
+			tw.createS(maximumScore.x, maximumScore.x - (w() / Const.SCALE), 0.5).end(()->cinematic.signal());
+			end;
+			tw.createS(btn.y, btn.y - (h() / Const.SCALE), 0.5);
+		});
+	}
+
+	function hideEndLevel() {
+		if (controlLock) return;
+		controlLock = true;
+		cinematic.create({
+			tw.createS(endLevel.alpha, 0, 0.5);
+			tw.createS(score.x, score.x - (w() / Const.SCALE), 0.5);
+			tw.createS(maximumScore.x, maximumScore.x + (w() / Const.SCALE), 0.5);
+			tw.createS(btn.y, btn.y + (h() / Const.SCALE), 0.5).end(()->cinematic.signal());
+			end;
 			game.nextLevel();
 			destroy();
 		});
-		flow.addChild(btn);
 	}
 
 	function showRewindLevel() {
 		endLevel.text = "You ran out of time...";
 
-		var btn = new Button("Retry", function() {
+		btn = new Button("Retry", hideRewindLevel);
+		flow.addChild(btn);
+
+		onResize();
+
+		btn.y += h() / Const.SCALE;
+
+		cinematic.create({
+			tw.createS(endLevel.alpha, 0>1, 0.5).end(()->cinematic.signal());
+			end;
+			tw.createS(btn.y, btn.y - (h() / Const.SCALE), 0.5);
+		});
+	}
+
+	function hideRewindLevel() {
+		if (controlLock) return;
+		controlLock = true;
+		cinematic.create({
+			tw.createS(endLevel.alpha, 0, 0.5);
+			tw.createS(btn.y, btn.y + (h() / Const.SCALE), 0.5).end(()->cinematic.signal());
+			end;
 			game.retryLevel(lvlInfo);
 			destroy();
 		});
-		flow.addChild(btn);
 	}
 
 	override function onResize() {
@@ -69,5 +127,11 @@ class EndLevel extends dn.Process {
 
 		flow.reflow();
 		flow.setPosition(Std.int((w() / Const.SCALE) - flow.outerWidth) >> 1, Std.int((h() / Const.SCALE) - flow.outerHeight) >> 1);
+	}
+
+	override function update() {
+		super.update();
+
+		cinematic.update(tmod);
 	}
 }
