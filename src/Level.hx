@@ -146,6 +146,7 @@ class Level extends dn.Process {
 								ap.hide();
 								if (coffee != null) {
 									player.removeObject(coffee);
+									new dn.heaps.Sfx(hxd.Res.sfx.splash).playOnGroup(VolumeGroup.Splash.getIndex());
 									startNewTurn();
 									endNewTurn();
 								}
@@ -165,6 +166,7 @@ class Level extends dn.Process {
 								if (files != null) {
 									player.removeObject(files);
 									files.linkedEmployee.completeRequestType(PutFilesAway);
+									new dn.heaps.Sfx(hxd.Res.sfx.cupboard).playOnGroup(VolumeGroup.Cupboard.getIndex());
 									startNewTurn();
 									endNewTurn();
 								}
