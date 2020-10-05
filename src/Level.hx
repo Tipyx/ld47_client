@@ -37,26 +37,38 @@ class Level extends dn.Process {
 		// Draw Levels
 		var collisionLayer = lvlData.l_Collisions;
 		var entityLayer = lvlData.l_Entities;
+		var tilesetTile = hxd.Res.atlas.tileset.toTile();
 
-		var g = new h2d.Graphics();
-		root.add(g, Const.DP_BG);
-		g.beginFill(Const.LED_DATA.bgColor_int);
-		g.drawRect(0, 0, collisionLayer.cWid*collisionLayer.gridSize, collisionLayer.cHei*collisionLayer.gridSize);
-		g.endFill();
+		for (at in lvlData.l_Collisions.autoTiles) {
+			// Get corresponding H2D.Tile from tileset
+			var tile = collisionLayer.tileset.getAutoLayerHeapsTile(tilesetTile, at);
 
-		for(cx in 0...collisionLayer.cWid)
-		for(cy in 0...collisionLayer.cHei) {
-			if( !collisionLayer.hasValue(cx,cy) )
-				continue;
-
-			var c = collisionLayer.getColorInt(cx,cy);
-			g.lineStyle(1, 0, 0.5);
-			g.beginFill(c);
-			g.drawRect(cx*collisionLayer.gridSize, cy*collisionLayer.gridSize, collisionLayer.gridSize, collisionLayer.gridSize);
-			if (collisionLayer.getName(cx, cy) == "Floor") {
-				g.lineStyle(1, 0.25);
-			}
+			// Display it
+			var bitmap = new h2d.Bitmap(tile);
+			root.add(bitmap, Const.DP_BG);
+			bitmap.x = at.renderX; // we use the auto-generated coords directly, because it's easier :)
+			bitmap.y = at.renderY;
 		}
+
+		// var g = new h2d.Graphics();
+		// root.add(g, Const.DP_BG);
+		// g.beginFill(Const.LED_DATA.bgColor_int);
+		// g.drawRect(0, 0, collisionLayer.cWid*collisionLayer.gridSize, collisionLayer.cHei*collisionLayer.gridSize);
+		// g.endFill();
+
+		// for(cx in 0...collisionLayer.cWid)
+		// for(cy in 0...collisionLayer.cHei) {
+		// 	if( !collisionLayer.hasValue(cx,cy) )
+		// 		continue;
+
+		// 	var c = collisionLayer.getColorInt(cx,cy);
+		// 	g.lineStyle(1, 0, 0.5);
+		// 	g.beginFill(c);
+		// 	g.drawRect(cx*collisionLayer.gridSize, cy*collisionLayer.gridSize, collisionLayer.gridSize, collisionLayer.gridSize);
+		// 	if (collisionLayer.getName(cx, cy) == "Floor") {
+		// 		g.lineStyle(1, 0.25);
+		// 	}
+		// }
 
 		pf = new dn.pathfinder.AStar((x, y)->new CPoint(x, y, 0.5, 0.5));
 
