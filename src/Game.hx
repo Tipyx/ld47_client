@@ -101,6 +101,7 @@ class Game extends Process {
 
 	public function returnToEndLevel () {
 		EndLevel.ME.root.visible = true;
+		EndLevel.ME.transitionRewindLevelAppear();
 		if (UpgradePlayer != null) {
 			UpgradePlayer.ME.destroy();
 		}

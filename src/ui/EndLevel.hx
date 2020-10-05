@@ -112,13 +112,7 @@ class EndLevel extends dn.Process {
 		btn.x -= w() / Const.SCALE;
 		upgradeBtn.x += w() / Const.SCALE;
 
-		cinematic.create({
-			tw.createS(endLevel.alpha, 0>1, 0.5).end(()->cinematic.signal());
-			end;
-			tw.createS(upgradeBtn.x, upgradeBtn.x - (w() / Const.SCALE), 0.5).end(()->cinematic.signal());
-			end;
-			tw.createS(btn.x, btn.x + (w() / Const.SCALE), 0.5);
-		});
+		transitionRewindLevelAppear();
 	}
 
 	function hideRewindLevel(isRetry:Bool) {
@@ -136,6 +130,16 @@ class EndLevel extends dn.Process {
 			else {
 				Game.ME.startUpgradePlayer();
 			}
+		});
+	}
+
+	public function transitionRewindLevelAppear () {
+		cinematic.create({
+			tw.createS(endLevel.alpha, 0>1, 0.5).end(()->cinematic.signal());
+			end;
+			tw.createS(upgradeBtn.x, upgradeBtn.x - (w() / Const.SCALE), 0.5).end(()->cinematic.signal());
+			end;
+			tw.createS(btn.x, btn.x + (w() / Const.SCALE), 0.5);
 		});
 	}
 
