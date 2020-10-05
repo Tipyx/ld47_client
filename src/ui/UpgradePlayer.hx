@@ -100,30 +100,31 @@ class UpgradePlayer extends dn.Process {
         flow.addChild(backBtn);
 
         onResize();
+
         currentPoints.x -= w() / Const.SCALE;
         currentInventory.x -= w() / Const.SCALE;
-        currentNotepad.x -= w() / Const.SCALE;
         upgradeInventoryBtn.x += w() / Const.SCALE;
+        currentNotepad.x -= w() / Const.SCALE;
         upgradeNotepadBtn.x += w() / Const.SCALE;
         backBtn.y += h() / Const.SCALE;
 
         cinematic.create({
             tw.createS(upgrade.alpha, 0>1, 0.4).end(()->cinematic.signal());
             end;
-            tw.createS(currentPoints.x, currentPoints.x + (w() / Const.SCALE), 0.4).end(()->cinematic.signal());
+            tw.createS(currentPoints.x, currentPoints.x + (w() / Const.SCALE), 0.4);
             200;
             tw.createS(currentInventory.x, currentInventory.x + (w() / Const.SCALE), 0.4);
-            tw.createS(upgradeInventoryBtn.x, upgradeInventoryBtn.x - (w() / Const.SCALE), 0.4).end(()->cinematic.signal());
+            tw.createS(upgradeInventoryBtn.x, upgradeInventoryBtn.x - (w() / Const.SCALE), 0.4);
             200;
             tw.createS(currentNotepad.x, currentNotepad.x + (w() / Const.SCALE), 0.4);
-            tw.createS(upgradeNotepadBtn.x, upgradeNotepadBtn.x - (w() / Const.SCALE), 0.4).end(()->cinematic.signal());
+            tw.createS(upgradeNotepadBtn.x, upgradeNotepadBtn.x - (w() / Const.SCALE), 0.4);
             200;
             tw.createS(backBtn.y, backBtn.y - (h() / Const.SCALE), 0.4);
         });
     }
 
     function onClickBtn(levelisSucceed:Bool) {
-		Const.SAVE_PROGRESS();
+        Const.SAVE_PROGRESS();
 		
         if (controlLock) return;
         controlLock = true;
@@ -141,6 +142,8 @@ class UpgradePlayer extends dn.Process {
     }
     
     function render() {
+        if (Const.PLAYER_DATA.maximumInventoryStorage >= 6) upgradeInventoryBtn.visible = false;
+
         currentInventory.text = 'Current Inventory Places : ${Const.PLAYER_DATA.maximumInventoryStorage}';
         upgradeInventoryBtn.updateText('Upgrade cost : ${Const.PLAYER_DATA.nextCostInventory}');
 
@@ -154,6 +157,8 @@ class UpgradePlayer extends dn.Process {
 		super.onResize();
 
         root.setScale(Const.SCALE);
+
+        render();
         
         flow.reflow();
         flow.setPosition(((w() / Const.SCALE) - flow.outerWidth) / 2, ((h() / Const.SCALE) - flow.outerHeight) / 2);
@@ -162,7 +167,6 @@ class UpgradePlayer extends dn.Process {
     override function update() {
         super.update();
 
-        if (Const.PLAYER_DATA.maximumInventoryStorage >= 6) upgradeInventoryBtn.visible = false;
         cinematic.update(tmod);
     }
 }

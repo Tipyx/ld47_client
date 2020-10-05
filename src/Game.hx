@@ -160,11 +160,9 @@ class Game extends Process {
 				else
 					hxd.System.exit();
 
-				/* if( ca.isKeyboardPressed(Key.F1) ) {
-					level.destroy();
-					hud.destroy();
-					new UpgradePlayer();
-				} */
+				if( ca.isKeyboardPressed(Key.F1) ) {
+					showEndLevel(true);
+				}
 
 				if( ca.isKeyboardPressed(Key.F2) ) {
 					level.destroy();

@@ -14,7 +14,6 @@ class EndLevel extends dn.Process {
 	var flow : h2d.Flow;
 	var endLevel : h2d.Text;
 	var score : h2d.Text;
-	var maximumScore : h2d.Text;
 	var btn : Button;
 	var upgradeBtn : Button;
 
@@ -42,8 +41,6 @@ class EndLevel extends dn.Process {
 		endLevel = new h2d.Text(Assets.fontPixel, flow);
 		endLevel.setScale(Const.SCALE);
 
-		// if (!levelisSuccessed)showRewindLevel(levelisSuccessed);
-		// else showEndLevel(levelisSuccessed);
 		showEndLevel(levelisSuccessed);
 	}
 
@@ -60,9 +57,6 @@ class EndLevel extends dn.Process {
 			score = new h2d.Text(Assets.fontPixel, flowScore);
 			score.text = 'Your score: ${level.currentTU}';
 
-			maximumScore = new h2d.Text(Assets.fontPixel, flowScore);
-			maximumScore.text = 'Level maximum score: ${lvlInfo.maximumScore}';
-
 			flow.addSpacing(30);
 
 			btn = new Button("Next Level", goToNextLevel);
@@ -74,7 +68,6 @@ class EndLevel extends dn.Process {
 			onResize();
 
 			score.x -= w() / Const.SCALE;
-			maximumScore.x += w() / Const.SCALE;
 			btn.x += w() / Const.SCALE;
 			upgradeBtn.x -= w() / Const.SCALE;
 
@@ -106,7 +99,6 @@ class EndLevel extends dn.Process {
 		cinematic.create({
 			tw.createS(endLevel.alpha, 0, 0.5);
 			tw.createS(score.x, score.x - (w() / Const.SCALE), 0.5);
-			tw.createS(maximumScore.x, maximumScore.x + (w() / Const.SCALE), 0.5);
 			tw.createS(btn.x, btn.x + (w() / Const.SCALE), 0.5);
 			tw.createS(upgradeBtn.x, upgradeBtn.x - (w() / Const.SCALE), 0.5).end(()->cinematic.signal());
 			end;
@@ -122,7 +114,6 @@ class EndLevel extends dn.Process {
 			cinematic.create({
 				tw.createS(endLevel.alpha, 0, 0.5);
 				tw.createS(score.x, score.x - (w() / Const.SCALE), 0.5);
-				tw.createS(maximumScore.x, maximumScore.x + (w() / Const.SCALE), 0.5);
 				tw.createS(btn.x, btn.x + (w() / Const.SCALE), 0.5);
 				tw.createS(upgradeBtn.x, upgradeBtn.x - (w() / Const.SCALE), 0.5).end(()->cinematic.signal());
 				end;
@@ -142,25 +133,6 @@ class EndLevel extends dn.Process {
 		}
 	}
 
-	/* function showRewindLevel(levelisSuccessed:Bool) {
-		endLevel.text = "You ran out of time...";
-
-		flow.addSpacing(20);
-
-		upgradeBtn = new Button("Upgrades", hideRewindLevel.bind(false));
-		flow.addChild(upgradeBtn);
-
-		btn = new Button("Retry", hideRewindLevel.bind(true));
-		flow.addChild(btn);
-
-		onResize();
-
-		btn.x -= w() / Const.SCALE;
-		upgradeBtn.x += w() / Const.SCALE;
-
-		transitionRewindLevelAppear();
-	} */
-
 	function retryLevel() {
 		if (controlLock) return;
 		controlLock = true;
@@ -177,9 +149,6 @@ class EndLevel extends dn.Process {
 	public function transitionBadEndLevel () {
 		controlLock = false;
 
-		/* btn.x -= w() / Const.SCALE;
-		upgradeBtn.x += w() / Const.SCALE; */
-
 		cinematic.create({
 			tw.createS(endLevel.alpha, 0>1, 0.5).end(()->cinematic.signal());
 			end;
@@ -195,8 +164,7 @@ class EndLevel extends dn.Process {
 		cinematic.create({
 			tw.createS(endLevel.alpha, 0>1, 0.5).end(()->cinematic.signal());
 			end;
-			tw.createS(score.x, score.x + (w() / Const.SCALE), 0.5);
-			tw.createS(maximumScore.x, maximumScore.x - (w() / Const.SCALE), 0.5).end(()->cinematic.signal());
+			tw.createS(score.x, score.x + (w() / Const.SCALE), 0.5).end(()->cinematic.signal());
 			end;
 			tw.createS(btn.x, btn.x - (w() / Const.SCALE), 0.5);
 			tw.createS(upgradeBtn.x, upgradeBtn.x + (w() / Const.SCALE), 0.5);
