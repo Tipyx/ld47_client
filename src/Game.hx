@@ -81,6 +81,7 @@ class Game extends Process {
 		Const.SAVE_PROGRESS();
 		
 		scroller.removeChildren();
+		Assets.changeMainMusicVolume(0.25);
 
 		if (levelisSuccessed && levelsToDo.length == 0)
 			new EndCampaign();

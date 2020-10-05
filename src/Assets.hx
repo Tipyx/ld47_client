@@ -70,4 +70,24 @@ class Assets {
 		else 
 			MUSIC.volume = 1;
 	}
+
+	public static function changeMainMusicVolume(volume:Float, fadeDuration:Float = 1) {
+		if (MUSIC == null)
+			return;
+
+		if (fadeDuration > 0)
+			Main.ME.tw.createS(MUSIC.volume, volume, fadeDuration);
+		else 
+			MUSIC.volume = 0;
+	}
+
+	public static function stopMainMusic(fadeDuration:Float = 1) {
+		if (MUSIC == null)
+			return;
+
+		if (fadeDuration > 0)
+			Main.ME.tw.createS(MUSIC.volume, 0, fadeDuration);
+		else 
+			MUSIC.volume = 0;
+	}
 }
