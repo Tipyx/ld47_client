@@ -108,6 +108,8 @@ class Level extends dn.Process {
 
 			}
 
+		delayer.addF(()->game.scroller.ysort(Const.DP_MAIN), 1);
+
 		currentTU = 0;
 
 		arRequestPopups = [];
@@ -430,10 +432,9 @@ class Level extends dn.Process {
 	override function postUpdate() {
 		super.postUpdate();
 
-		if (hxd.Key.isPressed(hxd.Key.F1)) {
-			for (object in player.inventory) {
-				trace(object);
-			}
+		for (rp in arRequestPopups) {
+			rp.postUpdate();
 		}
+
 	}
 }

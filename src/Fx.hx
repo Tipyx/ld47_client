@@ -102,6 +102,15 @@ class Fx extends dn.Process {
 		p.fadeOutSpeed /= 2;
 	}
 
+	public function bright(rp:ui.RequestPopup, rSign:Int) {
+		var p = allocTopAdd(getTile("fxNew"), rp.x + rp.wid * 0.5, rp.y + rp.hei * 0.5);
+		p.dr = (rnd(0.1, 0.2) / 10) * rSign;
+		p.fadeIn(0.5, 0.01);
+		p.scale = rnd(1, 1.25);
+		p.fadeOutSpeed = 0.01;
+		p.lifeS = rnd(3, 5);
+	}
+
 	public function markerEntity(e:Entity, ?c=0xFF00FF, ?short=false) {
 		#if debug
 		if( e==null )

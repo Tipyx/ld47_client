@@ -13,7 +13,7 @@ bgHUD
   index: -1
 bgInventory
   rotate: false
-  xy: 447, 202
+  xy: 694, 36
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
@@ -27,245 +27,259 @@ bgNotepad
   index: -1
 bin
   rotate: false
-  xy: 421, 687
+  xy: 441, 132
   size: 18, 22
   orig: 24, 24
   offset: 3, 1
   index: -1
 coffeeMaker
   rotate: false
-  xy: 421, 132
+  xy: 512, 1
   size: 24, 52
   orig: 24, 52
   offset: 0, 0
   index: -1
+computer
+  rotate: false
+  xy: 421, 132
+  size: 18, 26
+  orig: 24, 48
+  offset: 4, 9
+  index: -1
 copier
   rotate: false
-  xy: 421, 186
+  xy: 538, 1
   size: 24, 48
   orig: 24, 48
   offset: 0, 0
   index: -1
 cupboard
   rotate: false
-  xy: 421, 236
+  xy: 512, 90
   size: 22, 47
   orig: 22, 47
   offset: 0, 0
   index: -1
 employeeBack0
   rotate: false
-  xy: 421, 285
+  xy: 564, 1
   size: 24, 33
   orig: 24, 33
   offset: 0, 0
   index: -1
 employeeBack1
   rotate: false
-  xy: 421, 285
+  xy: 564, 1
   size: 24, 33
   orig: 24, 33
   offset: 0, 0
   index: -1
 employeeBack2
   rotate: false
-  xy: 421, 285
+  xy: 564, 1
   size: 24, 33
   orig: 24, 33
   offset: 0, 0
   index: -1
 employeeBack3
   rotate: false
-  xy: 421, 285
+  xy: 564, 1
   size: 24, 33
   orig: 24, 33
   offset: 0, 0
   index: -1
 employeeFront0
   rotate: false
-  xy: 445, 236
+  xy: 590, 1
   size: 24, 33
   orig: 24, 33
   offset: 0, 0
   index: -1
 employeeFront1
   rotate: false
-  xy: 447, 132
+  xy: 616, 1
   size: 24, 33
   orig: 24, 33
   offset: 0, 0
   index: -1
 employeeFront2
   rotate: false
-  xy: 447, 167
+  xy: 642, 1
   size: 24, 33
   orig: 24, 33
   offset: 0, 0
   index: -1
 employeeFront3
   rotate: false
-  xy: 421, 320
+  xy: 668, 1
   size: 24, 33
   orig: 24, 33
   offset: 0, 0
   index: -1
 employeeSideLeft0
   rotate: false
-  xy: 421, 355
+  xy: 694, 1
   size: 24, 33
   orig: 24, 33
   offset: 0, 0
   index: -1
 employeeSideLeft1
   rotate: false
-  xy: 421, 390
+  xy: 564, 36
   size: 24, 33
   orig: 24, 33
   offset: 0, 0
   index: -1
 employeeSideLeft2
   rotate: false
-  xy: 421, 425
+  xy: 538, 51
   size: 24, 33
   orig: 24, 33
   offset: 0, 0
   index: -1
 employeeSideLeft3
   rotate: false
-  xy: 421, 460
+  xy: 512, 55
   size: 24, 33
   orig: 24, 33
   offset: 0, 0
   index: -1
 employeeSideRight0
   rotate: false
-  xy: 421, 495
+  xy: 590, 36
   size: 24, 33
   orig: 24, 33
   offset: 0, 0
   index: -1
 employeeSideRight1
   rotate: false
-  xy: 421, 530
+  xy: 616, 36
   size: 24, 33
   orig: 24, 33
   offset: 0, 0
   index: -1
 employeeSideRight2
   rotate: false
-  xy: 421, 565
+  xy: 642, 36
   size: 24, 33
   orig: 24, 33
   offset: 0, 0
   index: -1
 employeeSideRight3
   rotate: false
-  xy: 421, 600
+  xy: 668, 36
   size: 24, 33
   orig: 24, 33
   offset: 0, 0
   index: -1
 files
   rotate: false
-  xy: 445, 271
+  xy: 590, 71
   size: 11, 12
   orig: 24, 24
   offset: 7, 11
   index: -1
 fxCircle
   rotate: false
-  xy: 441, 687
+  xy: 720, 1
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 fxCircleEmpty
   rotate: false
-  xy: 421, 635
+  xy: 694, 62
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: -1
+fxNew
+  rotate: false
+  xy: 564, 71
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 fxSquare
   rotate: false
-  xy: 421, 661
+  xy: 538, 86
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 iconCoffee
   rotate: false
-  xy: 473, 166
+  xy: 720, 71
   size: 14, 16
   orig: 16, 16
   offset: 2, 0
   index: -1
 iconCopyFiles
   rotate: false
-  xy: 458, 271
+  xy: 720, 19
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 iconFile
   rotate: false
-  xy: 471, 246
+  xy: 491, 132
   size: 13, 16
   orig: 16, 16
   offset: 1, 0
   index: -1
 iconNeedFiles
   rotate: false
-  xy: 473, 148
+  xy: 720, 53
   size: 15, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 iconPhotocopy
   rotate: false
-  xy: 458, 271
+  xy: 720, 19
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 iconPutFilesAway
   rotate: false
-  xy: 473, 132
+  xy: 720, 37
   size: 16, 14
   orig: 16, 16
   offset: 0, 0
   index: -1
 pixel
   rotate: false
-  xy: 447, 228
+  xy: 736, 71
   size: 1, 1
   orig: 1, 1
   offset: 0, 0
   index: -1
 playerBack
   rotate: false
-  xy: 473, 184
+  xy: 461, 132
   size: 13, 29
   orig: 13, 29
   offset: 0, 0
   index: -1
 playerFront
   rotate: false
-  xy: 473, 215
+  xy: 441, 156
   size: 13, 29
   orig: 13, 29
   offset: 0, 0
   index: -1
 playerSideLeft
   rotate: false
-  xy: 447, 289
+  xy: 421, 160
   size: 13, 29
   orig: 13, 29
   offset: 0, 0
   index: -1
 playerSideRight
   rotate: false
-  xy: 447, 320
+  xy: 476, 132
   size: 13, 29
   orig: 13, 29
   offset: 0, 0

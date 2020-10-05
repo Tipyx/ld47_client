@@ -26,6 +26,10 @@ class Employee extends Entity {
 		inter.setPosition(-(Const.GRID >> 1), -(Const.GRID >> 1));
 		// inter.backgroundColor = 0x55FF00FF;
 
+		var sprComputer = Assets.tiles.h_get("computer", 0.5, 1);
+		sprComputer.setPosition((cx + 0.5) * Const.GRID, cy * Const.GRID);
+		game.scroller.add(sprComputer, Const.DP_MAIN);
+
 		inter.onClick = (e)->level.onClickEntity(this);
 
 		requestsToDo = [];
