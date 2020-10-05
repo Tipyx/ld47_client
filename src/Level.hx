@@ -199,7 +199,6 @@ class Level extends dn.Process {
 		}
 		else if (entity.is(en.File)) {
 			var files = player.getFileToBeGiven();
-			trace(files);
 			if (entity.as(en.File).isThere) {
 				actions.push({	str:"Take Files",
 								isEnable:!player.inventoryIsFull,

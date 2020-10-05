@@ -90,6 +90,18 @@ class Hud extends dn.Process {
 		}
 	}
 
+	public function fxNewItem() {
+		for (i in 0...5) {
+			var p = allocTopAdd(getTile("fxSquare"), inventoryFlow.x, inventoryFlow.y);
+			p.x += ((level.player.inventory.length - 1) % 3 * 24) + 12;
+			p.y += (Std.int(level.player.inventory.length / 3) * 24) + 12;
+			p.ds = 0.05;
+			// p.alpha = 0.5;
+			p.delayS = 0.1 * i;
+			p.lifeS = 0.15;
+		}
+	}
+
 	override function onResize() {
 		super.onResize();
 		root.setScale(Const.SCALE);

@@ -25,8 +25,6 @@ class File extends Entity {
 
 		inter.onClick = (e)->level.onClickEntity(this);
 
-		// fx.newFile(this);
-
 		level.tw.createS(spr.alpha, 0 > spr.alpha, 0.5);
 	}
 

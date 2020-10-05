@@ -28,6 +28,7 @@ class Player extends Entity {
 	public function addToInventory(object:ObjectType, from:Null<Employee> = null) {
 		inventory.push({type: object, linkedEmployee: from});
 		game.hud.invalidate();
+		game.hud.fxNewItem();
 	}
 
 	public function removeObject(object:Object) {
