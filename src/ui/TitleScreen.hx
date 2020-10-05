@@ -1,5 +1,7 @@
 package ui;
 
+import dn.Cinematic;
+
 class TitleScreen extends dn.Process {
 
     public static var ME : TitleScreen;
@@ -7,12 +9,18 @@ class TitleScreen extends dn.Process {
     var flow : h2d.Flow;
 	var title : h2d.Text;
 	var titaBtn : Button;
-	var tipyxBtn : Button;
+    var tipyxBtn : Button;
+
+    var controlLock(default, null) = false;
+    
+    var cinematic : dn.Cinematic;
  
     public function new() {
         super(Main.ME);
 
         createRoot();
+
+        cinematic = new dn.Cinematic(Const.FPS);
 
         ME = this;
         
@@ -23,13 +31,38 @@ class TitleScreen extends dn.Process {
 
         title = new h2d.Text(Assets.fontPixel, flow);
         title.text = "The Perfect Day";
+        title.setScale(Const.SCALE);
 
         flow.addSpacing(50);
 
-        tipyxBtn = new Button("Tipyx", Main.ME.showDebugTipyx);
+        tipyxBtn = new Button("Tipyx", onClickBtn);
         flow.addChild(tipyxBtn);
         
         onResize();
+
+        tipyxBtn.x -= w() / Const.SCALE;
+
+        cinematic.create({
+            tw.createS(title.alpha, 0>1, 0.5);
+            tw.createS(tipyxBtn.x, tipyxBtn.x + (w() / Const.SCALE), 0.45);
+        });
+    }
+
+    public function onClickBtn() {
+		if (controlLock) return;
+		controlLock = true;
+		cinematic.create({
+            tw.createS(title.alpha, 0, 0.5);
+            tw.createS(tipyxBtn.x, tipyxBtn.x + (w() / Const.SCALE), 0.45).end(()->cinematic.signal());
+            end;
+			Main.ME.showDebugTipyx();
+		});
+	}
+
+    override function onDispose() {
+		super.onDispose();
+
+		ME = null;
     }
 
     override function onResize() {
@@ -40,4 +73,10 @@ class TitleScreen extends dn.Process {
 		flow.reflow();
 		flow.setPosition(Std.int((w() / Const.SCALE) - flow.outerWidth) >> 1, Std.int((h() / Const.SCALE) - flow.outerHeight) >> 1);
     }
+
+    override function update() {
+		super.update();
+
+		cinematic.update(tmod);
+	}
 }
