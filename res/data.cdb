@@ -21,12 +21,27 @@
 				{
 					"ID": "TestLevel",
 					"maximumScore": 50,
-					"isDebug": true
+					"isDebug": false
 				},
 				{
-					"ID": "Level1",
-					"maximumScore": 0,
+					"ID": "Level_1",
+					"maximumScore": 31,
 					"isDebug": false
+				},
+				{
+					"ID": "Level_2",
+					"isDebug": false,
+					"maximumScore": 29
+				},
+				{
+					"ID": "Level_3",
+					"isDebug": true,
+					"maximumScore": 40
+				},
+				{
+					"ID": "Level_4",
+					"isDebug": true,
+					"maximumScore": 51
 				}
 			],
 			"separators": [],
