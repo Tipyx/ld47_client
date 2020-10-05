@@ -7,10 +7,11 @@ class Notepad extends dn.Process {
 
 	public var level(get,never) : Level; inline function get_level() return Game.ME.level;
 	
-	public var wid(get,never) : Int; inline function get_wid() return Std.int(w() * 0.75 / Const.SCALE) - Const.NOTEPAD_SPACING;
+	public var wid(get,never) : Int; inline function get_wid() return Std.int(bg.tile.width);
 	// public var hei(get,never) : Int; inline function get_hei() return lvlData.l_Collisions.cHei;
 
-    var bg : h2d.Graphics;
+	// var bg : h2d.Graphics;
+	var bg : HSprite;
     var flow : h2d.Flow;
     var nbPage : Int;
     var nbLignLastPage : Int;
@@ -48,10 +49,11 @@ class Notepad extends dn.Process {
 
         createRootInLayers(parent.root, Const.DP_NOTEPAD);
  
-        bg = new h2d.Graphics(root);
-        bg.beginFill(0xe9e8be);
-        bg.drawRect(0, 0,
-                    wid, ((h() / Const.SCALE)));
+		var shadowBg = Assets.tiles.h_get("shadowNotepad", root);
+		shadowBg.setPos(10, 10);
+
+		bg = Assets.tiles.h_get("bgNotepad", root);
+
 
         flowBtn = new h2d.Flow(root);
         flowBtn.layout = Horizontal;
@@ -129,7 +131,7 @@ class Notepad extends dn.Process {
         flowTitle = new h2d.Flow(flow);
         flowTitle.layout = Horizontal;
         flowTitle.minWidth = flow.minWidth - 2*flow.paddingLeft;
-        flowTitle.debug = true;
+        // flowTitle.debug = true;
 
         var flowWhen = new h2d.Flow(flowTitle);
         flowWhen.minWidth = Notepad.WIDTH_BTN;
@@ -163,11 +165,11 @@ class Notepad extends dn.Process {
         }
     }
 
-    function addLign (i:Int) {
+    function addLign(i:Int) {
         if (currentLign < maximumEntries) {
             currentLign++;
             numLignCurrentPage++;
-            arNotepadData.push({tu: 0, actionType: NPActionType.createByIndex(0), peopleID: 0});
+            arNotepadData.push({tu: 0, actionType: RequestType.createByIndex(0), peopleID: 0});
 
             showLign(i);
         }

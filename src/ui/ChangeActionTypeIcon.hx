@@ -7,7 +7,8 @@ class ChangeActionTypeIcon extends h2d.Layers {
     
     var currentIconID : Int;
     var maxIconID : Int;
-    var iconText : h2d.Text;
+	// var iconText : h2d.Text;
+	var icon : HSprite;
 
     var notepadData : NotepadData;
 
@@ -19,7 +20,7 @@ class ChangeActionTypeIcon extends h2d.Layers {
         this.notepadData = notepadData;
 
         currentIconID = notepadData.actionType.getIndex();
-        maxIconID = NPActionType.createAll().length - 1;
+        maxIconID = RequestType.createAll().length - 1;
 
         flow = new h2d.Flow(this);
         flow.layout = Horizontal;
@@ -43,8 +44,10 @@ class ChangeActionTypeIcon extends h2d.Layers {
 
         flow.getProperties(rectIcon).horizontalAlign = Middle;
         
-        iconText = new h2d.Text(Assets.fontPixel, rectIcon);
-        updateIconText();
+		icon = Assets.tiles.h_get(Assets.GET_ICON_FOR_REQUEST(RequestType.createByIndex(currentIconID)), rectIcon);
+		icon.setCenterRatio(0.5, 0.5);
+		icon.setScale(2);
+        updateIcon();
 
         var interPlus = new h2d.Interactive(24, 24, flow);
         interPlus.backgroundColor = 0xFFF0E68C;
@@ -58,20 +61,20 @@ class ChangeActionTypeIcon extends h2d.Layers {
 
     function addNumber (nb:Int) {
         if (currentIconID < maxIconID) currentIconID += nb;
-        notepadData.actionType = NPActionType.createByIndex(currentIconID);
+        notepadData.actionType = RequestType.createByIndex(currentIconID);
 
-        updateIconText();
+        updateIcon();
     }
 
     function retrieveNumber (nb:Int) {
         if (currentIconID >= nb) currentIconID -= nb;
-        notepadData.actionType = NPActionType.createByIndex(currentIconID);
+        notepadData.actionType = RequestType.createByIndex(currentIconID);
 
-        updateIconText();
+        updateIcon();
     }
 
-    function updateIconText () {
-        iconText.text = '$currentIconID';
-        iconText.setPosition(wid/2-iconText.textWidth/2, hei/2-iconText.textHeight/2);
+    function updateIcon () {
+		icon.set(Assets.GET_ICON_FOR_REQUEST(RequestType.createByIndex(currentIconID)));
+        icon.setPosition(wid/2, hei/2);
     }
 }
