@@ -30,6 +30,7 @@ class Button extends h2d.Layers {
 		text.text = str;
 		text.textAlign = Center;
 		text.maxWidth = wid;
+		text.textColor = 0;
 		text.setPosition(0, Std.int(((hei/2)-(text.textHeight/2))));
 	}
 

@@ -11,9 +11,9 @@ class Hud extends dn.Process {
 	var inventoryFlow : h2d.Flow;
 	var invalidated = true;
 
-	var textRemainingTU : h2d.Text;
+	var textLevel : h2d.Text;
 	var textcurrentTU : h2d.Text;
-	var inventoryRemaining : h2d.Text;
+	// var inventoryRemaining : h2d.Text;
 
 	var sprItems : Array<HSprite>;
 
@@ -34,15 +34,13 @@ class Hud extends dn.Process {
 		mainFlow.layout = Vertical;
 		mainFlow.verticalSpacing = 15;
 		mainFlow.minWidth = Std.int(bg.tile.width);
-		mainFlow.paddingTop = 20;
+		mainFlow.paddingTop = 10;
 		
-		textRemainingTU = new h2d.Text(Assets.fontExpress9 /* , mainFlow */);
+		textLevel = new h2d.Text(Assets.fontExpress9, mainFlow);
 		textcurrentTU = new h2d.Text(Assets.fontExpress9, mainFlow);
-		inventoryRemaining = new h2d.Text(Assets.fontExpress9, mainFlow);
-		textRemainingTU.textColor = textcurrentTU.textColor = inventoryRemaining.textColor = 0x292524;
-		textRemainingTU.dropShadow = textcurrentTU.dropShadow = inventoryRemaining.dropShadow = {dx: 0, dy:1, alpha: 1, color:0x8e8052};
-
-		mainFlow.addSpacing(-10);
+		// inventoryRemaining = new h2d.Text(Assets.fontExpress9, mainFlow);
+		textLevel.textColor = textcurrentTU.textColor = 0x292524;
+		textLevel.dropShadow = textcurrentTU.dropShadow = {dx: 0, dy:1, alpha: 1, color:0x8e8052};
 
 		inventoryFlow = new h2d.Flow(mainFlow);
 		inventoryFlow.multiline = true;
@@ -129,10 +127,9 @@ class Hud extends dn.Process {
 	public inline function invalidate() invalidated = true;
 
 	function render() {
-		// textRemainingTU.text = 'Remaining TU : ${level.lvlInfo.maximumScore - level.currentTU}';
-		// textcurrentTU.text = 'TU : ${level.currentTU}';
+		textLevel.text = 'Level ${level.getLevelNumber()}';
 		textcurrentTU.text = "TU : " + level.currentTU + " / " + level.lvlInfo.maximumScore;
-		inventoryRemaining.text = "Inventory";
+		// inventoryRemaining.text = "Inventory";
 
 		for (spr in sprItems) spr.remove();
 		sprItems = [];
