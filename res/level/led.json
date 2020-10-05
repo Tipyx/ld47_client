@@ -11,7 +11,7 @@
 	"defaultPivotY": 0,
 	"defaultGridSize": 24,
 	"bgColor": "#7F8093",
-	"nextUid": 46,
+	"nextUid": 48,
 	"minifyJson": false,
 	"exportTiled": false,
 	"defs": {
@@ -458,13 +458,21 @@
 		],
 		"enums": [],
 		"externalEnums": [
-			{ "identifier": "ObjectType", "uid": 14, "values": [ { "id": "Coffee", "tileId": null }, { "id": "Files", "tileId": null }, { "id": "Photocopy", "tileId": null } ], "iconTilesetUid": null, "externalRelPath": "../../src/Types.hx", "externalFileChecksum": "3037933b36154f2b908b06fd26286b28" },
+			{ "identifier": "ObjectType", "uid": 14, "values": [ { "id": "Coffee", "tileId": null }, { "id": "Files", "tileId": null }, { "id": "Photocopy", "tileId": null } ], "iconTilesetUid": null, "externalRelPath": "../../src/Types.hx", "externalFileChecksum": "b1a151947496454e94eda081dd9a6a1b" },
 			{ "identifier": "RequestType", "uid": 16, "values": [
 				{ "id": "NeedCoffee", "tileId": null },
 				{ "id": "NeedFiles", "tileId": null },
 				{ "id": "NeedPhotocopies", "tileId": null },
 				{ "id": "PutFilesAway", "tileId": null }
-			], "iconTilesetUid": null, "externalRelPath": "../../src/Types.hx", "externalFileChecksum": "3037933b36154f2b908b06fd26286b28" }
+			], "iconTilesetUid": null, "externalRelPath": "../../src/Types.hx", "externalFileChecksum": "b1a151947496454e94eda081dd9a6a1b" },
+			{ "identifier": "VolumeGroup", "uid": 46, "values": [
+				{ "id": "CoffeeGrinder", "tileId": null },
+				{ "id": "Cupboard", "tileId": null },
+				{ "id": "NewRequest", "tileId": null },
+				{ "id": "Photocopy", "tileId": null },
+				{ "id": "Splash", "tileId": null },
+				{ "id": "Step", "tileId": null }
+			], "iconTilesetUid": null, "externalRelPath": "../../src/Types.hx", "externalFileChecksum": "b1a151947496454e94eda081dd9a6a1b" }
 		]
 	},
 	"levels": [

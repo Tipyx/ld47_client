@@ -48,6 +48,7 @@ enum VolumeGroup {
 	@volume(1) Photocopy;
 	@volume(1) Splash;
 	@volume(1) Cupboard;
+	@volume(1) Victory;
 // 	@volume(0.45) ClickTile;
 // 	@volume(0.75) ClickButton;
 // 	@volume(0.75) WrongTile;

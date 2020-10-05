@@ -48,6 +48,9 @@ class EndLevel extends dn.Process {
 		if (levelisSuccessed) {
 			endLevel.text = "Your day is over!";
 
+			
+			new dn.heaps.Sfx(hxd.Res.sfx.victory).playOnGroup(VolumeGroup.Victory.getIndex());
+
 			flow.addSpacing(30);
 
 			numLevel = new h2d.Text(Assets.fontExpress9, flow);
