@@ -41,6 +41,9 @@ class TitleScreen extends dn.Process {
 
         startBtn = new Button("Start", onClickBtn);
         flow.addChild(startBtn);
+
+        var startDbgBtn = new Button("Start DEBUG", Main.ME.startGame.bind(true));
+        flow.addChild(startDbgBtn);
         
         onResize();
 
@@ -62,7 +65,7 @@ class TitleScreen extends dn.Process {
             // tw.createS(tipyxBtn.x, tipyxBtn.x + (w() / Const.SCALE), 0.45).end(()->cinematic.signal());
             tw.createS(startBtn.x, startBtn.x + (w() / Const.SCALE), 0.45).end(()->cinematic.signal());
             end;
-			Main.ME.start();
+			Main.ME.startGame(false);
 		});
 	}
 

@@ -85,6 +85,8 @@ class Main extends dn.Process {
 	}
 
 	public function startGame(debug:Bool) {
+		clean();
+
 		var levelsToDo = [];
 
 		for (lvl in Data.LevelInfo.all) {
@@ -115,16 +117,6 @@ class Main extends dn.Process {
 
 	public function showDebugTita() {
 		
-	}
-
-	/* public function showDebugTipyx() {
-		clean();
-		startGame(true);
-	} */
-
-	public function start() {
-		clean();
-		startGame(true);
 	}
 
 	override public function onResize() {
