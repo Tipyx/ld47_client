@@ -39,8 +39,8 @@ class Notepad extends dn.Process {
         numLignCurrentPage = 0;
 
         arNotepadData = Const.PLAYER_DATA.planningDatas.get(level.lvlData.identifier);
-        // var maximumEntries = Const.PLAYER_DATA.maximumNotepadEntry;
-        maximumEntries = 13;
+        maximumEntries = Const.PLAYER_DATA.maximumNotepadEntry;
+        // maximumEntries = 13;
 
 		if (arNotepadData == null) arNotepadData = [];
 
