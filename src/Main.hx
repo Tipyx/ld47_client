@@ -46,7 +46,7 @@ class Main extends dn.Process {
 
 		// Assets & data init
 		Assets.init();
-		new ui.Console(Assets.fontTiny, s);
+		new ui.Console(Assets.fontPixel, s);
 		Lang.init("en");
 		Data.load( hxd.Res.data.entry.getText() );
 
@@ -64,7 +64,7 @@ class Main extends dn.Process {
 		// controller.bind(START, Key.N);
 
 		// Start
-		new dn.heaps.GameFocusHelper(Boot.ME.s2d, Assets.fontMedium);
+		new dn.heaps.GameFocusHelper(Boot.ME.s2d, Assets.fontPixel);
 		delayer.addF( startTitleScreen, 1 );
 	}
 

@@ -150,7 +150,7 @@ class Entity {
 		}
 		if( v!=null ) {
 			if( debugLabel==null )
-				debugLabel = new h2d.Text(Assets.fontTiny, Game.ME.scroller);
+				debugLabel = new h2d.Text(Assets.fontPixel, Game.ME.scroller);
 			debugLabel.text = Std.string(v);
 			debugLabel.textColor = c;
 		}

@@ -13,23 +13,47 @@ class Hud extends dn.Process {
 	var textcurrentTU : h2d.Text;
 	var inventoryRemaining : h2d.Text;
 
+	var sprItems : Array<HSprite>;
+
 	public function new() {
 		super(Game.ME);
 
 		createRootInLayers(game.root, Const.DP_HUD);
 		root.filter = new h2d.filter.ColorMatrix(); // force pixel perfect rendering
 
+		var bg = Assets.tiles.h_get("bgHUD", 0, 0, 0, root);
+
 		mainFlow = new h2d.Flow(root);
-		// mainFlow.horizontalAlign = Middle;
+		mainFlow.horizontalAlign = Middle;
 		mainFlow.layout = Vertical;
-		mainFlow.verticalSpacing = 5;
+		mainFlow.verticalSpacing = 15;
+		mainFlow.minWidth = Std.int(bg.tile.width);
+		mainFlow.paddingTop = 20;
 		
-		textRemainingTU = new h2d.Text(Assets.fontPixel, mainFlow);
-		textcurrentTU = new h2d.Text(Assets.fontPixel, mainFlow);
-		inventoryRemaining = new h2d.Text(Assets.fontPixel, mainFlow);
+		textRemainingTU = new h2d.Text(Assets.fontExpress9 /* , mainFlow */);
+		textcurrentTU = new h2d.Text(Assets.fontExpress9, mainFlow);
+		inventoryRemaining = new h2d.Text(Assets.fontExpress9, mainFlow);
+		textRemainingTU.textColor = textcurrentTU.textColor = inventoryRemaining.textColor = 0x292524;
+		textRemainingTU.dropShadow = textcurrentTU.dropShadow = inventoryRemaining.dropShadow = {dx: 0, dy:1, alpha: 1, color:0x8e8052};
+
+		mainFlow.addSpacing(-10);
 
 		inventoryFlow = new h2d.Flow(mainFlow);
-		inventoryFlow.horizontalSpacing = 10;
+		inventoryFlow.multiline = true;
+		inventoryFlow.horizontalSpacing = inventoryFlow.verticalSpacing = 8;
+		inventoryFlow.paddingTop = 4;
+		inventoryFlow.paddingLeft = 4;
+		inventoryFlow.maxWidth = inventoryFlow.minWidth = 24 * hxd.Math.imin(Const.PLAYER_DATA.maximumInventoryStorage, 3);
+		inventoryFlow.minHeight = 16 * (Std.int(Const.PLAYER_DATA.maximumInventoryStorage / 3) + 1);
+
+		for (i in 0...Const.PLAYER_DATA.maximumInventoryStorage) {
+			var spr = Assets.tiles.h_get("bgInventory", inventoryFlow);
+			inventoryFlow.getProperties(spr).isAbsolute = true;
+			spr.setPosition(i % 3 * 24, Std.int(i / 3) * 24);
+			trace(spr.x + " " + spr.y);
+		}
+
+		sprItems = [];
 	}
 
 	override function onResize() {
@@ -38,27 +62,32 @@ class Hud extends dn.Process {
 
 		inventoryFlow.reflow();
 
-		// mainFlow.minWidth = Std.int(w() / Const.SCALE);
 		mainFlow.reflow();
-		// mainFlow.y = Std.int((game.scroller.y / Const.UI_SCALE) + game.level.lvlData.pxHei + 10);
-		mainFlow.x = Std.int((game.scroller.x / Const.SCALE) + game.level.lvlData.pxWid + 10);
-		mainFlow.y = Std.int(game.scroller.y / Const.SCALE);
+
+		root.x = Std.int((game.scroller.x) + game.level.lvlData.pxWid * Const.SCALE + 10);
+		root.y = Std.int(game.scroller.y);
+
+		// root.x = game.scroller.x;
+		// root.y = game.scroller.y;
 	}
 
 	public inline function invalidate() invalidated = true;
 
 	function render() {
-		textRemainingTU.text = 'Remaining Time Unit : ${level.lvlInfo.maximumScore - level.currentTU}';
-		textcurrentTU.text = 'Current Time Unit : ${level.currentTU}';
-		inventoryRemaining.text = 'Remaining inventory places : ${Const.PLAYER_DATA.maximumInventoryStorage - level.player.inventory.length}';
+		// textRemainingTU.text = 'Remaining TU : ${level.lvlInfo.maximumScore - level.currentTU}';
+		// textcurrentTU.text = 'TU : ${level.currentTU}';
+		textcurrentTU.text = "TU : " + level.currentTU + " / " + level.lvlInfo.maximumScore;
+		inventoryRemaining.text = "Inventory";
 
-		inventoryFlow.removeChildren();
+		for (spr in sprItems) spr.remove();
+		sprItems = [];
 		for (object in level.player.inventory) {
-			switch (object.type) {
+			var spr = switch (object.type) {
 				case Coffee : Assets.tiles.h_get("iconCoffee", inventoryFlow);
 				case Files : Assets.tiles.h_get("iconFile", inventoryFlow);
 				case Photocopy : Assets.tiles.h_get("iconPhotocopy", inventoryFlow);
 			}
+			sprItems.push(spr);
 		}
 
 		onResize();
