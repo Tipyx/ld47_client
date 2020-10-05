@@ -134,6 +134,7 @@ class EndLevel extends dn.Process {
 	}
 
 	public function transitionRewindLevelAppear () {
+		controlLock = false;
 		cinematic.create({
 			tw.createS(endLevel.alpha, 0>1, 0.5).end(()->cinematic.signal());
 			end;
