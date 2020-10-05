@@ -123,6 +123,8 @@ class UpgradePlayer extends dn.Process {
     }
 
     function onClickBtn() {
+		Const.SAVE_PROGRESS();
+		
         if (controlLock) return;
         controlLock = true;
         cinematic.create({
