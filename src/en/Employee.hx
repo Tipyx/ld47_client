@@ -118,6 +118,7 @@ class Employee extends Entity {
 						else if (level.hasDeskAt(cx - 1, cy - 1)) new File(cx - 1, cy - 1, true, this);
 				}
 				level.showRequestPopup(this, pendingRequest);
+				break;
 			}
 		}
 	}
