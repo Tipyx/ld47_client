@@ -43,8 +43,6 @@ class Level extends dn.Process {
 			// Get corresponding H2D.Tile from tileset
 			var tile = collisionLayer.tileset.getAutoLayerHeapsTile(tilesetTile, at);
 
-			// collisionLayer.
-
 			// Display it
 			var bitmap = new h2d.Bitmap(tile);
 			root.add(bitmap, Const.DP_BG);
@@ -108,8 +106,11 @@ class Level extends dn.Process {
 
 		arRequestPopups = [];
 		arActionPopups = [];
+	}
 
-		delayer.addF(()->game.hud.invalidate, 1);
+	public function start() {
+		game.camera.trackTarget(player, true);
+		game.hud.invalidate();
 	}
 
 	public function onClickEntity(entity:Entity) {
@@ -215,6 +216,7 @@ class Level extends dn.Process {
 								}
 				});
 			}
+			emp.lookAtPlayer();
 		}
 		if (actions.length > 0)
 			showActionPopup(entity, actions);

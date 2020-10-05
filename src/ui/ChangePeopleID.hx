@@ -40,7 +40,7 @@ class ChangePeopleID extends h2d.Layers {
         spr = new HSprite(Assets.tiles);
         rectID.addChild(spr);
 		spr.colorAdd= new h3d.Vector();
-        spr.set("employee", notepadData.peopleID);
+        spr.set("employeeFront", notepadData.peopleID);
         spr.setCenterRatio(0.5, 0.5);
 
         updatePeopleIcon();
@@ -65,7 +65,7 @@ class ChangePeopleID extends h2d.Layers {
     }
 
     function updatePeopleIcon () {
-        spr.set("employee", notepadData.peopleID);
+        spr.set("employeeFront", notepadData.peopleID);
         spr.setPosition(wid/2, hei/2);
     }
 }

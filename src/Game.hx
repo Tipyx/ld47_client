@@ -37,26 +37,30 @@ class Game extends Process {
 		scroller.filter = new h2d.filter.ColorMatrix(); // force rendering for pixel perfect
 
 		goToLevel(levelsToDo.shift());
-		camera = new Camera();
 
 		Process.resizeAll();
 		trace(Lang.t._("Game is ready."));
-
 	}
 
 	public function onCdbReload() {
 	}
 
 	override function onResize() {
-		super.onResize();
 		scroller.setScale(Const.SCALE);
+
+		camera.onResize();
+		
+		super.onResize();
 	}
 
 	function goToLevel(lvlInfo:Data.LevelInfo) {
 		level = new Level(lvlInfo);
+		camera = new Camera();
 		notepad = new ui.Notepad();
 		fx = new Fx();
 		hud = new ui.Hud();
+
+		level.start();
 	}
 
 	public function showNotepad() {

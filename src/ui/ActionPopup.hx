@@ -25,6 +25,8 @@ class ActionPopup extends h2d.Layers {
 		for (a in actions) {
 			var btn = new Button(a.str, function() {
 				a.onClick(this);
+				if (linkedEntity.is(en.Employee))
+					linkedEntity.as(en.Employee).backToNormalLook();
 				level.startNewTurn();
 				level.endNewTurn();
 			}, Const.BUTTON_WIDTH >> 1, Const.BUTTON_HEIGHT >> 1);

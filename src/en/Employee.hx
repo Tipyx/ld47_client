@@ -14,10 +14,12 @@ class Employee extends Entity {
 	public function new(cx, cy, id:Int) {
 		super(cx, cy);
 
+		this.id = id;
+
 		xr = 0.5;
 		yr = 0.5;
 
-		spr.set("employeeFront", id);
+		spr.set("employeeBack", id);
 		spr.setCenterRatio(0.5, 0.75);
 
 		var inter = new h2d.Interactive(Const.GRID, Const.GRID, spr);
@@ -30,6 +32,17 @@ class Employee extends Entity {
 		pendingRequest = null;
 
 		inventory = [];
+	}
+
+	public function backToNormalLook() {
+		spr.set(hasPendingRequest ? "employeeFront" : "employeeBack", id);
+	}
+
+	public function lookAtPlayer() {
+		if (cx == level.player.cx + 1)
+			spr.set("employeeSideLeft", id);
+		if (cx == level.player.cx - 1)
+			spr.set("employeeSideRight", id);
 	}
 
 	public function addRequest(tu:Int, request:RequestType) {
@@ -51,6 +64,8 @@ class Employee extends Entity {
 	public function completeRequestType(rt:RequestType) {
 		level.removeRequestPopup(pendingRequest);
 		pendingRequest = null;
+
+		spr.set("employeeBack", id);
 
 		checkNewRequest();
 	}
@@ -75,6 +90,11 @@ class Employee extends Entity {
 			pendingRequest.elapsedTU++;
 
 		checkNewRequest();
+		
+		if (level.entitiesAreNearEachOther(this, level.player))
+			lookAtPlayer();
+		else
+			backToNormalLook();
 	}
 
 	inline function checkNewRequest() {
@@ -85,6 +105,7 @@ class Employee extends Entity {
 			if (rtd.tu <= level.currentTU) {
 				requestsToDo.remove(rtd);
 				pendingRequest = {elapsedTU: 0, type:rtd.request};
+				spr.set("employeeFront", id);
 				switch (rtd.request) {
 					case NeedCoffee :
 					case NeedFiles : 

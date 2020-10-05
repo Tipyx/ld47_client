@@ -20,7 +20,7 @@ class Hud extends dn.Process {
 		root.filter = new h2d.filter.ColorMatrix(); // force pixel perfect rendering
 
 		mainFlow = new h2d.Flow(root);
-		mainFlow.horizontalAlign = Middle;
+		// mainFlow.horizontalAlign = Middle;
 		mainFlow.layout = Vertical;
 		mainFlow.verticalSpacing = 5;
 		
@@ -34,13 +34,15 @@ class Hud extends dn.Process {
 
 	override function onResize() {
 		super.onResize();
-		root.setScale(Const.UI_SCALE);
+		root.setScale(Const.SCALE);
 
 		inventoryFlow.reflow();
 
-		mainFlow.minWidth = Std.int(w() / Const.SCALE);
+		// mainFlow.minWidth = Std.int(w() / Const.SCALE);
 		mainFlow.reflow();
-		mainFlow.y = Std.int((game.scroller.y / Const.UI_SCALE) + game.level.lvlData.pxHei + 10);
+		// mainFlow.y = Std.int((game.scroller.y / Const.UI_SCALE) + game.level.lvlData.pxHei + 10);
+		mainFlow.x = Std.int((game.scroller.x / Const.SCALE) + game.level.lvlData.pxWid + 10);
+		mainFlow.y = Std.int(game.scroller.y / Const.SCALE);
 	}
 
 	public inline function invalidate() invalidated = true;
