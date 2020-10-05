@@ -10,6 +10,7 @@ class UpgradePlayer extends dn.Process {
     var flowInventory : h2d.Flow;
     var flowNotepad : h2d.Flow;
 
+    var upgrade : h2d.Text;
     var currentPoints : h2d.Text;
 
     var currentInventory : h2d.Text;
@@ -20,12 +21,18 @@ class UpgradePlayer extends dn.Process {
     
     var backBtn : Button;
 
+    var controlLock(default, null) = false;
+
+    var cinematic : dn.Cinematic;
+
     public function new() {
         super(Game.ME);
 
         ME = this;
 
         createRootInLayers(parent.root, Const.DP_UPGRADE);
+
+        cinematic = new dn.Cinematic(Const.FPS);
         
         flow = new h2d.Flow(root);
         flow.layout = Vertical;
@@ -33,7 +40,7 @@ class UpgradePlayer extends dn.Process {
         flow.minWidth = 250;
         flow.horizontalAlign = Middle;
 
-        var upgrade = new h2d.Text(Assets.fontPixel, flow);
+        upgrade = new h2d.Text(Assets.fontPixel, flow);
         upgrade.setScale(Const.SCALE);
         upgrade.text = "UPGRADES";
 
@@ -89,10 +96,46 @@ class UpgradePlayer extends dn.Process {
 
         flow.addSpacing(20);
 
-        backBtn = new Button("Back", Game.ME.returnToEndLevel);
+        backBtn = new Button("Back", onClickBtn);
         flow.addChild(backBtn);
 
         onResize();
+        currentPoints.x -= w() / Const.SCALE;
+        currentInventory.x -= w() / Const.SCALE;
+        currentNotepad.x -= w() / Const.SCALE;
+        upgradeInventoryBtn.x += w() / Const.SCALE;
+        upgradeNotepadBtn.x += w() / Const.SCALE;
+        backBtn.y += h() / Const.SCALE;
+
+        cinematic.create({
+            tw.createS(upgrade.alpha, 0>1, 0.4).end(()->cinematic.signal());
+            end;
+            tw.createS(currentPoints.x, currentPoints.x + (w() / Const.SCALE), 0.4).end(()->cinematic.signal());
+            200;
+            tw.createS(currentInventory.x, currentInventory.x + (w() / Const.SCALE), 0.4);
+            tw.createS(upgradeInventoryBtn.x, upgradeInventoryBtn.x - (w() / Const.SCALE), 0.4).end(()->cinematic.signal());
+            200;
+            tw.createS(currentNotepad.x, currentNotepad.x + (w() / Const.SCALE), 0.4);
+            tw.createS(upgradeNotepadBtn.x, upgradeNotepadBtn.x - (w() / Const.SCALE), 0.4).end(()->cinematic.signal());
+            200;
+            tw.createS(backBtn.y, backBtn.y - (h() / Const.SCALE), 0.4);
+        });
+    }
+
+    function onClickBtn() {
+        if (controlLock) return;
+        controlLock = true;
+        cinematic.create({
+            tw.createS(upgrade.alpha, 0, 0.4);
+            tw.createS(currentPoints.x, currentPoints.x - (w() / Const.SCALE), 0.4);
+            tw.createS(currentInventory.x, currentInventory.x - (w() / Const.SCALE), 0.4);
+            tw.createS(upgradeInventoryBtn.x, upgradeInventoryBtn.x + (w() / Const.SCALE), 0.4);
+            tw.createS(currentNotepad.x, currentNotepad.x - (w() / Const.SCALE), 0.4);
+            tw.createS(upgradeNotepadBtn.x, upgradeNotepadBtn.x + (w() / Const.SCALE), 0.4);
+            tw.createS(backBtn.y, backBtn.y + (h() / Const.SCALE), 0.4).end(()->cinematic.signal());
+            end;
+            Game.ME.returnToEndLevel();
+        });
     }
     
     function render() {
@@ -118,5 +161,6 @@ class UpgradePlayer extends dn.Process {
         super.update();
 
         if (Const.PLAYER_DATA.maximumInventoryStorage >= 6) upgradeInventoryBtn.visible = false;
+        cinematic.update(tmod);
     }
 }

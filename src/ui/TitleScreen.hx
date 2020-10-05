@@ -48,7 +48,7 @@ class TitleScreen extends dn.Process {
         });
     }
 
-    public function onClickBtn() {
+    function onClickBtn() {
 		if (controlLock) return;
 		controlLock = true;
 		cinematic.create({
