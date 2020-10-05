@@ -34,7 +34,7 @@ class Const {
 		LED_DATA = new LedData();
 
 		PLAYER_DATA = dn.LocalStorage.readObject("playerData", {maximumNotepadEntry:3,
-																maximumInventoryStorage:6,
+																maximumInventoryStorage:2,
 																planningDatas:new Map(),
 																xp:0,
 																nextCostInventory:1,

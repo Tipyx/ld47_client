@@ -61,18 +61,18 @@ class EndLevel extends dn.Process {
 
 			flow.addSpacing(30);
 
-			btn = new Button("Next Level", goToNextLevel);
-			flow.addChild(btn);
-
 			upgradeBtn = new Button("Upgrades", goToUpgradeScreen.bind(levelisSuccessed));
 			flow.addChild(upgradeBtn);
+
+			btn = new Button("Next Level", goToNextLevel);
+			flow.addChild(btn);
 
 			onResize();
 
 			numLevel.x -= w() / Const.SCALE;
 			score.x -= w() / Const.SCALE;
-			btn.x += w() / Const.SCALE;
 			upgradeBtn.x -= w() / Const.SCALE;
+			btn.x += w() / Const.SCALE;
 
 			transitionGoodEndLevel();
 		}
@@ -95,9 +95,9 @@ class EndLevel extends dn.Process {
 			onResize();
 
 			numLevel.x -= w() / Const.SCALE;
-			btn.x -= w() / Const.SCALE;
 			upgradeBtn.x += w() / Const.SCALE;
-
+			btn.x -= w() / Const.SCALE;
+			
 			transitionBadEndLevel();
 			}
 	}
@@ -107,9 +107,10 @@ class EndLevel extends dn.Process {
 		controlLock = true;
 		cinematic.create({
 			tw.createS(endLevel.alpha, 0, 0.5);
+			tw.createS(numLevel.x, numLevel.x - (w() / Const.SCALE), 0.5);
 			tw.createS(score.x, score.x - (w() / Const.SCALE), 0.5);
-			tw.createS(btn.x, btn.x + (w() / Const.SCALE), 0.5);
-			tw.createS(upgradeBtn.x, upgradeBtn.x - (w() / Const.SCALE), 0.5).end(()->cinematic.signal());
+			tw.createS(upgradeBtn.x, upgradeBtn.x - (w() / Const.SCALE), 0.5);
+			tw.createS(btn.x, btn.x + (w() / Const.SCALE), 0.5).end(()->cinematic.signal());
 			end;
 			game.nextLevel();
 			destroy();
@@ -124,8 +125,8 @@ class EndLevel extends dn.Process {
 				tw.createS(endLevel.alpha, 0, 0.5);
 				tw.createS(numLevel.x, numLevel.x - (w() / Const.SCALE), 0.5);
 				tw.createS(score.x, score.x - (w() / Const.SCALE), 0.5);
-				tw.createS(btn.x, btn.x + (w() / Const.SCALE), 0.5);
-				tw.createS(upgradeBtn.x, upgradeBtn.x - (w() / Const.SCALE), 0.5).end(()->cinematic.signal());
+				tw.createS(upgradeBtn.x, upgradeBtn.x - (w() / Const.SCALE), 0.5);
+				tw.createS(btn.x, btn.x + (w() / Const.SCALE), 0.5).end(()->cinematic.signal());
 				end;
 				Game.ME.startUpgradePlayer(levelisSuccessed);
 			});
@@ -182,8 +183,8 @@ class EndLevel extends dn.Process {
 			end;
 			tw.createS(score.x, score.x + (w() / Const.SCALE), 0.5).end(()->cinematic.signal());
 			end;
-			tw.createS(btn.x, btn.x - (w() / Const.SCALE), 0.5);
 			tw.createS(upgradeBtn.x, upgradeBtn.x + (w() / Const.SCALE), 0.5);
+			tw.createS(btn.x, btn.x - (w() / Const.SCALE), 0.5);
 		});
 	}
 
