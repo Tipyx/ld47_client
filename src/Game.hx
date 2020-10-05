@@ -73,6 +73,10 @@ class Game extends Process {
 		notepad.hide();
 	}
 
+	public function showPopup(str:String) {
+		new ui.Popup(str);
+	}
+
 	public function showEndLevel(levelisSuccessed:Bool) {
 		new ui.EndLevel(levelisSuccessed);
 
@@ -150,6 +154,11 @@ class Game extends Process {
 					level.destroy();
 					hud.destroy();
 					new EndCampaign();
+				}
+
+				if( ca.isKeyboardPressed(Key.F3) ) {
+					camera.shakeS(0.5, 0.5);
+					fx.newRequest(level.arEmployee[0]);
 				}
 			#end
 

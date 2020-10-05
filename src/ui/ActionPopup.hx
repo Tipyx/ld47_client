@@ -8,7 +8,7 @@ class ActionPopup extends h2d.Layers {
 
 	var linkedEntity : Entity;
 	
-	public function new(linkedEntity:Entity, actions:Array<{str:String, onClick:ActionPopup->Void}>) {
+	public function new(linkedEntity:Entity, actions:Array<{str:String, onClick:ActionPopup->Void, isEnable:Bool}>) {
 		super();
 
 		this.linkedEntity = linkedEntity;
@@ -24,12 +24,13 @@ class ActionPopup extends h2d.Layers {
 
 		for (a in actions) {
 			var btn = new Button(a.str, function() {
-				a.onClick(this);
-				if (linkedEntity.is(en.Employee))
-					linkedEntity.as(en.Employee).backToNormalLook();
-				level.startNewTurn();
-				level.endNewTurn();
+				if (a.onClick != null) {
+					a.onClick(this);
+					if (linkedEntity.is(en.Employee))
+						linkedEntity.as(en.Employee).backToNormalLook();
+				}
 			}, Const.BUTTON_WIDTH >> 1, Const.BUTTON_HEIGHT >> 1);
+			if (!a.isEnable) btn.updateBGColor(0xe35959);
 			flow.addChild(btn);
 		}
 

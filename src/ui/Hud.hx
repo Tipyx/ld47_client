@@ -1,5 +1,7 @@
 package ui;
 
+import dn.heaps.HParticle;
+
 class Hud extends dn.Process {
 	public var game(get,never) : Game; inline function get_game() return Game.ME;
 	public var fx(get,never) : Fx; inline function get_fx() return Game.ME.fx;
@@ -14,6 +16,10 @@ class Hud extends dn.Process {
 	var inventoryRemaining : h2d.Text;
 
 	var sprItems : Array<HSprite>;
+
+	var pool : ParticlePool;
+
+	var fxSb : h2d.SpriteBatch;
 
 	public function new() {
 		super(Game.ME);
@@ -40,20 +46,48 @@ class Hud extends dn.Process {
 
 		inventoryFlow = new h2d.Flow(mainFlow);
 		inventoryFlow.multiline = true;
+		// inventoryFlow.debug = true;
 		inventoryFlow.horizontalSpacing = inventoryFlow.verticalSpacing = 8;
 		inventoryFlow.paddingTop = 4;
 		inventoryFlow.paddingLeft = 4;
 		inventoryFlow.maxWidth = inventoryFlow.minWidth = 24 * hxd.Math.imin(Const.PLAYER_DATA.maximumInventoryStorage, 3);
-		inventoryFlow.minHeight = 16 * (Std.int(Const.PLAYER_DATA.maximumInventoryStorage / 3) + 1);
+		inventoryFlow.minHeight = 24 * (Std.int(Const.PLAYER_DATA.maximumInventoryStorage / 3) + 1);
 
 		for (i in 0...Const.PLAYER_DATA.maximumInventoryStorage) {
 			var spr = Assets.tiles.h_get("bgInventory", inventoryFlow);
 			inventoryFlow.getProperties(spr).isAbsolute = true;
 			spr.setPosition(i % 3 * 24, Std.int(i / 3) * 24);
-			trace(spr.x + " " + spr.y);
 		}
 
 		sprItems = [];
+
+		pool = new ParticlePool(Assets.tiles.tile, 2048, Const.FPS);
+
+		fxSb = new h2d.SpriteBatch(Assets.tiles.tile);
+		root.add(fxSb, Const.DP_FX_FRONT);
+		// fxSb.blendMode = Add;
+		fxSb.hasRotationScale = true;
+	}
+	
+	inline function allocTopAdd(t:h2d.Tile, x:Float, y:Float) : HParticle {
+		return pool.alloc(fxSb, t, x, y);
+	}
+
+	inline function getTile(id:String) : h2d.Tile {
+		return Assets.tiles.getTileRandom(id);
+	}
+
+	public function fxInventoryFull() {
+		for (i in 0...10) {
+			var p = allocTopAdd(getTile("fxSquare"), inventoryFlow.x + (inventoryFlow.outerWidth >> 1), inventoryFlow.y + (inventoryFlow.outerHeight >> 1));
+			p.scaleX = hxd.Math.imin(Const.PLAYER_DATA.maximumInventoryStorage, 3);
+			p.scaleY = Std.int(Const.PLAYER_DATA.maximumInventoryStorage / 3) + 1;
+			p.ds = 0.1;
+			p.colorize(0xFF0000);
+			p.alpha = 0.5;
+			p.delayS = 0.1 * i;
+			p.lifeS = 0.25;
+		}
 	}
 
 	override function onResize() {
@@ -91,6 +125,12 @@ class Hud extends dn.Process {
 		}
 
 		onResize();
+	}
+
+	override function update() {
+		super.update();
+
+		pool.update(game.tmod);
 	}
 
 	override function postUpdate() {

@@ -75,6 +75,19 @@ class Fx extends dn.Process {
 		pool.killAll();
 	}
 
+	public function newRequest(e:Entity) {
+		game.camera.shakeS(0.5, 0.25);
+		for (i in 0...10) {
+			var p = allocTopAdd(getTile("fxCircleEmpty"), e.headX, e.headY + 5);
+			p.scale = 0;
+			p.ds = 0.1;
+			// p.colorize(0xFF0000);
+			p.alpha = 0.5;
+			p.delayS = 0.1 * i;
+			p.lifeS = 0.25;
+		}
+	}
+
 	public function markerEntity(e:Entity, ?c=0xFF00FF, ?short=false) {
 		#if debug
 		if( e==null )

@@ -119,67 +119,108 @@ class Level extends dn.Process {
 
 		player.lookAt(entity.cx, entity.cy);
 
-		var actions : Array<{str:String, onClick:ui.ActionPopup->Void}> = [];
+		var actions : Array<{str:String, onClick:ui.ActionPopup->Void, isEnable:Bool}> = [];
 		if (entity.is(en.CoffeeMaker)) {
 			actions.push({	str:"Take Coffee",
+							isEnable:!player.inventoryIsFull,
 							onClick:function(ap){
+								ap.hide();
 								if (!player.inventoryIsFull) {
-									ap.hide();
 									player.addToInventory(Coffee);
+									startNewTurn();
+									endNewTurn();
+								}
+								else {
+									game.hud.fxInventoryFull();
+									game.showPopup("You can't hold anything anymore!");
 								}
 							}
 			});
 		}
 		if (entity.is(en.Bin)) {
 			var coffee = player.getCoffee();
-			if (coffee != null)
-				actions.push({	str:"Throw Coffee",
-								onClick:function(ap){
-									ap.hide();
+			actions.push({	str:"Throw Coffee",
+							isEnable:coffee != null,
+							onClick:function(ap){
+								ap.hide();
+								if (coffee != null) {
 									player.removeObject(coffee);
+									startNewTurn();
+									endNewTurn();
 								}
-				});
+								else {
+									game.hud.fxInventoryFull();
+									game.showPopup("You don't have any coffee to be throw!");
+								}
+							}
+			});
 		}
 		else if (entity.is(en.Cupboard)) {
 			var files = player.getFileToPutAway();
-			if (files != null)
 			actions.push({	str:"Put Files Away",
+							isEnable:files != null,
 							onClick:function(ap){
 								ap.hide();
-								player.removeObject(files);
-								files.linkedEmployee.completeRequestType(PutFilesAway);
+								if (files != null) {
+									player.removeObject(files);
+									files.linkedEmployee.completeRequestType(PutFilesAway);
+									startNewTurn();
+									endNewTurn();
+								}
+								else {
+									game.hud.fxInventoryFull();
+									game.showPopup("You don't have any files to be put away!");
+								}
 							}
 			});
 		}
 		else if (entity.is(en.Copier)) {
 			var files = player.getFileToCopy();
-			if (files != null)
-				actions.push({	str:"Do Copy",
-								onClick:function(ap){
-									if (!player.inventoryIsFull) {
-										ap.hide();
-										player.addToInventory(Photocopy, files.linkedEmployee);
-										files.linkedEmployee = null;
-									}
+			actions.push({	str:"Do Copy",
+							isEnable:files != null && !player.inventoryIsFull,
+							onClick:function(ap){
+								ap.hide();
+								if (files == null) {
+									game.hud.fxInventoryFull();
+									game.showPopup("You don't have any file to photocopy!");
 								}
-				});
+								else if (!player.inventoryIsFull) {
+									player.addToInventory(Photocopy, files.linkedEmployee);
+									files.linkedEmployee = null;
+									startNewTurn();
+									endNewTurn();
+								}
+								else {
+									game.hud.fxInventoryFull();
+									game.showPopup("You can't hold anything anymore!");
+								}
+							}
+			});
 		}
 		else if (entity.is(en.File)) {
 			var files = player.getFileToBeGiven();
 			trace(files);
 			if (entity.as(en.File).isThere) {
 				actions.push({	str:"Take Files",
+								isEnable:!player.inventoryIsFull,
 								onClick:function(ap){
+									ap.hide();
 									if (!player.inventoryIsFull) {
-										ap.hide();
 										player.addToInventory(Files, entity.as(en.File).linkedEmployee);
 										entity.destroy();
+										startNewTurn();
+										endNewTurn();
+									}
+									else {
+										game.hud.fxInventoryFull();
+										game.showPopup("You can't hold anything anymore!");
 									}
 								}
 				});
 			}
 			else if (files != null) {
 				actions.push({	str:"Give Files",
+								isEnable:true,
 								onClick:function(ap){
 									ap.hide();
 									player.removeObject(files);
@@ -191,30 +232,39 @@ class Level extends dn.Process {
 		else if (entity.is(en.Employee)) {
 			var emp = entity.as(en.Employee);
 			var coffee = player.getCoffee();
-			if (coffee != null && emp.hasRequest(NeedCoffee)) {
+			if (emp.hasRequest(NeedCoffee)) {
 				actions.push({	str:"Give Coffee",
+								isEnable: coffee != null,
 								onClick:function(ap){
-									ap.hide();
-									player.giveItemTo(coffee, emp);
+									if (coffee != null) {
+										ap.hide();
+										player.giveItemTo(coffee, emp);
+									}
+									else {
+										game.hud.fxInventoryFull();
+									}
 								}
 				});
 			}
-			/* if (emp.hasRequest(CopyFiles) && emp.hasInInventory(Files)) {
-				actions.push({	str:"Take Files",
-								onClick:function(ap){
-									ap.hide();
-									emp.giveItemToPlayer(Files);
-								}
-				});
-			} */
 			var photocopies = player.getPhotocopyToBeGiven();
-			if (photocopies != null && photocopies.linkedEmployee == emp) {
+			if (emp.hasRequest(NeedPhotocopies)) {
 				actions.push({	str:"Give Photocopies",
+								isEnable:photocopies != null && photocopies.linkedEmployee == emp,
 								onClick:function(ap){
 									ap.hide();
-									player.giveItemTo(photocopies, emp);
+									if (photocopies == null) {
+										game.hud.fxInventoryFull();
+										game.showPopup("You don't have the photocopies");
+									}
+									else if (photocopies != null && photocopies.linkedEmployee != emp) {
+										game.hud.fxInventoryFull();
+										game.showPopup("You don't have the good photocopies");
+									}
+									else
+										player.giveItemTo(photocopies, emp);
 								}
 				});
+
 			}
 			emp.lookAtPlayer();
 		}
@@ -222,13 +272,14 @@ class Level extends dn.Process {
 			showActionPopup(entity, actions);
 	}
 
-	function showActionPopup(entity:Entity, actions:Array<{str:String, onClick:ui.ActionPopup->Void}>) {
+	function showActionPopup(entity:Entity, actions:Array<{str:String, onClick:ui.ActionPopup->Void, isEnable:Bool}>) {
 		var ap = new ui.ActionPopup(entity, actions);
 		game.scroller.add(ap, Const.DP_UI);
 		arActionPopups.push(ap);
 	}
 
 	public function showRequestPopup(entity:Entity, request:PendingRequest) {
+		fx.newRequest(entity);
 		var rp = new ui.RequestPopup(entity, request);
 		game.scroller.add(rp, Const.DP_UI);
 		arRequestPopups.push(rp);
