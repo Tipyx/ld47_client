@@ -3,6 +3,7 @@ import dn.heaps.slib.*;
 class Assets {
 	public static var fontPixel : h2d.Font;
 	public static var fontExpress9 : h2d.Font;
+	public static var fontExpress18 : h2d.Font;
 	public static var tiles : SpriteLib;
 
 	static var initDone = false;
@@ -13,6 +14,7 @@ class Assets {
 
 		fontPixel = hxd.Res.fonts.minecraftiaOutline.toFont();
 		fontExpress9 = hxd.Res.fonts.chevyray_express_regular_9.toFont();
+		fontExpress18 = hxd.Res.fonts.chevyray_express_regular_18.toFont();
 		tiles = dn.heaps.assets.Atlas.load("atlas/tiles.atlas");
 	}
 

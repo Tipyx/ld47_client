@@ -23,22 +23,16 @@ class ChangePeopleID extends h2d.Layers {
         flow.layout = Horizontal;
         flow.verticalAlign = Middle;
         flow.horizontalAlign = Middle;
+		flow.horizontalSpacing = 5;
         flow.minWidth = Notepad.WIDTH_BTN;
         flow.minHeight = Notepad.HEIGHT_BTN;
 
-        var interMinus = new h2d.Interactive(24, 24, flow);
-        interMinus.backgroundColor = 0xFFF0E68C;
-        interMinus.onClick = (e)->retrieveNumber(1);
-        var minus = new h2d.Text(Assets.fontPixel, interMinus);
-        minus.text = '<';
-        minus.setPosition((interMinus.width - minus.textWidth) / 2, (interMinus.height - minus.textHeight) / 2);
-
-        flow.getProperties(interMinus).horizontalAlign = Left;
+		flow.addChild(createButton("<", Std.int(flow.minHeight * 0.5), ()->retrieveNumber(1)));
 
         var rectID = new h2d.Graphics(flow);
         rectID.lineStyle(1, 0);
-        rectID.drawRect(0, 0, 40, 40);
-        flow.getProperties(rectID).horizontalAlign = Middle;
+		rectID.beginFill(0xbdb99e);
+        rectID.drawRect(0, 0, wid, hei);
 
         spr = new HSprite(Assets.tiles);
         rectID.addChild(spr);
@@ -47,16 +41,29 @@ class ChangePeopleID extends h2d.Layers {
         spr.setCenterRatio(0.5, 0.5);
 
         updatePeopleIcon();
-
-        var interPlus = new h2d.Interactive(24, 24, flow);
-        interPlus.backgroundColor = 0xFFF0E68C;
-        interPlus.onClick = (e)->addNumber(1);
-        var plus = new h2d.Text(Assets.fontPixel, interPlus);
-        plus.text = '>';
-        plus.setPosition((interPlus.width - plus.textWidth) / 2, (interPlus.height - plus.textHeight) / 2);
-
-        flow.getProperties(interPlus).horizontalAlign = Right;
+		
+		flow.addChild(createButton(">", Std.int(flow.minHeight * 0.5), ()->addNumber(1)));
     }
+	
+	function createButton(str:String, height:Int, cb:Void->Void):h2d.Flow {
+		var minFlow = new h2d.Flow();
+		minFlow.horizontalAlign = minFlow.verticalAlign = Middle;
+		minFlow.minWidth = height;
+		minFlow.minHeight = height;
+		minFlow.enableInteractive = true;
+		minFlow.interactive.cursor = Button;
+		minFlow.interactive.onClick = (e)->cb();
+		var bg = new h2d.Graphics(minFlow);
+		minFlow.getProperties(bg).isAbsolute = true;
+        var text = new h2d.Text(Assets.fontExpress9, minFlow);
+		text.text = str;
+		text.textColor = 0x292524;
+		minFlow.reflow();
+		bg.beginFill(0xFFF0E68C);
+		bg.drawRoundedRect(0, 2, minFlow.outerWidth, minFlow.outerHeight - 4, 2);
+
+		return minFlow;
+	}
 
     function addNumber (nb:Int) {
         if (notepadData.peopleID != maxIconID) notepadData.peopleID += nb;

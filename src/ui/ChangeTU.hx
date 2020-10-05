@@ -25,69 +25,57 @@ class ChangeTU extends h2d.Layers {
         flow.verticalAlign = Middle;
         flow.horizontalAlign = Middle;
         flow.minWidth = Notepad.WIDTH_BTN;
-        flow.minHeight = Notepad.HEIGHT_BTN;
+		flow.minHeight = Notepad.HEIGHT_BTN;
 
         flowMinus = new h2d.Flow(flow);
         flowMinus.layout = Vertical;
-        flowMinus.minHeight = flow.minHeight;
+		flowMinus.minHeight = flow.minHeight;
+		
+		flowMinus.addChild(createButton("-1", Std.int(flowMinus.minHeight / 2), ()->retrieveNumber(1)));
+		flowMinus.addChild(createButton("-10", Std.int(flowMinus.minHeight / 2), ()->retrieveNumber(10)));
 
-        var flowMinusOne = new h2d.Flow(flowMinus);
-        flowMinusOne.minHeight = Std.int(flowMinus.minHeight / 2);
-        var interMinusOne = new h2d.Interactive(24, 16, flowMinusOne);
-        interMinusOne.backgroundColor = 0xFFF0E68C;
-        interMinusOne.onClick = (e)->retrieveNumber(1);
-        flowMinusOne.getProperties(interMinusOne).verticalAlign = Middle;
-        var minusOne = new h2d.Text(Assets.fontPixel, interMinusOne);
-        minusOne.text = '-1';
-        minusOne.setPosition((interMinusOne.width - minusOne.textWidth) / 2, (interMinusOne.height - minusOne.textHeight) / 2);
-
-        var flowMinusTen = new h2d.Flow(flowMinus);
-        flowMinusTen.minHeight = Std.int(flowMinus.minHeight / 2);
-        var interMinusTen = new h2d.Interactive(24, 16, flowMinusTen);
-        interMinusTen.backgroundColor = 0xFFF0E68C;
-        interMinusTen.onClick = (e)->retrieveNumber(10);
-        flowMinusTen.getProperties(interMinusTen).verticalAlign = Middle;
-        var minusTen = new h2d.Text(Assets.fontPixel, interMinusTen);
-        minusTen.text = '-10';
-        minusTen.setPosition((interMinusTen.width - minusTen.textWidth) / 2, (interMinusTen.height - minusTen.textHeight) / 2);
-
-        flow.getProperties(flowMinus).horizontalAlign = Left;
-
+		flow.getProperties(flowMinus).horizontalAlign = Left;
+		
         var rectTU = new h2d.Graphics(flow);
-        rectTU.lineStyle(1, 0);
-        rectTU.drawRect(0, 0, 40, 40);
+		rectTU.lineStyle(1, 0);
+		rectTU.beginFill(0xbdb99e);
+        rectTU.drawRect(0, 0, wid, hei);
 
         flow.getProperties(rectTU).horizontalAlign = Middle;
         
-        numTUText = new h2d.Text(Assets.fontPixel, rectTU);
+        numTUText = new h2d.Text(Assets.fontExpress18, rectTU);
+		numTUText.textColor = 0x292524;
         updateTUText();
 
         flowPlus = new h2d.Flow(flow);
         flowPlus.layout = Vertical;
-        flowPlus.minHeight = flow.minHeight;
+		flowPlus.minHeight = flow.minHeight;
 
-        var flowPlusOne = new h2d.Flow(flowPlus);
-        flowPlusOne.minHeight = Std.int(flowPlus.minHeight / 2);
-        var interPlusOne = new h2d.Interactive(24, 16, flowPlusOne);
-        interPlusOne.backgroundColor = 0xFFF0E68C;
-        interPlusOne.onClick = (e)->addNumber(1);
-        flowPlusOne.getProperties(interPlusOne).verticalAlign = Middle;
-        var plusOne = new h2d.Text(Assets.fontPixel, interPlusOne);
-        plusOne.text = '+1';
-        plusOne.setPosition((interPlusOne.width - plusOne.textWidth) / 2, (interPlusOne.height - plusOne.textHeight) / 2);
-
-        var flowPlusTen = new h2d.Flow(flowPlus);
-        flowPlusTen.minHeight = Std.int(flowPlus.minHeight / 2);
-        var interPlusTen = new h2d.Interactive(24, 16, flowPlusTen);
-        interPlusTen.backgroundColor = 0xFFF0E68C;
-        interPlusTen.onClick = (e)->addNumber(10);
-        flowPlusTen.getProperties(interPlusTen).verticalAlign = Middle;
-        var plusTen = new h2d.Text(Assets.fontPixel, interPlusTen);
-        plusTen.text = '+10';
-        plusTen.setPosition((interPlusTen.width - plusTen.textWidth) / 2, (interPlusTen.height - plusTen.textHeight) / 2);
+		flowPlus.addChild(createButton("+1", Std.int(flowPlus.minHeight / 2), ()->addNumber(1)));
+		flowPlus.addChild(createButton("+10", Std.int(flowPlus.minHeight / 2), ()->addNumber(10)));
 
         flow.getProperties(flowPlus).horizontalAlign = Right;
-    }
+	}
+	
+	function createButton(str:String, height:Int, cb:Void->Void):Flow {
+		var minFlow = new h2d.Flow();
+		minFlow.horizontalAlign = minFlow.verticalAlign = Middle;
+		minFlow.minWidth = height;
+		minFlow.minHeight = height;
+		minFlow.enableInteractive = true;
+		minFlow.interactive.cursor = Button;
+		minFlow.interactive.onClick = (e)->cb();
+		var bg = new h2d.Graphics(minFlow);
+		minFlow.getProperties(bg).isAbsolute = true;
+        var text = new h2d.Text(Assets.fontExpress9, minFlow);
+		text.text = str;
+		text.textColor = 0x292524;
+		minFlow.reflow();
+		bg.beginFill(0xFFF0E68C);
+		bg.drawRoundedRect(0, 2, minFlow.outerWidth, minFlow.outerHeight - 4, 2);
+
+		return minFlow;
+	}
 
     function addNumber (nb:Int) {
         notepadData.tu += nb;
