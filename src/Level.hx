@@ -127,7 +127,7 @@ class Level extends dn.Process {
 								ap.hide();
 								if (!player.inventoryIsFull) {
 									player.addToInventory(Coffee);
-									// new dn.heaps.Sfx(hxd.Res.sfx.coffeeGrinder).playOnGroup(VolumeGroup.CoffeeGrinder.getIndex());
+									new dn.heaps.Sfx(hxd.Res.sfx.coffeeGrinder).playOnGroup(VolumeGroup.CoffeeGrinder.getIndex());
 									startNewTurn();
 									endNewTurn();
 								}
@@ -288,6 +288,8 @@ class Level extends dn.Process {
 		var rp = new ui.RequestPopup(entity, request);
 		game.scroller.add(rp, Const.DP_UI);
 		arRequestPopups.push(rp);
+
+		Assets.PLAY_NEWREQUEST_SFX();
 	}
 
 	public function removeRequestPopup(pr:PendingRequest) {

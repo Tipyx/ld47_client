@@ -162,6 +162,7 @@ class Player extends Entity {
 					nextCPoint = new CPoint(cx, cy + 1);
 
 				if (nextCPoint != null) {
+					Assets.PLAY_STEP_SFX();
 					lookAt(nextCPoint.cx, nextCPoint.cy);
 					level.startNewTurn();
 				}

@@ -150,6 +150,7 @@ class Game extends Process {
 
 		for(e in Entity.ALL) if( !e.destroyed ) e.update();
 
+		#if debug
 		if( !ui.Console.ME.isActive() && !ui.Modal.hasAny() ) {
 			#if hl
 			// Exit
@@ -176,11 +177,12 @@ class Game extends Process {
 					fx.newRequest(level.arEmployee[0]);
 				}
 			#end
-
+			
 			// Restart
 			// if( ca.selectPressed() )
 			// 	Main.ME.startGame();
 		}
+		#end
 	}
 }
 

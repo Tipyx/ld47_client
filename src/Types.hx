@@ -43,6 +43,8 @@ typedef Object = {
 
 enum VolumeGroup {
 	@volume(0.5) CoffeeGrinder;
+	@volume(1) Step;
+	@volume(1) NewRequest;
 // 	@volume(0.45) ClickTile;
 // 	@volume(0.75) ClickButton;
 // 	@volume(0.75) WrongTile;
