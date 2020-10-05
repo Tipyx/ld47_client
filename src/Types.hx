@@ -31,6 +31,9 @@ typedef PlayerData = {
 	var maximumNotepadEntry : Int;
 	var maximumInventoryStorage : Int;
 	var planningDatas : Map<String, Array<NotepadData>>;
+	var xp : Int;
+	var nextCostInventory : Int;
+	var nextCostNotepad : Int;
 }
 
 typedef Object = {

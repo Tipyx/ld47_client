@@ -9,7 +9,10 @@ class UpgradePlayer extends dn.Process {
     var flowNotepad : h2d.Flow;
 
     var currentInventory : h2d.Text;
+    var upgradeInventoryBtn : Button;
     var currentNotepad : h2d.Text;
+    var upgradeNotepadBtn : Button;
+    var currentPoints : h2d.Text;
 
     public function new() {
         super(Game.ME);
@@ -28,6 +31,11 @@ class UpgradePlayer extends dn.Process {
 
         flow.addSpacing(20);
 
+        currentPoints = new h2d.Text(Assets.fontPixel, flow);
+        currentPoints.text = 'Current Points : ${Const.PLAYER_DATA.xp}';
+        flow.getProperties(currentPoints).horizontalAlign = Left;
+
+        flow.addSpacing(20);
         flowInventory = new h2d.Flow(flow);
         flowInventory.layout = Horizontal;
         // flowInventory.horizontalSpacing = 40;
@@ -38,10 +46,14 @@ class UpgradePlayer extends dn.Process {
         currentInventory.text = 'Current Inventory Places : ${Const.PLAYER_DATA.maximumInventoryStorage}';
         flowInventory.getProperties(currentInventory).horizontalAlign = Left;
 
-        var upgradeInventoryBtn = new Button("Upgrade", function() {
-            Const.PLAYER_DATA.maximumInventoryStorage += 1;
-            render();
-        }, 50, 20);
+        upgradeInventoryBtn = new Button('Upgrade cost : ${Const.PLAYER_DATA.nextCostInventory}', function() {
+            if (Const.PLAYER_DATA.xp >= Const.PLAYER_DATA.nextCostInventory) {
+                Const.PLAYER_DATA.maximumInventoryStorage += 1;
+                Const.PLAYER_DATA.xp -= Const.PLAYER_DATA.nextCostInventory;
+                Const.PLAYER_DATA.nextCostInventory *= 2;
+                render();
+            }
+        }, 60, 30);
         flowInventory.addChild(upgradeInventoryBtn);
         flowInventory.getProperties(upgradeInventoryBtn).horizontalAlign = Right;
                 
@@ -55,19 +67,28 @@ class UpgradePlayer extends dn.Process {
         currentNotepad.text = 'Current Notepad Ligns : ${Const.PLAYER_DATA.maximumNotepadEntry}';
         flowNotepad.getProperties(currentNotepad).horizontalAlign = Left;
 
-        var upgradeNotepadBtn = new Button("Upgrade", function() {
-            Const.PLAYER_DATA.maximumNotepadEntry += 1;
-            render();
-        }, 50, 20);
+        upgradeNotepadBtn = new Button('Upgrade cost : ${Const.PLAYER_DATA.nextCostNotepad}', function() {
+            if (Const.PLAYER_DATA.xp >= Const.PLAYER_DATA.nextCostNotepad) {
+                Const.PLAYER_DATA.maximumNotepadEntry += 1;
+                Const.PLAYER_DATA.xp -= Const.PLAYER_DATA.nextCostNotepad;
+                Const.PLAYER_DATA.nextCostNotepad *= 2;
+                render();
+            }
+        }, 60, 30);
         flowNotepad.addChild(upgradeNotepadBtn);
         flowNotepad.getProperties(upgradeNotepadBtn).horizontalAlign = Right;
 
-		onResize();
+        onResize();
     }
     
     function render() {
         currentInventory.text = 'Current Inventory Places : ${Const.PLAYER_DATA.maximumInventoryStorage}';
+        upgradeInventoryBtn.updateText('Upgrade cost : ${Const.PLAYER_DATA.nextCostInventory}');
+
         currentNotepad.text = 'Current Notepad Ligns : ${Const.PLAYER_DATA.maximumNotepadEntry}';
+        upgradeNotepadBtn.updateText('Upgrade cost : ${Const.PLAYER_DATA.nextCostNotepad}');
+
+        currentPoints.text = 'Current Points : ${Const.PLAYER_DATA.xp}';
     }
 
 	override function onResize() {

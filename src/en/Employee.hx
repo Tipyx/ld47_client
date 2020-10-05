@@ -64,6 +64,8 @@ class Employee extends Entity {
 	public function completeRequestType(rt:RequestType) {
 		level.removeRequestPopup(pendingRequest);
 		pendingRequest = null;
+		Const.PLAYER_DATA.xp++;
+		trace('${Const.PLAYER_DATA.xp}');
 
 		spr.set("employeeBack", id);
 
