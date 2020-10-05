@@ -67,7 +67,7 @@ class Game extends Process {
 	}
 
 	public function showEndLevel(levelisSuccessed:Bool) {
-		new ui.EndLevel();
+		new ui.EndLevel(levelisSuccessed);
 
 		level.destroy();
 		hud.destroy();

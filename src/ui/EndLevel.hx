@@ -10,7 +10,7 @@ class EndLevel extends dn.Process {
 	var flow : h2d.Flow;
 	var endLevel : h2d.Text;
 	
-	public function new() {
+	public function new(levelisSuccessed:Bool) {
 		super(Game.ME);
 
 		lvlData = level.lvlData;
@@ -24,36 +24,10 @@ class EndLevel extends dn.Process {
 		flow.horizontalAlign = Middle;
 
 		endLevel = new h2d.Text(Assets.fontPixel, flow);
-		// endLevel.text = "Your day is over...";
 		endLevel.setScale(Const.SCALE);
 
-		/* var flowScore = new h2d.Flow(flow);
-		flowScore.layout = Horizontal;
-		flowScore.horizontalSpacing = 20; */
-
-		/* var score = new h2d.Text(Assets.fontPixel, flowScore);
-		score.text = 'Your score: ${level.currentTU}';
-
-		var maximumScore = new h2d.Text(Assets.fontPixel, flowScore);
-		maximumScore.text = 'Level maximum score: ${lvlInfo.maximumScore}'; */
-
-		/* var btn = new Button("Retry", function() {
-			game.retryLevel(lvlInfo);
-			destroy();
-		});
-		flow.addChild(btn); */
-	
-		/* if (!game.isLastLevel && level.currentTU <= lvlInfo.maximumScore) {
-			var btn = new Button("Next Level", function() {
-				game.nextLevel();
-				destroy();
-			});
-			flow.addChild(btn);
-		} */
-
-		if (lvlInfo.maximumScore - level.currentTU <= 0) showRewindLevel();
+		if (!levelisSuccessed) showRewindLevel();
 		else showEndLevel();
-		// TODO : remplacer les conditions de déclenchement des écrans de fin
 
 		onResize();
 	}
