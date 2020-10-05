@@ -69,7 +69,7 @@ class Employee extends Entity {
 
 		spr.set("employeeBack", id);
 
-		checkNewRequest();
+		// checkNewRequest();
 	}
 
 	public function addToInventory(object:Object) {

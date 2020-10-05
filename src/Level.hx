@@ -235,12 +235,15 @@ class Level extends dn.Process {
 				actions.push({	str:"Give Coffee",
 								isEnable: coffee != null,
 								onClick:function(ap){
+									ap.hide();
 									if (coffee != null) {
-										ap.hide();
 										player.giveItemTo(coffee, emp);
+										startNewTurn();
+										endNewTurn();
 									}
 									else {
 										game.hud.fxInventoryFull();
+										game.showPopup("You don't have a coffee!");
 									}
 								}
 				});
@@ -261,6 +264,8 @@ class Level extends dn.Process {
 									}
 									else
 										player.giveItemTo(photocopies, emp);
+										startNewTurn();
+										endNewTurn();
 								}
 				});
 
