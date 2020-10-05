@@ -10,6 +10,7 @@ class Hud extends dn.Process {
 	var invalidated = true;
 
 	var textTU : h2d.Text;
+	var inventoryRemaining : h2d.Text;
 
 	public function new() {
 		super(Game.ME);
@@ -23,6 +24,7 @@ class Hud extends dn.Process {
 		mainFlow.verticalSpacing = 5;
 		
 		textTU = new h2d.Text(Assets.fontPixel, mainFlow);
+		inventoryRemaining = new h2d.Text(Assets.fontPixel, mainFlow);
 
 		inventoryFlow = new h2d.Flow(mainFlow);
 		inventoryFlow.horizontalSpacing = 10;
@@ -42,7 +44,8 @@ class Hud extends dn.Process {
 	public inline function invalidate() invalidated = true;
 
 	function render() {
-		textTU.text = "Current Time Unit : " + level.currentTU;
+		textTU.text = 'Remaining Time Unit : ${level.lvlInfo.maximumScore - level.currentTU}';
+		inventoryRemaining.text = 'Remaining inventory places : ${Const.PLAYER_DATA.maximumInventoryStorage - level.player.inventory.length}';
 
 		inventoryFlow.removeChildren();
 		for (object in level.player.inventory) {

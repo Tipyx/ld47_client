@@ -110,7 +110,7 @@ class Level extends dn.Process {
 
 			}
 
-		currentTU = 1;
+		currentTU = 0;
 
 		arRequestPopups = [];
 		arActionPopups = [];
