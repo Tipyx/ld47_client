@@ -3,6 +3,8 @@ package ui;
 import dn.Cinematic;
 
 class EndLevel extends dn.Process {
+	public static var ME : EndLevel;
+
 	public var game(get,never) : Game; inline function get_game() return Game.ME;
 	public var level(get,never) : Level; inline function get_level() return Game.ME.level;
 
@@ -14,6 +16,7 @@ class EndLevel extends dn.Process {
 	var score : h2d.Text;
 	var maximumScore : h2d.Text;
 	var btn : Button;
+	var upgradeBtn : Button;
 
 	var controlLock(default, null) = false;
 	
@@ -21,6 +24,8 @@ class EndLevel extends dn.Process {
 
 	public function new(levelisSuccessed:Bool) {
 		super(Game.ME);
+
+		ME = this;
 
 		lvlData = level.lvlData;
 		lvlInfo = level.lvlInfo;
@@ -94,29 +99,43 @@ class EndLevel extends dn.Process {
 	function showRewindLevel() {
 		endLevel.text = "You ran out of time...";
 
-		btn = new Button("Retry", hideRewindLevel);
+		flow.addSpacing(20);
+
+		upgradeBtn = new Button("Upgrades", hideRewindLevel.bind(false));
+		flow.addChild(upgradeBtn);
+
+		btn = new Button("Retry", hideRewindLevel.bind(true));
 		flow.addChild(btn);
 
 		onResize();
 
-		btn.y += h() / Const.SCALE;
+		btn.x -= w() / Const.SCALE;
+		upgradeBtn.x += w() / Const.SCALE;
 
 		cinematic.create({
 			tw.createS(endLevel.alpha, 0>1, 0.5).end(()->cinematic.signal());
 			end;
-			tw.createS(btn.y, btn.y - (h() / Const.SCALE), 0.5);
+			tw.createS(upgradeBtn.x, upgradeBtn.x - (w() / Const.SCALE), 0.5).end(()->cinematic.signal());
+			end;
+			tw.createS(btn.x, btn.x + (w() / Const.SCALE), 0.5);
 		});
 	}
 
-	function hideRewindLevel() {
+	function hideRewindLevel(isRetry:Bool) {
 		if (controlLock) return;
 		controlLock = true;
 		cinematic.create({
 			tw.createS(endLevel.alpha, 0, 0.5);
-			tw.createS(btn.y, btn.y + (h() / Const.SCALE), 0.5).end(()->cinematic.signal());
+			tw.createS(upgradeBtn.x, upgradeBtn.x + (w() / Const.SCALE), 0.5);
+			tw.createS(btn.x, btn.x - (w() / Const.SCALE), 0.5).end(()->cinematic.signal());
 			end;
-			game.retryLevel(lvlInfo);
-			destroy();
+			if (isRetry) {
+				game.retryLevel(lvlInfo);
+				destroy();
+			}
+			else {
+				Game.ME.startUpgradePlayer();
+			}
 		});
 	}
 

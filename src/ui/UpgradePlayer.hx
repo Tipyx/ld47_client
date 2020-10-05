@@ -1,6 +1,8 @@
 package ui;
 
 class UpgradePlayer extends dn.Process {
+	public static var ME : UpgradePlayer;
+
 	public var game(get,never) : Game; inline function get_game() return Game.ME;
 	public var level(get,never) : Level; inline function get_level() return Game.ME.level;
 
@@ -8,14 +10,20 @@ class UpgradePlayer extends dn.Process {
     var flowInventory : h2d.Flow;
     var flowNotepad : h2d.Flow;
 
+    var currentPoints : h2d.Text;
+
     var currentInventory : h2d.Text;
     var upgradeInventoryBtn : Button;
+
     var currentNotepad : h2d.Text;
     var upgradeNotepadBtn : Button;
-    var currentPoints : h2d.Text;
+    
+    var backBtn : Button;
 
     public function new() {
         super(Game.ME);
+
+        ME = this;
 
         createRootInLayers(parent.root, Const.DP_UPGRADE);
         
@@ -36,6 +44,7 @@ class UpgradePlayer extends dn.Process {
         flow.getProperties(currentPoints).horizontalAlign = Left;
 
         flow.addSpacing(20);
+
         flowInventory = new h2d.Flow(flow);
         flowInventory.layout = Horizontal;
         // flowInventory.horizontalSpacing = 40;
@@ -77,6 +86,11 @@ class UpgradePlayer extends dn.Process {
         }, 60, 30);
         flowNotepad.addChild(upgradeNotepadBtn);
         flowNotepad.getProperties(upgradeNotepadBtn).horizontalAlign = Right;
+
+        flow.addSpacing(20);
+
+        backBtn = new Button("Back", Game.ME.returnToEndLevel);
+        flow.addChild(backBtn);
 
         onResize();
     }

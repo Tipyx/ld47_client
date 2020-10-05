@@ -92,6 +92,17 @@ class Game extends Process {
 		goToLevel(levelsToDo.shift());
 	}
 
+	public function startUpgradePlayer() {
+		EndLevel.ME.root.visible = false;
+		new UpgradePlayer();
+	}
+
+	public function returnToEndLevel () {
+		EndLevel.ME.root.visible = true;
+		if (UpgradePlayer != null) {
+			UpgradePlayer.ME.destroy();
+		}
+	}
 
 	function gc() {
 		if( Entity.GC==null || Entity.GC.length==0 )
